@@ -714,9 +714,10 @@ nav .main-nav-list .active .main-nav-link {
 
 .newsletter-input {
   font-family: "Manrope";
+  width: 60vb;
   font-size: 1.6rem;
   line-height: 150%;
-  padding: 1.6rem 20rem 1.6rem 5rem;
+  padding: 1.6rem 5rem 1.6rem 5rem;
   border-radius: 1.2rem;
 }
 
