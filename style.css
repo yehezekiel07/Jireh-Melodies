@@ -694,14 +694,14 @@ nav .main-nav-list .active .main-nav-link {
   color: #d8dedd;
 }
 
-.input-box {
+.news-input-box {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 3.2rem;
 }
 
-.input-field {
+.news-input-field {
   position: relative;
   display: inline-block;
 }
@@ -767,6 +767,11 @@ nav .main-nav-list .active .main-nav-link {
 .social-link-icon {
   font-size: 2.4rem;
   color: #d8dedd;
+  transition: all 0.3s;
+}
+
+.social-link-icon:hover {
+  color: #fff;
 }
 
 .footer-list {
@@ -785,6 +790,11 @@ nav .main-nav-list .active .main-nav-link {
   line-height: 150%;
   color: #d8dedd;
   text-decoration: none;
+  transition: all 0.3s;
+}
+
+.footer-list-link:hover {
+  color: #fff;
 }
 
 .list-contact-us {
@@ -889,4 +899,154 @@ nav .main-nav-list .active .main-nav-link {
 .footer {
   padding: 9.6rem 0 6.4rem 0;
   background-color: #1a3c34;
+}
+
+/************************************************/
+
+/**************************************/
+/* Login Page */
+/**************************************/
+
+.header.login {
+  background-color: #fdfcf8;
+}
+
+body main .section-login {
+  min-height: 89vh;
+
+  padding: 7.2rem 18rem;
+  background-color: #fdfcf8;
+}
+
+.section-login .grid {
+  justify-content: center;
+  align-items: center;
+}
+
+.login-info-box {
+  text-align: left;
+}
+
+.login-info-box .heading-secondary {
+  margin-bottom: 2rem;
+}
+
+.active-users-box {
+  margin-top: 4.8rem;
+
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.active-users {
+  font-size: 2.4rem;
+  font-weight: 600;
+  line-height: 120%;
+  color: #de7c62;
+  background-color: #fbf1ee;
+  padding: 2rem 1.6rem 2rem 1.6rem;
+  border-radius: 100px;
+}
+
+.active-users-context {
+  display: flex;
+  flex-direction: column;
+}
+
+.active-users-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 150%;
+  color: #1a3c34;
+}
+
+.active-users-desc {
+  font-size: 1.4rem;
+  line-height: 150%;
+}
+
+.login-input-box {
+  background-color: #fff;
+  padding: 4.8rem;
+  text-align: left;
+  border-radius: 2.4rem;
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.022);
+
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.login-title-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.login-heading {
+  font-family: "Playfair Display", serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 120%;
+  color: #1a3c34;
+}
+
+.login-desc {
+  font-size: 1.8rem;
+  line-height: 150%;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  align-items: start;
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: start;
+  width: 100%;
+  position: relative;
+}
+
+.input-box label {
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 150%;
+  color: #353737;
+}
+
+.username-input,
+.password-input {
+  font-family: "Manrope", sans-serif;
+  font-size: 1.6rem;
+  line-height: 150%;
+  width: 100%;
+  color: #888c8c;
+  background-color: #fff;
+  padding: 1.6rem 1.6rem 1.6rem 5rem;
+  border: solid 0.5px #c6cccb;
+  border-radius: 1.6rem;
+}
+
+.login-input-box .form-container .input-box .input-icon {
+  position: absolute;
+  top: 68%;
+}
+
+.btn.btn--full.login-cta {
+  border-radius: 1.2rem;
+  width: 100%;
+}
+
+.login-note {
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 150%;
+  color: #de7c62;
+  text-align: center;
 }

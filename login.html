@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jireh Melodies</title>
+    <link href="style.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Manrope:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"
+    />
+  </head>
+  <body>
+    <header class="header login">
+      <a href="#">
+        <img
+          class="logo"
+          src="img/jireh-melodies-logo.png"
+          alt="Jireh Melodies Logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="index.html">Home</a>
+          </li>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="courses.html">Courses</a>
+          </li>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="#">About</a>
+          </li>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="#">Contact</a>
+          </li>
+          <!-- <li class="main-nav-list-item">
+            <a class="main-nav-link nav-cta" href="#">Login</a>
+          </li> -->
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="section-login">
+        <div class="container grid grid--2-cols">
+          <div class="login-info-box">
+            <div>
+              <h2 class="heading-secondary">Welcome to Jireh Melodies</h2>
+              <p class="title-description">
+                Join thousands of students mastering musical instruments and
+                music production from professional instructors.
+              </p>
+            </div>
+            <div class="active-users-box">
+              <span class="active-users">2K+</span>
+              <div class="active-users-context">
+                <p class="active-users-title">Active Students</p>
+                <p class="active-users-desc">Learning Worldwide</p>
+              </div>
+            </div>
+          </div>
+          <div class="login-input-box">
+            <div class="login-title-info">
+              <h3 class="login-heading">Welcome back</h3>
+              <p class="login-desc">Login to continue your learning</p>
+            </div>
+            <form class="form-container" name="log-in">
+              <div class="input-box">
+                <label for="username">Username</label>
+                <i class="ph ph-user input-icon"></i>
+                <input
+                  class="username-input"
+                  id="username"
+                  type="text"
+                  placeholder="Enter Username"
+                  name="username"
+                  autocomplete="additional-name"
+                  required
+                />
+              </div>
+
+              <div class="input-box">
+                <label for="password">Password</label>
+                <i class="ph ph-lock input-icon"></i>
+                <input
+                  class="password-input"
+                  id="password"
+                  type="password"
+                  placeholder="Enter Password"
+                  name="password"
+                  required
+                />
+              </div>
+              <a href="#" class="btn btn--full login-cta">Login</a>
+            </form>
+            <p class="login-note">Contact admin for login credentials</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
