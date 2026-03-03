@@ -338,8 +338,11 @@ nav .main-nav-list .active .main-nav-link {
   padding: 9.6rem 0;
 }
 
-.course {
+.section-popular-courses .container .grid--3-cols {
   margin-bottom: 6.4rem;
+}
+
+.course {
   border-radius: 1.6rem;
   overflow: hidden;
   box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
@@ -677,7 +680,7 @@ nav .main-nav-list .active .main-nav-link {
 /* Footer Section */
 /**************************************/
 
-.footer {
+.footer.main {
   padding: 9.6rem 0;
   background-color: #1a3c34;
 }
@@ -731,9 +734,12 @@ nav .main-nav-list .active .main-nav-link {
   column-gap: 12rem;
 }
 
+.footer.main .bottom-footer {
+  margin-top: 14.6rem;
+}
+
 .bottom-footer {
   text-align: left;
-  margin-top: 14.6rem;
   margin-bottom: 6.4rem;
 }
 
@@ -804,4 +810,83 @@ nav .main-nav-list .active .main-nav-link {
   font-size: 1.6rem;
   line-height: 150%;
   color: #d8dedd;
+}
+
+/************************************************/
+
+/**************************************/
+/* Courses Page */
+/**************************************/
+.section-all-courses {
+  padding: 2.4rem 0 9.6rem 0;
+  background-color: #f8f3ee;
+}
+
+.title-container {
+  text-align: left;
+}
+
+.title-description {
+  font-size: 1.6rem;
+  line-height: 150%;
+  color: #6d7070;
+  margin-bottom: 3.2rem;
+}
+
+.search-grid {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3.2rem;
+}
+
+.divider {
+  border-bottom: solid 1px #c6cccb;
+  margin: 0 3.2rem 3.2rem 3.2rem;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  font-family: "Manrope", sans-serif;
+  font-size: 1.6rem;
+  line-height: 150%;
+  width: 100%;
+  padding: 1.6rem;
+  padding-left: 5rem;
+  border: solid 0.5px #c6cccb;
+  border-radius: 1.6rem;
+}
+
+.search-container .input-icon {
+  font-size: 2rem;
+  left: 2.5%;
+}
+
+.dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 1.6rem;
+  border: solid 0.5px #c6cccb;
+  border-radius: 1.6rem;
+}
+
+.drop-label {
+  font-size: 1.6rem;
+  line-height: 150%;
+  color: #353737;
+}
+
+.drop-icon {
+  font-size: 1.4rem;
+  color: #888c8c;
+}
+
+.footer {
+  padding: 9.6rem 0 6.4rem 0;
+  background-color: #1a3c34;
 }
