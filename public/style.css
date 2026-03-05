@@ -1366,3 +1366,15 @@ body main .section-login {
   color: #de7c62;
   text-align: center;
 }
+
+/************************************************/
+
+/**************************************/
+/* Admin (Add User) Page */
+/**************************************/
+
+.heading-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
