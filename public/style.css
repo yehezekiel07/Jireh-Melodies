@@ -1354,7 +1354,7 @@ body main .section-login {
   top: 68%;
 }
 
-.btn.btn--full.login-cta {
+.btn.btn--full.login-btn {
   border-radius: 1.2rem;
   width: 100%;
 }
