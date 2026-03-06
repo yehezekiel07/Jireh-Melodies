@@ -32,8 +32,8 @@
     />
   </head>
   <body>
-    <header class="header">
-      <a href="index.html">
+    <header class="header admin">
+      <a href="admin-dashboard.html">
         <img
           class="logo"
           src="img/jireh-melodies-logo.png"
@@ -55,16 +55,31 @@
       </nav>
     </header>
     <main>
-      <section class="section-contact-us">
+      <section class="section-all-users">
         <div class="container">
           <div class="heading-cta">
             <h2 class="heading-secondary">All Users</h2>
-            <a class="main-nav-link nav-cta" href="#"
+            <a class="main-nav-link nav-cta" href="add-user.html"
               ><i class="ph ph-plus btn-icon"></i> Add User</a
             >
+          </div>
+          <div class="user-list">
+            <table class="user-table">
+              <thead>
+                <tr>
+                  <th class="user-table-head">Name</th>
+                  <th class="user-table-head">Phone</th>
+                  <th class="user-table-head">Email</th>
+                  <th class="user-table-head">Username</th>
+                </tr>
+              </thead>
+
+              <tbody id="usersTable"></tbody>
+            </table>
           </div>
         </div>
       </section>
     </main>
+    <script src="script.js"></script>
   </body>
 </html>

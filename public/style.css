@@ -1370,11 +1370,126 @@ body main .section-login {
 /************************************************/
 
 /**************************************/
-/* Admin (Add User) Page */
+/* Admin (All Users) Page */
 /**************************************/
+
+.section-all-users {
+  background-color: #fdfcf8;
+  padding: 2.4rem 0 9.6rem 0;
+}
+
+.header.admin {
+  background-color: #fdfcf8;
+}
 
 .heading-cta {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 3.2rem;
+}
+
+.userlist {
+  width: 100%;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 1.6rem;
+  overflow: hidden;
+}
+
+tr {
+  font-family: "Manrope", sans-serif;
+  font-size: 1.6rem;
+  line-height: 150%;
+  text-align: left;
+}
+
+.user-table-head {
+  color: #1a3c34;
+  background-color: #feefeb;
+  border: solid 1px #f9e6e2;
+  padding: 1.6rem;
+}
+
+td {
+  color: #353737;
+  padding: 1.6rem;
+  border: solid 1px #f9e6e2;
+}
+
+/************************************************/
+
+/**************************************/
+/* Admin (Add User) Page */
+/**************************************/
+
+.section-add-user {
+  background-color: #f8f3ee;
+  padding: 2.4rem 0 9.6rem 0;
+  height: 89vh;
+}
+
+.heading-cta.add-users {
+  padding-bottom: 3.2rem;
+  border-bottom: solid 1px #c6cccb;
+}
+
+.buttons {
+  display: flex;
+  gap: 1.2rem;
+
+  margin-top: 3.2rem;
+}
+
+.user-input-field {
+  font-family: "Manrope", sans-serif;
+  font-size: 1.6rem;
+  line-height: 150%;
+  width: 100%;
+  color: #888c8c;
+  background-color: #fff;
+  padding: 1.6rem;
+  border: solid 0.5px #c6cccb;
+  border-radius: 1.6rem;
+}
+
+.login-cred {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cred-heading {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 150%;
+  text-align: left;
+  color: #1a3c34;
+}
+
+.cred-content {
+  background-color: #fff;
+  border: solid 1px #f2cac0;
+  border-radius: 1.6rem;
+  padding: 2rem 2.4rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.login-cred .input-box label {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1a3c34;
+}
+
+.input-field {
+  font-family: "Manrope", sans-serif;
+  font-size: 1.6rem;
+  line-height: 150%;
+  border: none;
 }
