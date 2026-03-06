@@ -1389,15 +1389,17 @@ body main .section-login {
   margin-bottom: 3.2rem;
 }
 
-.userlist {
+.user-list {
   width: 100%;
 }
 
 .user-table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 1.6rem;
   overflow: hidden;
+  border-radius: 1.6rem;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #f9e6e2;
 }
 
 tr {
