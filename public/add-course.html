@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jireh Melodies</title>
+    <link href="style.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Manrope:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"
+    />
+  </head>
+  <body>
+    <header class="header admin">
+      <a href="admin-dashboard.html">
+        <img
+          class="logo"
+          src="img/jireh-melodies-logo.png"
+          alt="Jireh Melodies Logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="admin-dashboard.html">All Users</a>
+          </li>
+          <li class="main-nav-list-item active">
+            <a class="main-nav-link" href="#">All Courses</a>
+          </li>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="#">Account</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="section-add-course">
+        <div class="container">
+          <div class="heading-cta add-course">
+            <h2 class="heading-secondary">Add Course</h2>
+          </div>
+          <div class="course-builder">
+            <!-- LEFT SIDE (Form Fields) -->
+            <div class="course-form">
+              <!-- All your inputs go here -->
+              <div class="input-box">
+                <label for="course-title">Title</label>
+                <input
+                  class="user-input-field"
+                  id="courseTitle"
+                  type="text"
+                  placeholder="Enter course title"
+                />
+              </div>
+
+              <div class="input-grid">
+                <div class="input-box">
+                  <label for="course-instructor">Instructor</label>
+                  <input
+                    class="user-input-field"
+                    id="courseInstructor"
+                    type="text"
+                    placeholder="Enter the instructor name"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <label for="course-language">Language</label>
+                  <input
+                    class="user-input-field"
+                    id="courseLanguage"
+                    type="text"
+                    placeholder="Enter the course language"
+                  />
+                </div>
+              </div>
+
+              <div class="input-box">
+                <label for="course-description">Description</label>
+                <textarea
+                  class="user-input-field"
+                  id="courseDescription"
+                  type="text"
+                  placeholder="Enter the description"
+                ></textarea>
+              </div>
+
+              <div class="input-box">
+                <label for="course-price">Price</label>
+                <input
+                  class="user-input-field"
+                  id="coursePrice"
+                  type="text"
+                  placeholder="Enter the course price"
+                />
+              </div>
+
+              <div class="input-box">
+                <label for="course-original-price">Original Price</label>
+                <input
+                  class="user-input-field"
+                  id="courseOriginalPrice"
+                  type="text"
+                  placeholder="Enter the course original price"
+                />
+              </div>
+
+              <div class="buttons">
+                <a
+                  href="admin-dashboard.html"
+                  class="btn btn--outline cancelBtn"
+                  id="cancelBtn"
+                  >Cancel</a
+                >
+                <a href="#" class="btn btn--full nextCourse" id="nextCourse"
+                  >Next</a
+                >
+              </div>
+
+              <!-- modules, requirements etc -->
+            </div>
+
+            <!-- RIGHT SIDE (Preview Card) -->
+            <div class="course course-preview">
+              <img
+                src="img/course-1.png"
+                class="course-img"
+                alt="Mainstage Course"
+              />
+              <div class="course-content">
+                <p class="course-title">Mainstage 3 Live Setup</p>
+                <div class="course-tags">
+                  <span class="tag tag--instructor">Satish Kumar</span>
+                  <span class="tag tag--lang">Telugu</span>
+                </div>
+                <p class="course-description">
+                  Learn how to build a complete, professional MainStage 3 live
+                  setup from zero and use it confidently.
+                </p>
+                <div class="course-rating">
+                  <span><strong class="rating">5.0</strong></span>
+                  <div class="rating-icon">
+                    <i class="ph-fill ph-star course-icon"></i>
+                    <i class="ph-fill ph-star course-icon"></i>
+                    <i class="ph-fill ph-star course-icon"></i>
+                    <i class="ph-fill ph-star course-icon"></i>
+                    <i class="ph-fill ph-star course-icon"></i>
+                  </div>
+                  <p class="rating-total">(156)</p>
+                </div>
+                <div class="course-footer">
+                  <span class="course-price">
+                    <strong class="discount-price">₹2999</strong>
+                    <p class="price-dashed">₹4999</p>
+                  </span>
+
+                  <a class="add-to-cart" href="#">Add to cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

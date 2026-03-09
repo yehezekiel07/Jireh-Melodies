@@ -122,6 +122,68 @@ app.get("/users", async (req, res) => {
   }
 });
 
+// Get a User Data
+
+app.get("/user/:id", async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  res.json(user);
+});
+
+// Delete User
+
+app.delete("/delete-user/:id", async (req, res) => {
+  await User.findByIdAndDelete(req.params.id);
+
+  res.json({ success: true });
+});
+
+// Update User
+
+app.put("/update-user/:id", async (req, res) => {
+  const { fullname, phone, email, username, password } = req.body;
+
+  await User.findByIdAndUpdate(req.params.id, {
+    fullname,
+    phone,
+    email,
+    username,
+    password,
+  });
+
+  res.json({ success: true });
+});
+
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
+});
+
+// Course Related Code //
+
+const Course = require("./courseModel");
+
+// Creating a Course
+
+app.post("/create-course", async (req, res) => {
+  const course = new Course(req.body);
+
+  await course.save();
+
+  res.json({ success: true });
+});
+
+// Get All Courses
+
+app.get("/courses", async (req, res) => {
+  const courses = await Course.find();
+
+  res.json(courses);
+});
+
+// Get Single Course
+
+app.get("/course/:id", async (req, res) => {
+  const course = await Course.findById(req.params.id);
+
+  res.json(course);
 });

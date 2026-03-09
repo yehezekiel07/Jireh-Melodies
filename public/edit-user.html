@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jireh Melodies</title>
+    <link href="style.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Manrope:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <a href="admin-dashboard.html">
+        <img
+          class="logo"
+          src="img/jireh-melodies-logo.png"
+          alt="Jireh Melodies Logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li class="main-nav-list-item active">
+            <a class="main-nav-link" href="#">All Users</a>
+          </li>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="#">All Courses</a>
+          </li>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="#">Account</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="section-add-user">
+        <div class="container">
+          <div class="heading-cta add-users">
+            <h2 class="heading-secondary">Edit User</h2>
+          </div>
+          <div class="add-user-form grid grid--2-cols">
+            <form class="form-container" name="log-in" id="loginForm">
+              <div class="input-box">
+                <label for="full-name">Full Name</label>
+                <input
+                  class="user-input-field"
+                  id="fullname"
+                  type="text"
+                  placeholder="Enter Full Name"
+                  name="full-name"
+                  autocomplete="additional-name"
+                  required
+                />
+              </div>
+
+              <div class="input-box">
+                <label for="phone-number">Phone Number</label>
+                <input
+                  class="user-input-field"
+                  id="phone"
+                  type="number"
+                  placeholder="Enter phone number"
+                  name="phone-number"
+                  required
+                />
+              </div>
+
+              <div class="input-box">
+                <label for="email">Email Address</label>
+                <input
+                  class="user-input-field"
+                  id="email"
+                  type="email"
+                  placeholder="Enter email address"
+                  name="email-address"
+                  required
+                />
+              </div>
+              <div class="buttons">
+                <a
+                  href="admin-dashboard.html"
+                  class="btn btn--outline cancelBtn"
+                  id="cancelBtn"
+                  >Cancel</a
+                >
+                <a href="#" class="btn btn--full generateBtn" id="generateBtn"
+                  >Generate</a
+                >
+              </div>
+            </form>
+            <div
+              class="login-cred"
+              id="credentialsSection"
+              style="display: flex"
+            >
+              <h3 class="cred-heading">Login Credentials</h3>
+              <div class="cred-content">
+                <div class="input-box">
+                  <label for="username">Username</label>
+                  <input
+                    type="text"
+                    class="input-field"
+                    id="username"
+                    readonly
+                  />
+                </div>
+                <div class="input-box">
+                  <label for="password">Password</label>
+                  <input
+                    type="text"
+                    class="input-field"
+                    id="password"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
