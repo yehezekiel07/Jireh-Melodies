@@ -1433,7 +1433,8 @@ td {
   color: #353737;
 }
 
-.link-icon {
+.link-icon,
+.delete-point {
   font-size: 2rem;
   text-align: center;
   vertical-align: middle;
@@ -1459,6 +1460,7 @@ td {
 .buttons {
   display: flex;
   gap: 1.2rem;
+  justify-content: end;
 
   margin-top: 3.2rem;
 }
@@ -1530,7 +1532,7 @@ label {
 /**************************************/
 
 .section-add-course {
-  padding: 2.8rem 0 9.6rem 0;
+  padding: 2.8rem 0 4.8rem 0;
   background-color: #fdfcf8;
 }
 
@@ -1547,7 +1549,7 @@ label {
 /* LEFT SIDE */
 .course-form {
   width: 60%;
-  height: 100vh;
+  /* height: 100vh; */
   overflow-y: auto;
 
   display: flex;
@@ -1569,6 +1571,19 @@ label {
   top: 50%;
   left: 1.6rem;
   transform: translateY(-50%);
+}
+
+.icon-input-field .delete-point {
+  position: absolute;
+  top: 50%;
+  right: 1.6rem;
+  transform: translateY(-50%);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.icon-input-field .delete-point:hover {
+  color: #f5365c;
 }
 
 textarea::placeholder {
@@ -1648,12 +1663,115 @@ input:checked + .slider:before {
 }
 
 /* RIGHT SIDE */
+.course.course-preview {
+  height: 100%;
+}
+
 .course-preview {
-  width: 40%;
+  width: 100%;
 }
 
 /* PREVIEW CARD FIXED */
 .preview-card {
+  width: 30%;
+  height: 100%;
   position: sticky;
   top: 40px;
+  text-align: left;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.preview-card label {
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 150%;
+  color: #353737;
+}
+
+.file-upload {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-family: "Manrope", sans-serif;
+  font-size: 1.6rem;
+  line-height: 150%;
+  width: 100%;
+  color: #888c8c;
+  background-color: #fff;
+  padding: 1.2rem 1.2rem 1.2rem 1.6rem;
+  border: solid 0.5px #c6cccb;
+  border-radius: 1.6rem;
+}
+
+#courseImage {
+  display: none;
+}
+
+.file-upload .btn {
+  background-color: #fff;
+  color: #1a3c34;
+  border: solid 1px #d8dedd;
+  padding: 6px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.file-upload .btn:hover {
+  color: #de7c62;
+  border: solid 1px #de7c62;
+}
+
+#file-name {
+  color: #6d7070;
+  font-size: 1.6rem;
+}
+
+/* Add Course Step-2 */
+.course-step-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.small-btn {
+  padding: 1.2rem 2rem;
+  background-color: #fff;
+  color: #353737;
+  border: solid 1px #d8dedd;
+  border-radius: 1.2rem;
+  cursor: pointer;
+
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.small-btn:hover {
+  color: #de7c62;
+  border: solid 1px #de7c62;
+}
+
+.small-btn .icon {
+  font-size: 1.6rem;
+}
+
+.small-btn span {
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+.add-div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  width: 100%;
 }

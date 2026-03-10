@@ -58,14 +58,30 @@
       <section class="section-add-course">
         <div class="container">
           <div class="heading-cta add-course">
-            <h2 class="heading-secondary">Add Course</h2>
+            <h2 class="heading-secondary">Add Card Details</h2>
           </div>
           <div class="course-builder">
             <!-- LEFT SIDE (Form Fields) -->
             <div class="course-form">
               <!-- All your inputs go here -->
               <div class="input-box">
-                <label for="course-title">Title</label>
+                <label for="courseImage">Course Thumbnail</label>
+                <div class="file-upload">
+                  <span id="file-name">No file chosen</span>
+                  <label for="courseImage" class="btn btn--outline">
+                    Upload
+                  </label>
+                  <input
+                    class="user-input-field"
+                    id="courseImage"
+                    type="file"
+                    accept="image/*"
+                  />
+                </div>
+              </div>
+
+              <div class="input-box">
+                <label for="courseTitle">Title</label>
                 <input
                   class="user-input-field"
                   id="courseTitle"
@@ -76,7 +92,7 @@
 
               <div class="input-grid">
                 <div class="input-box">
-                  <label for="course-instructor">Instructor</label>
+                  <label for="courseInstructor">Instructor</label>
                   <input
                     class="user-input-field"
                     id="courseInstructor"
@@ -86,7 +102,7 @@
                 </div>
 
                 <div class="input-box">
-                  <label for="course-language">Language</label>
+                  <label for="courseLanguage">Language</label>
                   <input
                     class="user-input-field"
                     id="courseLanguage"
@@ -97,7 +113,7 @@
               </div>
 
               <div class="input-box">
-                <label for="course-description">Description</label>
+                <label for="courseDescription">Description</label>
                 <textarea
                   class="user-input-field"
                   id="courseDescription"
@@ -107,7 +123,7 @@
               </div>
 
               <div class="input-box">
-                <label for="course-price">Price</label>
+                <label for="coursePrice">Price</label>
                 <input
                   class="user-input-field"
                   id="coursePrice"
@@ -117,7 +133,7 @@
               </div>
 
               <div class="input-box">
-                <label for="course-original-price">Original Price</label>
+                <label for="courseOriginalPrice">Original Price</label>
                 <input
                   class="user-input-field"
                   id="courseOriginalPrice"
@@ -133,7 +149,10 @@
                   id="cancelBtn"
                   >Cancel</a
                 >
-                <a href="#" class="btn btn--full nextCourse" id="nextCourse"
+                <a
+                  href="add-course-details.html"
+                  class="btn btn--full nextCourse"
+                  id="nextBasic"
                   >Next</a
                 >
               </div>
@@ -142,40 +161,39 @@
             </div>
 
             <!-- RIGHT SIDE (Preview Card) -->
-            <div class="course course-preview">
-              <img
-                src="img/course-1.png"
-                class="course-img"
-                alt="Mainstage Course"
-              />
-              <div class="course-content">
-                <p class="course-title">Mainstage 3 Live Setup</p>
-                <div class="course-tags">
-                  <span class="tag tag--instructor">Satish Kumar</span>
-                  <span class="tag tag--lang">Telugu</span>
-                </div>
-                <p class="course-description">
-                  Learn how to build a complete, professional MainStage 3 live
-                  setup from zero and use it confidently.
-                </p>
-                <div class="course-rating">
-                  <span><strong class="rating">5.0</strong></span>
-                  <div class="rating-icon">
-                    <i class="ph-fill ph-star course-icon"></i>
-                    <i class="ph-fill ph-star course-icon"></i>
-                    <i class="ph-fill ph-star course-icon"></i>
-                    <i class="ph-fill ph-star course-icon"></i>
-                    <i class="ph-fill ph-star course-icon"></i>
+            <div class="preview-card">
+              <label for="courseImage">Card Preview</label>
+              <div class="course course-preview">
+                <img
+                  src="img/course-placeholder.png"
+                  class="course-img"
+                  id="previewImage"
+                  alt="Mainstage Course"
+                />
+                <div class="course-content">
+                  <p class="course-title" id="previewTitle">Course Title</p>
+                  <div class="course-tags">
+                    <span class="tag tag--instructor" id="previewInstructor"
+                      >Course Instructor</span
+                    >
+                    <span class="tag tag--lang" id="previewLanguage"
+                      >Course Language</span
+                    >
                   </div>
-                  <p class="rating-total">(156)</p>
-                </div>
-                <div class="course-footer">
-                  <span class="course-price">
-                    <strong class="discount-price">₹2999</strong>
-                    <p class="price-dashed">₹4999</p>
-                  </span>
+                  <p class="course-description" id="previewDescription">
+                    Learn how to build a complete, professional MainStage 3 live
+                    setup from zero and use it confidently.
+                  </p>
+                  <div class="course-footer">
+                    <span class="course-price">
+                      <strong class="discount-price" id="previewPrice"
+                        >0</strong
+                      >
+                      <p class="price-dashed" id="previewOldPrice">₹0</p>
+                    </span>
 
-                  <a class="add-to-cart" href="#">Add to cart</a>
+                    <a class="add-to-cart" href="#">Add to cart</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -184,5 +202,6 @@
       </section>
     </main>
     <script src="script.js"></script>
+    <script src="js/upload.js"></script>
   </body>
 </html>

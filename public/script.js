@@ -348,7 +348,8 @@ if (languageInput) {
 
 if (priceInput) {
   priceInput.addEventListener("input", () => {
-    document.getElementById("previewPrice").textContent = priceInput.value;
+    document.getElementById("previewPrice").textContent =
+      "₹" + priceInput.value;
   });
 }
 
@@ -363,5 +364,225 @@ if (descriptionInput) {
   descriptionInput.addEventListener("input", () => {
     document.getElementById("previewDescription").textContent =
       descriptionInput.value;
+  });
+}
+
+// Live Preview of course image
+
+const courseImageInput = document.getElementById("courseImage");
+
+if (courseImageInput) {
+  courseImageInput.addEventListener("change", function () {
+    const file = this.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        document.getElementById("previewImage").src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  });
+}
+
+// Draft Add Course Step -1
+
+const nextBasic = document.getElementById("nextBasic");
+
+if (nextBasic) {
+  nextBasic.addEventListener("click", async () => {
+    const formData = new FormData();
+
+    formData.append("title", document.getElementById("courseTitle").value);
+    formData.append(
+      "instructor",
+      document.getElementById("courseInstructor").value,
+    );
+    formData.append(
+      "language",
+      document.getElementById("courseLanguage").value,
+    );
+    formData.append(
+      "description",
+      document.getElementById("courseDescription").value,
+    );
+    formData.append("price", document.getElementById("coursePrice").value);
+    formData.append(
+      "originalPrice",
+      document.getElementById("courseOriginalPrice").value,
+    );
+
+    const image = document.getElementById("courseImage").files[0];
+
+    if (image) {
+      formData.append("image", image);
+    }
+
+    const response = await fetch("/create-course-draft", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      window.location.href = `add-course-details.html?id=${data.courseId}`;
+    }
+  });
+}
+// Load saved data when step-1 opens
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const params = new URLSearchParams(window.location.search);
+  const courseId = params.get("id");
+
+  if (!courseId || courseId === "null") return;
+
+  const response = await fetch(`/get-course/${courseId}`);
+  const course = await response.json();
+
+  document.getElementById("courseTitle").value = course.title || "";
+  document.getElementById("courseInstructor").value = course.instructor || "";
+  document.getElementById("courseLanguage").value = course.language || "";
+  document.getElementById("courseDescription").value = course.description || "";
+  document.getElementById("coursePrice").value = course.price || "";
+  document.getElementById("courseOriginalPrice").value =
+    course.originalPrice || "";
+
+  if (course.thumbnail) {
+    document.getElementById("previewImage").src =
+      `/uploads/${course.thumbnail}`;
+    document.getElementById("file-name").textContent = course.thumbnail;
+  }
+});
+
+// Add New Inputs Dynamically
+
+function setupDynamicInputs(buttonId, containerId, iconClass, placeholder) {
+  const button = document.getElementById(buttonId);
+  const container = document.getElementById(containerId);
+
+  if (!button || !container) return;
+
+  button.addEventListener("click", () => {
+    const div = document.createElement("div");
+    div.className = "icon-input-field";
+
+    div.innerHTML = `
+      <i class="${iconClass} link-icon"></i>
+
+      <input
+        class="user-input-field with-icon"
+        type="text"
+        placeholder="${placeholder}"
+      />
+
+      <i class="ph ph-x delete-point"></i>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+setupDynamicInputs(
+  "addLearn",
+  "learnContainer",
+  "ph ph-check",
+  "Enter learning point",
+);
+
+setupDynamicInputs(
+  "addRequirement",
+  "requirementsContainer",
+  "ph ph-dot-outline",
+  "Enter requirement",
+);
+
+setupDynamicInputs(
+  "addPreviewPoint",
+  "previewPointsContainer",
+  "ph ph-dot-outline",
+  "Enter preview point",
+);
+
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-point")) {
+    const parent = e.target.parentElement;
+    const container = parent.parentElement;
+
+    if (container.children.length > 1) {
+      parent.remove();
+    }
+  }
+});
+
+// Going back to the add course basic details page
+
+const backBtn = document.getElementById("backStep");
+
+if (backBtn) {
+  backBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const params = new URLSearchParams(window.location.search);
+    const courseId = params.get("id");
+
+    if (!courseId) {
+      window.location.href = "add-course.html";
+      return;
+    }
+
+    window.location.href = `add-course.html?id=${courseId}`;
+  });
+}
+// Saving and going next to Step-3
+
+const nextDetails = document.getElementById("nextStep");
+
+if (nextDetails) {
+  nextDetails.addEventListener("click", async () => {
+    const params = new URLSearchParams(window.location.search);
+    const courseId = params.get("id");
+
+    // collect inputs
+
+    const learnPoints = [
+      ...document.querySelectorAll("#learnContainer input"),
+    ].map((i) => i.value);
+
+    const requirements = [
+      ...document.querySelectorAll("#requirementsContainer input"),
+    ].map((i) => i.value);
+
+    const previewPoints = [
+      ...document.querySelectorAll("#previewPointsContainer input"),
+    ].map((i) => i.value);
+
+    const duration = document.getElementById("courseDuration").value;
+    const downloadItems = document.getElementById("downloadItems").value;
+    const mobileAccess = document.getElementById("mobileAccess").checked;
+    const certificate = document.getElementById("certificate").checked;
+
+    await fetch(`/update-course-details/${courseId}`, {
+      method: "PUT",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        learnPoints,
+        requirements,
+        previewPoints,
+        duration,
+        downloadItems,
+        mobileAccess,
+        certificate,
+      }),
+    });
+
+    window.location.href = `course-modules.html?id=${courseId}`;
   });
 }

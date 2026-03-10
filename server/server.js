@@ -187,3 +187,98 @@ app.get("/course/:id", async (req, res) => {
 
   res.json(course);
 });
+
+// Image Compression in Backend
+
+const multer = require("multer");
+const sharp = require("sharp");
+const path = require("path");
+
+app.use(express.static("public"));
+
+/* Multer setup (store file in memory) */
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+/* Image Upload API */
+app.post("/upload-image", upload.single("image"), async (req, res) => {
+  try {
+    const filename = Date.now() + ".webp";
+
+    await sharp(req.file.buffer)
+      .resize(800) // resize width
+      .webp({ quality: 80 }) // compress
+      .toFile("uploads/" + filename);
+
+    res.json({
+      message: "Image uploaded successfully",
+      file: filename,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Upload failed",
+    });
+  }
+});
+
+// Save Course Step-1
+
+app.post("/create-course-draft", upload.single("image"), async (req, res) => {
+  const course = new Course({
+    title: req.body.title,
+    instructor: req.body.instructor,
+    language: req.body.language,
+    description: req.body.description,
+    price: req.body.price,
+    originalPrice: req.body.originalPrice,
+    thumbnail: req.file.filename,
+    status: "draft",
+  });
+
+  await course.save();
+
+  res.json({
+    success: true,
+    courseId: course._id,
+  });
+});
+
+// Draft Course step 01 (clicking on back)
+
+app.get("/get-course/:id", async (req, res) => {
+  const course = await Course.findById(req.params.id);
+
+  res.json(course);
+});
+
+// Update Data for step-1
+
+app.put(
+  "/update-course-basic/:id",
+  upload.single("image"),
+  async (req, res) => {
+    const updateData = {
+      title: req.body.title,
+      instructor: req.body.instructor,
+      language: req.body.language,
+      description: req.body.description,
+      price: req.body.price,
+      originalPrice: req.body.originalPrice,
+    };
+
+    // update thumbnail only if new image uploaded
+    if (req.file) {
+      updateData.thumbnail = req.file.filename;
+    }
+
+    await Course.findByIdAndUpdate(req.params.id, updateData);
+
+    res.json({ success: true });
+  },
+);
+
+// This should always stay at the end
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});

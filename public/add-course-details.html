@@ -1,70 +1,184 @@
-<div class="input-box">
-  <label for="user-takeaways">What user will learn</label>
-  <div class="icon-input-field">
-    <i class="ph ph-check link-icon"></i>
-    <input
-      class="user-input-field with-icon"
-      type="text"
-      placeholder="Course duration"
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jireh Melodies</title>
+    <link href="style.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Manrope:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
     />
-  </div>
-</div>
 
-<div class="input-box">
-  <label>This Course Include</label>
-</div>
-
-<div class="input-grid">
-  <div class="icon-input-field">
-    <i class="ph ph-video link-icon"></i>
-    <input
-      class="user-input-field with-icon"
-      type="text"
-      placeholder="Enter duration of course"
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css"
     />
-  </div>
 
-  <div class="icon-input-field">
-    <i class="ph ph-file-arrow-down link-icon"></i>
-    <input
-      class="user-input-field with-icon"
-      type="text"
-      placeholder="Enter no. of downloadable"
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
     />
-  </div>
 
-  <div class="icon-input-field">
-    <i class="ph ph-device-mobile link-icon"></i>
-    <label class="toggle-item">
-      <span>Access on mobile and desktop</span>
-
-      <label class="switch">
-        <input type="checkbox" id="mobileAccess" />
-        <span class="slider"></span>
-      </label>
-    </label>
-  </div>
-  <div class="icon-input-field">
-    <i class="ph ph-certificate link-icon"></i>
-    <label class="toggle-item">
-      <span>Certification of completion</span>
-
-      <label class="switch">
-        <input type="checkbox" id="certificate" />
-        <span class="slider"></span>
-      </label>
-    </label>
-  </div>
-</div>
-
-<div class="input-box">
-  <label for="user-takeaways">What user will learn</label>
-  <div class="icon-input-field">
-    <i class="ph ph-check link-icon"></i>
-    <input
-      class="user-input-field with-icon"
-      type="text"
-      placeholder="Course duration"
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"
     />
-  </div>
-</div>
+  </head>
+  <body>
+    <header class="header admin">
+      <a href="admin-dashboard.html">
+        <img
+          class="logo"
+          src="img/jireh-melodies-logo.png"
+          alt="Jireh Melodies Logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="admin-dashboard.html">All Users</a>
+          </li>
+          <li class="main-nav-list-item active">
+            <a class="main-nav-link" href="#">All Courses</a>
+          </li>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="#">Account</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="section-add-course">
+        <div class="container">
+          <div class="heading-cta add-course">
+            <h2 class="heading-secondary">Add Course Details</h2>
+          </div>
+          <div class="course-step-2">
+            <div class="input-box">
+              <label for="user-takeaways">What user will learn</label>
+              <div class="add-div" id="learnContainer">
+                <div class="icon-input-field">
+                  <i class="ph ph-check link-icon"></i>
+                  <input
+                    class="user-input-field with-icon"
+                    type="text"
+                    placeholder="Enter learning point"
+                  />
+                </div>
+              </div>
+              <button id="addLearn" class="small-btn">
+                <i class="ph ph-plus icon"></i><span>Add Point</span>
+              </button>
+            </div>
+
+            <div class="input-box">
+              <label>This Course Include</label>
+            </div>
+
+            <div class="input-grid">
+              <div class="icon-input-field">
+                <i class="ph ph-video link-icon"></i>
+                <input
+                  class="user-input-field with-icon"
+                  type="text"
+                  id="courseDuration"
+                  placeholder="Enter duration of course"
+                />
+              </div>
+
+              <div class="icon-input-field">
+                <i class="ph ph-file-arrow-down link-icon"></i>
+                <input
+                  class="user-input-field with-icon"
+                  type="text"
+                  id="downloadItems"
+                  placeholder="Enter no. of downloadable"
+                />
+              </div>
+
+              <div class="icon-input-field">
+                <i class="ph ph-device-mobile link-icon"></i>
+                <label class="toggle-item">
+                  <span>Access on mobile and desktop</span>
+
+                  <label class="switch">
+                    <input type="checkbox" id="mobileAccess" />
+                    <span class="slider"></span>
+                  </label>
+                </label>
+              </div>
+              <div class="icon-input-field">
+                <i class="ph ph-certificate link-icon"></i>
+                <label class="toggle-item">
+                  <span>Certification of completion</span>
+
+                  <label class="switch">
+                    <input type="checkbox" id="certificate" />
+                    <span class="slider"></span>
+                  </label>
+                </label>
+              </div>
+            </div>
+
+            <div class="input-box">
+              <label for="reqirements">Requirements</label>
+              <div class="add-div" id="requirementsContainer">
+                <div class="icon-input-field">
+                  <i class="ph ph-dot-outline link-icon"></i>
+                  <input
+                    class="user-input-field with-icon"
+                    type="text"
+                    placeholder="Enter requirement"
+                  />
+                </div>
+              </div>
+              <button id="addRequirement" class="small-btn">
+                <i class="ph ph-plus icon"></i><span>Add Requirement</span>
+              </button>
+            </div>
+
+            <div class="input-box">
+              <label for="reqirements">Card Points</label>
+              <div class="add-div" id="previewPointsContainer">
+                <div class="icon-input-field">
+                  <i class="ph ph-dot-outline link-icon"></i>
+                  <input
+                    class="user-input-field with-icon"
+                    type="text"
+                    placeholder="Enter preview point"
+                  />
+                </div>
+              </div>
+              <button id="addPreviewPoint" class="small-btn">
+                <i class="ph ph-plus icon"></i><span>Add Point</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="buttons">
+            <a
+              href="add-course.html"
+              class="btn btn--outline cancelBtn"
+              id="backStep"
+              >Back</a
+            >
+            <a
+              href="add-course-details.html"
+              class="btn btn--full nextCourse"
+              id="nextStep"
+              >Next</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
