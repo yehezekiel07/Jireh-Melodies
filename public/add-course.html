@@ -62,7 +62,45 @@
           </div>
           <div class="course-builder">
             <!-- LEFT SIDE (Form Fields) -->
-            <div class="course-form">
+            <div class="preview-card">
+              <label for="courseImage">Card Preview</label>
+              <div class="course course-preview">
+                <img
+                  src="img/course-placeholder.png"
+                  class="course-img"
+                  id="previewImage"
+                  alt="Mainstage Course"
+                />
+                <div class="course-content">
+                  <p class="course-title" id="previewTitle">Course Title</p>
+                  <div class="course-tags">
+                    <span class="tag tag--instructor" id="previewInstructor"
+                      >Course Instructor</span
+                    >
+                    <span class="tag tag--lang" id="previewLanguage"
+                      >Course Language</span
+                    >
+                  </div>
+                  <p class="course-description" id="previewDescription">
+                    Learn how to build a complete, professional MainStage 3 live
+                    setup from zero and use it confidently.
+                  </p>
+                  <div class="course-footer">
+                    <span class="course-price">
+                      <strong class="discount-price" id="previewPrice"
+                        >0</strong
+                      >
+                      <p class="price-dashed" id="previewOldPrice">₹0</p>
+                    </span>
+
+                    <a class="add-to-cart" href="#">Add to cart</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT SIDE (Preview Card) -->
+             <div class="course-form">
               <!-- All your inputs go here -->
               <div class="input-box">
                 <label for="courseImage">Course Thumbnail</label>
@@ -71,6 +109,7 @@
                   <label for="courseImage" class="btn btn--outline">
                     Upload
                   </label>
+                  <input type="hidden" id="thumbnailName">
                   <input
                     class="user-input-field"
                     id="courseImage"
@@ -149,59 +188,20 @@
                   id="cancelBtn"
                   >Cancel</a
                 >
-                <a
-                  href="add-course-details.html"
-                  class="btn btn--full nextCourse"
-                  id="nextBasic"
-                  >Next</a
+                <button class="btn btn--full nextCourse" id="nextBasic"
+                  >Next</
                 >
               </div>
 
               <!-- modules, requirements etc -->
             </div>
-
-            <!-- RIGHT SIDE (Preview Card) -->
-            <div class="preview-card">
-              <label for="courseImage">Card Preview</label>
-              <div class="course course-preview">
-                <img
-                  src="img/course-placeholder.png"
-                  class="course-img"
-                  id="previewImage"
-                  alt="Mainstage Course"
-                />
-                <div class="course-content">
-                  <p class="course-title" id="previewTitle">Course Title</p>
-                  <div class="course-tags">
-                    <span class="tag tag--instructor" id="previewInstructor"
-                      >Course Instructor</span
-                    >
-                    <span class="tag tag--lang" id="previewLanguage"
-                      >Course Language</span
-                    >
-                  </div>
-                  <p class="course-description" id="previewDescription">
-                    Learn how to build a complete, professional MainStage 3 live
-                    setup from zero and use it confidently.
-                  </p>
-                  <div class="course-footer">
-                    <span class="course-price">
-                      <strong class="discount-price" id="previewPrice"
-                        >0</strong
-                      >
-                      <p class="price-dashed" id="previewOldPrice">₹0</p>
-                    </span>
-
-                    <a class="add-to-cart" href="#">Add to cart</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
       </section>
     </main>
-    <script src="script.js"></script>
-    <script src="js/upload.js"></script>
+    <script src="/js/course-preview.js"></script>
+    <script src="/js/upload.js"></script>
+    <script src="/js/course-builder.js"></script>
   </body>
 </html>

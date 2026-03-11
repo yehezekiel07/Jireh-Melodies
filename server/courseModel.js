@@ -42,10 +42,14 @@ const courseSchema = new mongoose.Schema({
 
   thumbnail: String,
 
-  learnPoints: [String], // What user will learn
-  requirements: [String], // Requirements
-  includes: [String], // This course includes
-  previewPoints: [String], // Card preview points
+  learnPoints: { type: [String], default: [] },
+  requirements: { type: [String], default: [] },
+  previewPoints: { type: [String], default: [] },
+
+  duration: String,
+  downloadItems: String,
+  mobileAccess: Boolean,
+  certificate: Boolean,
 
   modules: Array,
 

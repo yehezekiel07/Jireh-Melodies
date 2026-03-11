@@ -1543,12 +1543,12 @@ label {
 
 .course-builder {
   display: flex;
-  gap: 40px;
+  gap: 4.8rem;
 }
 
 /* LEFT SIDE */
 .course-form {
-  width: 60%;
+  width: 70%;
   /* height: 100vh; */
   overflow-y: auto;
 

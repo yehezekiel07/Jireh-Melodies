@@ -7,6 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.static("public"));
+app.use("/uploads", express.static("uploads"));
 
 mongoose
   .connect(
@@ -154,10 +155,6 @@ app.put("/update-user/:id", async (req, res) => {
   res.json({ success: true });
 });
 
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
-
 // Course Related Code //
 
 const Course = require("./courseModel");
@@ -224,61 +221,121 @@ app.post("/upload-image", upload.single("image"), async (req, res) => {
 // Save Course Step-1
 
 app.post("/create-course-draft", upload.single("image"), async (req, res) => {
-  const course = new Course({
-    title: req.body.title,
-    instructor: req.body.instructor,
-    language: req.body.language,
-    description: req.body.description,
-    price: req.body.price,
-    originalPrice: req.body.originalPrice,
-    thumbnail: req.file.filename,
-    status: "draft",
-  });
-
-  await course.save();
-
-  res.json({
-    success: true,
-    courseId: course._id,
-  });
-});
-
-// Draft Course step 01 (clicking on back)
-
-app.get("/get-course/:id", async (req, res) => {
-  const course = await Course.findById(req.params.id);
-
-  res.json(course);
-});
-
-// Update Data for step-1
-
-app.put(
-  "/update-course-basic/:id",
-  upload.single("image"),
-  async (req, res) => {
-    const updateData = {
+  try {
+    const course = new Course({
       title: req.body.title,
       instructor: req.body.instructor,
       language: req.body.language,
       description: req.body.description,
       price: req.body.price,
       originalPrice: req.body.originalPrice,
-    };
+      thumbnail: req.body.thumbnail || null,
+      status: "draft",
+    });
 
-    // update thumbnail only if new image uploaded
-    if (req.file) {
-      updateData.thumbnail = req.file.filename;
+    console.log("Uploaded file:", req.file);
+
+    await course.save();
+
+    res.json({
+      success: true,
+      courseId: course._id,
+    });
+  } catch (error) {
+    console.error("Error creating course:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to create course draft",
+    });
+  }
+});
+
+// Draft Course Step-1 (when clicking back)
+
+app.get("/get-course/:id", async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.id);
+
+    if (!course) {
+      return res.status(404).json({
+        success: false,
+        message: "Course not found",
+      });
     }
 
-    await Course.findByIdAndUpdate(req.params.id, updateData);
+    res.json(course);
+  } catch (error) {
+    console.error("Error fetching course:", error);
 
-    res.json({ success: true });
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+});
+
+// Update Data for Step-1
+
+app.put(
+  "/update-course-basic/:id",
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const updateData = {
+        title: req.body.title,
+        instructor: req.body.instructor,
+        language: req.body.language,
+        description: req.body.description,
+        price: req.body.price,
+        originalPrice: req.body.originalPrice,
+      };
+
+      if (req.file) {
+        updateData.thumbnail = req.file.filename;
+      }
+
+      await Course.findByIdAndUpdate(req.params.id, updateData);
+
+      res.json({ success: true });
+    } catch (err) {
+      console.error(err);
+
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+      });
+    }
   },
 );
+
+// Update Course Step-2 Details
+
+app.put("/update-course-details/:id", async (req, res) => {
+  try {
+    await Course.findByIdAndUpdate(req.params.id, {
+      learnPoints: req.body.learnPoints,
+      requirements: req.body.requirements,
+      previewPoints: req.body.previewPoints,
+      duration: req.body.duration,
+      downloadItems: req.body.downloadItems,
+      mobileAccess: req.body.mobileAccess,
+      certificate: req.body.certificate,
+    });
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error updating course details:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+});
 
 // This should always stay at the end
 
 app.listen(3000, () => {
-  console.log("Server running on port 3000");
+  console.log("Server running on http://localhost:3000");
 });

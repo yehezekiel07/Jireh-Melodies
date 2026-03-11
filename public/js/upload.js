@@ -1,3 +1,5 @@
+let uploadedThumbnail = null;
+
 const fileInput = document.getElementById("courseImage");
 const fileName = document.getElementById("file-name");
 
@@ -39,10 +41,22 @@ fileInput.addEventListener("change", async function () {
           const formData = new FormData();
           formData.append("image", blob, file.name);
 
-          await fetch("/upload-image", {
+          const res = await fetch("/upload-image", {
             method: "POST",
             body: formData,
           });
+
+          const data = await res.json();
+
+          window.uploadedThumbnail = data.file;
+
+          // store thumbnail name in hidden input
+          const thumbInput = document.getElementById("thumbnailName");
+          if (thumbInput) {
+            thumbInput.value = data.file;
+          }
+
+          console.log("Uploaded file:", window.uploadedThumbnail);
 
           console.log("Image uploaded");
         },
