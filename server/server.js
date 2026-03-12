@@ -229,7 +229,7 @@ app.post("/create-course-draft", upload.single("image"), async (req, res) => {
       description: req.body.description,
       price: req.body.price,
       originalPrice: req.body.originalPrice,
-      thumbnail: req.body.thumbnail || null,
+      thumbnail: req.body.thumbnailName || null,
       status: "draft",
     });
 
@@ -291,8 +291,8 @@ app.put(
         originalPrice: req.body.originalPrice,
       };
 
-      if (req.file) {
-        updateData.thumbnail = req.file.filename;
+      if (req.body.thumbnailName) {
+        updateData.thumbnail = req.body.thumbnailName;
       }
 
       await Course.findByIdAndUpdate(req.params.id, updateData);
@@ -331,6 +331,50 @@ app.put("/update-course-details/:id", async (req, res) => {
       success: false,
       message: "Server error",
     });
+  }
+});
+
+// Upload Document Route
+
+const fs = require("fs");
+
+app.post("/upload-document", upload.single("document"), async (req, res) => {
+  try {
+    const filename = Date.now() + path.extname(req.file.originalname);
+
+    await fs.promises.writeFile("uploads/" + filename, req.file.buffer);
+
+    res.json({
+      success: true,
+      file: filename,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Upload failed",
+    });
+  }
+});
+
+// ===========================
+// GET MODULES
+// ===========================
+
+app.get("/get-modules/:id", async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.id);
+
+    if (!course) {
+      return res.json({ success: false });
+    }
+
+    res.json({
+      success: true,
+      modules: course.modules || [],
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({ success: false });
   }
 });
 

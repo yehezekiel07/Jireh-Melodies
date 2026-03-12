@@ -56,6 +56,12 @@ fileInput.addEventListener("change", async function () {
             thumbInput.value = data.file;
           }
 
+          const preview = document.getElementById("previewImage");
+
+          if (preview) {
+            preview.src = `/uploads/${data.file}`;
+          }
+
           console.log("Uploaded file:", window.uploadedThumbnail);
 
           console.log("Image uploaded");

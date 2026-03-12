@@ -152,6 +152,26 @@ body {
   border: solid 1px #de7c62;
 }
 
+.btn--primary {
+  background-color: #de7c62;
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background-color: #d34f2c;
+}
+
+.btn--secondary {
+  background-color: #fff;
+  color: #1a3c34;
+  border: solid 1px #d8dedd;
+}
+
+.btn--secondary:hover {
+  color: #de7c62;
+  border: solid 1px #de7c62;
+}
+
 .margin-right-sm {
   margin-right: 1.6rem !important;
 }
@@ -1434,7 +1454,9 @@ td {
 }
 
 .link-icon,
-.delete-point {
+.delete-point,
+.delete-module,
+.delete-lesson {
   font-size: 2rem;
   text-align: center;
   vertical-align: middle;
@@ -1573,7 +1595,9 @@ label {
   transform: translateY(-50%);
 }
 
-.icon-input-field .delete-point {
+.icon-input-field .delete-point,
+.icon-input-field .delete-module,
+.icon-input-field .delete-lesson {
   position: absolute;
   top: 50%;
   right: 1.6rem;
@@ -1582,7 +1606,9 @@ label {
   cursor: pointer;
 }
 
-.icon-input-field .delete-point:hover {
+.icon-input-field .delete-point:hover,
+.icon-input-field .delete-module:hover,
+.icon-input-field .delete-lesson:hover {
   color: #f5365c;
 }
 
@@ -1741,8 +1767,8 @@ input:checked + .slider:before {
 .small-btn {
   padding: 1.2rem 2rem;
   background-color: #fff;
-  color: #353737;
-  border: solid 1px #d8dedd;
+  color: #de7c62;
+  border: solid 1px #de7c62;
   border-radius: 1.2rem;
   cursor: pointer;
 
@@ -1751,11 +1777,13 @@ input:checked + .slider:before {
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
+  align-self: flex-start;
 }
 
 .small-btn:hover {
-  color: #de7c62;
-  border: solid 1px #de7c62;
+  background-color: #fbf1ee;
+  color: #d34f2c;
+  border: solid 1px #d34f2c;
 }
 
 .small-btn .icon {
@@ -1774,4 +1802,91 @@ input:checked + .slider:before {
   gap: 1.2rem;
 
   width: 100%;
+}
+
+/* Modules */
+
+.module {
+  background-color: #fff;
+  border: solid 1px #c6cccb;
+  border-radius: 1.6rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.lessonsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.lesson-field {
+  display: flex;
+  gap: 1.6rem;
+  width: 100%;
+}
+
+.divider {
+  border: solid 1px #ebefee;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 1px;
+}
+
+.btn.btn--secondary.lessonLinkBtn {
+  border-radius: 1.6rem;
+}
+
+/* Lesson Modal */
+
+.lesson-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  width: 800px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.modal-heading {
+  font-family: "Manrope", sans-serif;
+  font-size: 2rem;
+  line-height: 150%;
+  color: #1a3c34;
+}
+
+.modal-buttons {
+  width: 100%;
+
+  display: flex;
+  gap: 1.2rem;
+  justify-content: flex-end;
+}
+
+.lesson-linked {
+  border: 2px solid #16a34a;
+  color: #16a34a;
 }

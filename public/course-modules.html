@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jireh Melodies</title>
+    <link href="style.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Manrope:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"
+    />
+  </head>
+  <body>
+    <header class="header admin">
+      <a href="admin-dashboard.html">
+        <img
+          class="logo"
+          src="img/jireh-melodies-logo.png"
+          alt="Jireh Melodies Logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="admin-dashboard.html">All Users</a>
+          </li>
+          <li class="main-nav-list-item active">
+            <a class="main-nav-link" href="#">All Courses</a>
+          </li>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="#">Account</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="section-all-courses">
+        <div class="container">
+          <div class="heading-cta">
+            <h2 class="heading-secondary">Add Modules</h2>
+          </div>
+
+          <div id="modulesContainer" class="moduleContainer">
+            <div class="module">
+              <div class="icon-input-field module-input">
+                <i class="ph ph-book-open link-icon"></i>
+                <input
+                  class="user-input-field with-icon"
+                  type="text"
+                  placeholder="Enter module title"
+                />
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="lessonsContainer">
+                <div class="lesson-field">
+                  <div class="icon-input-field lesson-input">
+                    <i class="ph ph-monitor-play link-icon"></i>
+                    <input
+                      class="user-input-field with-icon lesson-title"
+                      type="text"
+                      placeholder="Enter lesson title"
+                    />
+                  </div>
+
+                  <button
+                    class="btn btn--secondary lessonLinkBtn"
+                    type="button"
+                  >
+                    <i class="ph ph-link"></i>
+                  </button>
+                </div>
+              </div>
+
+              <button class="addLesson small-btn" type="button">
+                <i class="ph ph-plus icon"></i><span>Add Lesson</span>
+              </button>
+            </div>
+          </div>
+
+          <button id="addModule" class="small-btn" type="button">
+            <i class="ph ph-plus icon"></i><span>Add Module</span>
+          </button>
+
+          <div class="buttons">
+            <button
+              class="btn btn--secondary cancelBtn"
+              type="button"
+              id="backModules"
+            >
+              Back
+            </button>
+            <button class="btn btn--primary" type="button" id="saveModules">
+              Save & Publish
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="lessonModal" class="lesson-modal hidden">
+      <div class="modal-content">
+        <h3 class="modal-heading">Lesson Resources</h3>
+        <div class="input-box">
+          <label>Video Link</label>
+          <input
+            type="text"
+            class="user-input-field"
+            id="lessonVideoLink"
+            placeholder="Paste video link"
+          />
+        </div>
+
+        <div class="input-box">
+          <label>Upload Document (PDF)</label>
+          <input
+            type="file"
+            class="user-input-field"
+            id="lessonDocument"
+            accept=".pdf"
+          />
+        </div>
+
+        <div class="modal-buttons">
+          <button
+            id="closeLessonModal"
+            type="button"
+            class="btn btn--secondary"
+          >
+            Cancel
+          </button>
+          <button
+            id="saveLessonResources"
+            type="button"
+            class="btn btn--primary"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/modules.js"></script>
+  </body>
+</html>
