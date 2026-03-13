@@ -26,6 +26,11 @@ document.addEventListener("click", function (e) {
         placeholder="Enter lesson title"
       />
 
+      <div class="lesson-resources">
+        <span class="video-indicator hidden">🎥</span>
+        <span class="doc-indicator hidden">📄</span>
+      </div>
+
       <i class="ph ph-x delete-lesson"></i>
     </div>
 
@@ -33,7 +38,7 @@ document.addEventListener("click", function (e) {
       <i class="ph ph-link"></i>
     </button>
 
-  `;
+`;
 
   lessonsContainer.appendChild(lessonDiv);
 });
@@ -66,6 +71,18 @@ document.addEventListener("click", function (e) {
   // Load previously saved video link
   if (videoInput) {
     videoInput.value = activeLesson.dataset.video || "";
+  }
+
+  const uploadedDoc = document.getElementById("uploadedDocumentName");
+
+  if (uploadedDoc) {
+    if (activeLesson.dataset.file) {
+      uploadedDoc.innerHTML = `<a href="/uploads/${activeLesson.dataset.file}" target="_blank">
+        ${activeLesson.dataset.file}
+      </a>`;
+    } else {
+      uploadedDoc.innerHTML = "";
+    }
   }
 
   // File inputs cannot be prefilled
@@ -122,6 +139,9 @@ if (saveLessonResources) {
         const data = await res.json();
 
         activeLesson.dataset.file = data.file;
+
+        document.getElementById("uploadedDocumentName").textContent =
+          "Uploaded file: " + data.file;
       } catch (err) {
         console.error("Upload failed:", err);
       }
@@ -131,6 +151,18 @@ if (saveLessonResources) {
 
     if (videoLink || activeLesson.dataset.file) {
       linkBtn.classList.add("lesson-linked");
+    }
+
+    // show indicators
+    const videoIcon = activeLesson.querySelector(".video-indicator");
+    const docIcon = activeLesson.querySelector(".doc-indicator");
+
+    if (videoIcon) {
+      videoIcon.classList.toggle("hidden", !videoLink);
+    }
+
+    if (docIcon) {
+      docIcon.classList.toggle("hidden", !activeLesson.dataset.file);
     }
 
     document.getElementById("lessonModal").classList.add("hidden");
@@ -169,13 +201,21 @@ document.getElementById("addModule").addEventListener("click", function () {
                     />
                   </div>
 
-                  <button class="btn btn--secondary lessonLinkBtn" type="button">
+                  <div class="lesson-resources">
+                    <span class="video-indicator hidden">🎥</span>
+                    <span class="doc-indicator hidden">📄</span>
+                  </div>
+
+                  <button
+                    class="btn btn--secondary lessonLinkBtn"
+                    type="button"
+                  >
                     <i class="ph ph-link"></i>
                   </button>
                 </div>
               </div>
 
-              <button class="addLesson small-btn">
+              <button class="addLesson small-btn" type="button">
                 <i class="ph ph-plus icon"></i><span>Add Lesson</span>
               </button>
 
@@ -193,15 +233,14 @@ document.addEventListener("click", function (e) {
 });
 
 // ===========================
-// SAVE MODULES
+// PREVIEW COURSE
 // ===========================
 
-const saveModulesBtn = document.getElementById("saveModules");
+const previewBtn = document.getElementById("previewCourse");
 
-if (saveModulesBtn) {
-  saveModulesBtn.addEventListener("click", async function () {
+if (previewBtn) {
+  previewBtn.addEventListener("click", async function () {
     const params = new URLSearchParams(window.location.search);
-
     const courseId = params.get("id");
 
     const modules = [];
@@ -214,9 +253,7 @@ if (saveModulesBtn) {
       module.querySelectorAll(".lesson-field").forEach((lesson) => {
         lessons.push({
           title: lesson.querySelector(".lesson-title").value,
-
           video: lesson.dataset.video || "",
-
           file: lesson.dataset.file || "",
         });
       });
@@ -227,21 +264,15 @@ if (saveModulesBtn) {
       });
     });
 
-    const res = await fetch(`/save-modules/${courseId}`, {
+    await fetch(`/save-modules/${courseId}`, {
       method: "PUT",
-
       headers: {
         "Content-Type": "application/json",
       },
-
       body: JSON.stringify({ modules }),
     });
 
-    const data = await res.json();
-
-    if (data.success) {
-      alert("Modules saved successfully");
-    }
+    window.location.href = `course-preview.html?id=${courseId}`;
   });
 }
 
@@ -260,6 +291,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     const data = await res.json();
 
     if (!data.success) return;
+
+    if (data.modules.length === 0) return;
 
     modulesContainer.innerHTML = "";
 
@@ -293,30 +326,49 @@ document.addEventListener("DOMContentLoaded", async function () {
         const lessonDiv = document.createElement("div");
         lessonDiv.className = "lesson-field";
 
-        lessonDiv.dataset.video = lesson.video || "";
-        lessonDiv.dataset.file = lesson.file || "";
+        lessonDiv.dataset.video = lesson.video ? lesson.video : "";
+        lessonDiv.dataset.file = lesson.file ? lesson.file : "";
 
         lessonDiv.innerHTML = `
-          <div class="icon-input-field lesson-input">
-            <i class="ph ph-monitor-play link-icon"></i>
+  <div class="icon-input-field lesson-input">
+    <i class="ph ph-monitor-play link-icon"></i>
 
-            <input class="user-input-field with-icon lesson-title"
-                   type="text"
-                   value="${lesson.title || ""}"
-                   placeholder="Enter lesson title">
+    <input class="user-input-field with-icon lesson-title"
+           type="text"
+           value="${lesson.title || ""}"
+           placeholder="Enter lesson title">
 
-            ${index !== 0 ? `<i class="ph ph-x delete-lesson"></i>` : ""}
-          </div>
+    <div class="lesson-resources">
+      <span class="video-indicator hidden">🎥</span>
+      <span class="doc-indicator hidden">📄</span>
+    </div>
 
-          <button class="btn btn--secondary lessonLinkBtn" type="button">
-            <i class="ph ph-link"></i>
-          </button>
-        `;
+    ${index !== 0 ? `<i class="ph ph-x delete-lesson"></i>` : ""}
+  </div>
+
+  <button class="btn btn--secondary lessonLinkBtn" type="button">
+    <i class="ph ph-link"></i>
+  </button>
+`;
 
         if (lesson.video || lesson.file) {
-          lessonDiv
-            .querySelector(".lessonLinkBtn")
-            .classList.add("lesson-linked");
+          const btn = lessonDiv.querySelector(".lessonLinkBtn");
+          btn.classList.add("lesson-linked");
+
+          const videoIcon = lessonDiv.querySelector(".video-indicator");
+          const docIcon = lessonDiv.querySelector(".doc-indicator");
+
+          if (lesson.video && videoIcon) {
+            videoIcon.classList.remove("hidden");
+          }
+
+          if (lesson.file && docIcon) {
+            docIcon.classList.remove("hidden");
+          }
+
+          if (lesson.file) {
+            btn.title = "Document uploaded: " + lesson.file;
+          }
         }
 
         lessonsContainer.appendChild(lessonDiv);
@@ -344,3 +396,59 @@ if (backBtn) {
     window.location.href = `add-course-details.html?id=${courseId}`;
   });
 }
+
+function debounce(func, delay) {
+  let timer;
+  return function () {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func();
+    }, delay);
+  };
+}
+
+async function autoSaveModules() {
+  const params = new URLSearchParams(window.location.search);
+  const courseId = params.get("id");
+
+  if (!courseId) return;
+
+  const modules = [];
+
+  document.querySelectorAll(".module").forEach((module) => {
+    const moduleTitle = module.querySelector(".module-input input").value;
+
+    const lessons = [];
+
+    module.querySelectorAll(".lesson-field").forEach((lesson) => {
+      lessons.push({
+        title: lesson.querySelector(".lesson-title").value,
+        video: lesson.dataset.video || "",
+        file: lesson.dataset.file || "",
+      });
+    });
+
+    modules.push({
+      title: moduleTitle,
+      lessons: lessons,
+    });
+  });
+
+  try {
+    await fetch(`/save-modules/${courseId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ modules }),
+    });
+
+    console.log("Auto-saved modules");
+  } catch (err) {
+    console.error("Auto-save failed", err);
+  }
+}
+
+document.addEventListener("input", debounce(autoSaveModules, 2000));
+
+document.addEventListener("change", debounce(autoSaveModules, 2000));

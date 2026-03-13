@@ -85,6 +85,11 @@
                     />
                   </div>
 
+                  <div class="lesson-resources">
+                    <span class="video-indicator hidden">🎥</span>
+                    <span class="doc-indicator hidden">📄</span>
+                  </div>
+
                   <button
                     class="btn btn--secondary lessonLinkBtn"
                     type="button"
@@ -112,8 +117,8 @@
             >
               Back
             </button>
-            <button class="btn btn--primary" type="button" id="saveModules">
-              Save & Publish
+            <button class="btn btn--primary" type="button" id="previewCourse">
+              Preview Course
             </button>
           </div>
         </div>
@@ -141,6 +146,8 @@
             id="lessonDocument"
             accept=".pdf"
           />
+
+          <div id="uploadedDocumentName" class="uploaded-doc"></div>
         </div>
 
         <div class="modal-buttons">

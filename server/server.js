@@ -378,6 +378,35 @@ app.get("/get-modules/:id", async (req, res) => {
   }
 });
 
+// ===========================
+// SAVE MODULES
+// ===========================
+
+app.put("/save-modules/:id", async (req, res) => {
+  try {
+    await Course.findByIdAndUpdate(req.params.id, {
+      modules: req.body.modules,
+    });
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error saving modules:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to save modules",
+    });
+  }
+});
+
+// Publish Course
+
+app.put("/publish-course/:id", async (req, res) => {
+  await Course.findByIdAndUpdate(req.params.id, { status: "published" });
+
+  res.json({ success: true });
+});
+
 // This should always stay at the end
 
 app.listen(3000, () => {
