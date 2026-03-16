@@ -60,77 +60,61 @@
           <div class="heading-cta">
             <h2 class="heading-secondary">Add Modules</h2>
           </div>
+          <section class="course-preview">
+            <div class="course-header">
+              <img id="courseThumbnail" />
 
-          <!doctype html>
-          <html>
-            <head>
-              <title>Course Preview</title>
-              <link rel="stylesheet" href="style.css" />
-            </head>
+              <div class="course-info">
+                <h1 id="courseTitle"></h1>
 
-            <body>
-              <section class="course-preview">
-                <div class="course-header">
-                  <img id="courseThumbnail" />
+                <p id="courseDescription"></p>
 
-                  <div class="course-info">
-                    <h1 id="courseTitle"></h1>
-
-                    <p id="courseDescription"></p>
-
-                    <div class="course-meta">
-                      <span id="courseInstructor"></span>
-                      <span id="courseLanguage"></span>
-                    </div>
-
-                    <div class="course-price">
-                      <span id="coursePrice"></span>
-                      <span id="courseOriginalPrice"></span>
-                    </div>
-                  </div>
+                <div class="course-meta">
+                  <span id="courseInstructor"></span>
+                  <span id="courseLanguage"></span>
                 </div>
 
-                <div class="course-content">
-                  <h2>What you'll learn</h2>
-                  <ul id="learnPoints"></ul>
-
-                  <h2>Requirements</h2>
-                  <ul id="requirements"></ul>
-
-                  <h2>This course includes</h2>
-                  <ul id="courseIncludes"></ul>
+                <div class="course-price">
+                  <span id="coursePrice"></span>
+                  <span id="courseOriginalPrice"></span>
                 </div>
+              </div>
+            </div>
 
-                <div class="course-curriculum">
-                  <h2>Course Content</h2>
+            <div class="course-content">
+              <h2>What you'll learn</h2>
+              <ul id="learnPoints"></ul>
 
-                  <div id="modulesContainer"></div>
-                </div>
+              <h2>Requirements</h2>
+              <ul id="requirements"></ul>
 
-                <div class="preview-buttons">
-                  <button
-                    id="backToModules"
-                    type="button"
-                    class="btn btn--secondary"
-                  >
-                    Back
-                  </button>
+              <h2>This course includes</h2>
+              <ul id="courseIncludes"></ul>
+            </div>
 
-                  <button
-                    id="publishCourse"
-                    type="button"
-                    class="btn btn--primary"
-                  >
-                    Save & Publish
-                  </button>
-                </div>
-              </section>
+            <div class="course-curriculum">
+              <h2>Course Content</h2>
 
-              <script src="js/course-preview.js"></script>
-            </body>
-          </html>
+              <div id="modulesContainer"></div>
+            </div>
+
+            <div class="preview-buttons">
+              <button
+                id="backToModules"
+                type="button"
+                class="btn btn--secondary"
+              >
+                Back
+              </button>
+
+              <button id="publishCourse" type="button" class="btn btn--primary">
+                Save & Publish
+              </button>
+            </div>
+          </section>
         </div>
       </section>
     </main>
+    <script src="js/course-preview.js"></script>
   </body>
 </html>

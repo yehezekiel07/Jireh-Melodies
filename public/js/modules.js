@@ -1,3 +1,4 @@
+let loadingModules = true;
 const modulesContainer = document.getElementById("modulesContainer");
 
 // ===========================
@@ -14,6 +15,9 @@ document.addEventListener("click", function (e) {
 
   const lessonDiv = document.createElement("div");
   lessonDiv.className = "lesson-field";
+
+  lessonDiv.dataset.video = "";
+  lessonDiv.dataset.file = "";
 
   lessonDiv.innerHTML = `
     
@@ -145,6 +149,9 @@ if (saveLessonResources) {
       } catch (err) {
         console.error("Upload failed:", err);
       }
+    } else {
+      // keep existing file if user did not upload a new one
+      activeLesson.dataset.file = activeLesson.dataset.file || "";
     }
 
     const linkBtn = activeLesson.querySelector(".lessonLinkBtn");
@@ -166,6 +173,8 @@ if (saveLessonResources) {
     }
 
     document.getElementById("lessonModal").classList.add("hidden");
+
+    await autoSaveModules();
   });
 }
 
@@ -222,6 +231,10 @@ document.getElementById("addModule").addEventListener("click", function () {
   `;
 
   modulesContainer.appendChild(moduleDiv);
+
+  const lesson = moduleDiv.querySelector(".lesson-field");
+  lesson.dataset.video = "";
+  lesson.dataset.file = "";
 });
 
 // DELETE MODULE
@@ -240,6 +253,8 @@ const previewBtn = document.getElementById("previewCourse");
 
 if (previewBtn) {
   previewBtn.addEventListener("click", async function () {
+    await autoSaveModules();
+
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get("id");
 
@@ -251,10 +266,13 @@ if (previewBtn) {
       const lessons = [];
 
       module.querySelectorAll(".lesson-field").forEach((lesson) => {
+        const video = lesson.dataset.video ? lesson.dataset.video : "";
+        const file = lesson.dataset.file ? lesson.dataset.file : "";
+
         lessons.push({
           title: lesson.querySelector(".lesson-title").value,
-          video: lesson.dataset.video || "",
-          file: lesson.dataset.file || "",
+          video: video,
+          file: file,
         });
       });
 
@@ -296,7 +314,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     modulesContainer.innerHTML = "";
 
-    data.modules.forEach((module) => {
+    data.modules.forEach((module, index) => {
       const moduleDiv = document.createElement("div");
       moduleDiv.className = "module";
 
@@ -308,7 +326,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                  value="${module.title || ""}"
                  placeholder="Enter module title">
 
-          <i class="ph ph-x delete-module"></i>
+          ${index !== 0 ? `<i class="ph ph-x delete-module"></i>` : ""}
         </div>
 
         <div class="divider"></div>
@@ -351,31 +369,44 @@ document.addEventListener("DOMContentLoaded", async function () {
   </button>
 `;
 
+        lessonDiv.dataset.video = lesson.video || "";
+        lessonDiv.dataset.file = lesson.file || "";
+
+        const btn = lessonDiv.querySelector(".lessonLinkBtn");
+        const videoIcon = lessonDiv.querySelector(".video-indicator");
+        const docIcon = lessonDiv.querySelector(".doc-indicator");
+
+        // Restore button state
         if (lesson.video || lesson.file) {
-          const btn = lessonDiv.querySelector(".lessonLinkBtn");
           btn.classList.add("lesson-linked");
-
-          const videoIcon = lessonDiv.querySelector(".video-indicator");
-          const docIcon = lessonDiv.querySelector(".doc-indicator");
-
-          if (lesson.video && videoIcon) {
-            videoIcon.classList.remove("hidden");
-          }
-
-          if (lesson.file && docIcon) {
-            docIcon.classList.remove("hidden");
-          }
-
-          if (lesson.file) {
-            btn.title = "Document uploaded: " + lesson.file;
-          }
+        } else {
+          btn.classList.remove("lesson-linked");
         }
 
+        // Restore icons
+        if (lesson.video && videoIcon) {
+          videoIcon.classList.remove("hidden");
+        } else if (videoIcon) {
+          videoIcon.classList.add("hidden");
+        }
+
+        if (lesson.file && docIcon) {
+          docIcon.classList.remove("hidden");
+        } else if (docIcon) {
+          docIcon.classList.add("hidden");
+        }
+
+        // Restore document tooltip
+        if (lesson.file) {
+          btn.title = "Document uploaded: " + lesson.file;
+        }
         lessonsContainer.appendChild(lessonDiv);
       });
 
       modulesContainer.appendChild(moduleDiv);
     });
+
+    loadingModules = false;
   } catch (err) {
     console.error("Error loading modules", err);
   }
@@ -397,6 +428,8 @@ if (backBtn) {
   });
 }
 
+// Auto-Save Modules
+
 function debounce(func, delay) {
   let timer;
   return function () {
@@ -408,6 +441,8 @@ function debounce(func, delay) {
 }
 
 async function autoSaveModules() {
+  if (loadingModules) return;
+
   const params = new URLSearchParams(window.location.search);
   const courseId = params.get("id");
 
@@ -449,6 +484,11 @@ async function autoSaveModules() {
   }
 }
 
-document.addEventListener("input", debounce(autoSaveModules, 2000));
+const debouncedSave = debounce(autoSaveModules, 500);
 
-document.addEventListener("change", debounce(autoSaveModules, 2000));
+document.addEventListener("input", debouncedSave);
+
+document.addEventListener("change", function (e) {
+  if (e.target.type === "file") return;
+  debouncedSave();
+});
