@@ -174,7 +174,37 @@ if (saveLessonResources) {
 
     document.getElementById("lessonModal").classList.add("hidden");
 
-    await autoSaveModules();
+    const params = new URLSearchParams(window.location.search);
+    const courseId = params.get("id");
+
+    const modules = [];
+
+    document.querySelectorAll(".module").forEach((module) => {
+      const moduleTitle = module.querySelector(".module-input input").value;
+
+      const lessons = [];
+
+      module.querySelectorAll(".lesson-field").forEach((lesson) => {
+        lessons.push({
+          title: lesson.querySelector(".lesson-title").value,
+          video: lesson.dataset.video || "",
+          file: lesson.dataset.file || "",
+        });
+      });
+
+      modules.push({
+        title: moduleTitle,
+        lessons: lessons,
+      });
+    });
+
+    await fetch(`/save-modules/${courseId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ modules }),
+    });
   });
 }
 
@@ -253,42 +283,8 @@ const previewBtn = document.getElementById("previewCourse");
 
 if (previewBtn) {
   previewBtn.addEventListener("click", async function () {
-    await autoSaveModules();
-
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get("id");
-
-    const modules = [];
-
-    document.querySelectorAll(".module").forEach((module) => {
-      const moduleTitle = module.querySelector(".module-input input").value;
-
-      const lessons = [];
-
-      module.querySelectorAll(".lesson-field").forEach((lesson) => {
-        const video = lesson.dataset.video ? lesson.dataset.video : "";
-        const file = lesson.dataset.file ? lesson.dataset.file : "";
-
-        lessons.push({
-          title: lesson.querySelector(".lesson-title").value,
-          video: video,
-          file: file,
-        });
-      });
-
-      modules.push({
-        title: moduleTitle,
-        lessons: lessons,
-      });
-    });
-
-    await fetch(`/save-modules/${courseId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ modules }),
-    });
 
     window.location.href = `course-preview.html?id=${courseId}`;
   });
