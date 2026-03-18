@@ -177,6 +177,8 @@ if (saveLessonResources) {
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get("id");
 
+    console.log("COURSE ID:", courseId);
+
     const modules = [];
 
     document.querySelectorAll(".module").forEach((module) => {
@@ -301,6 +303,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   if (!courseId) return;
 
   try {
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
     const res = await fetch(`/get-modules/${courseId}`);
     const data = await res.json();
 
@@ -480,11 +484,11 @@ async function autoSaveModules() {
   }
 }
 
-const debouncedSave = debounce(autoSaveModules, 500);
+// const debouncedSave = debounce(autoSaveModules, 500);
 
-document.addEventListener("input", debouncedSave);
+// document.addEventListener("input", debouncedSave);
 
-document.addEventListener("change", function (e) {
-  if (e.target.type === "file") return;
-  debouncedSave();
-});
+// document.addEventListener("change", function (e) {
+//   if (e.target.type === "file") return;
+//   debouncedSave();
+// });

@@ -384,18 +384,21 @@ app.get("/get-modules/:id", async (req, res) => {
 
 app.put("/save-modules/:id", async (req, res) => {
   try {
-    await Course.findByIdAndUpdate(req.params.id, {
-      modules: req.body.modules,
-    });
+    const course = await Course.findById(req.params.id);
+
+    if (!course) {
+      return res.json({ success: false });
+    }
+
+    // 🔥 IMPORTANT: replace entire modules properly
+    course.modules = req.body.modules;
+
+    await course.save();
 
     res.json({ success: true });
-  } catch (error) {
-    console.error("Error saving modules:", error);
-
-    res.status(500).json({
-      success: false,
-      message: "Failed to save modules",
-    });
+  } catch (err) {
+    console.error("Save modules error:", err);
+    res.json({ success: false });
   }
 });
 
