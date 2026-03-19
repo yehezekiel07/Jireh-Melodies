@@ -28,6 +28,12 @@ if (nextBasic) {
       document.getElementById("courseOriginalPrice").value,
     );
 
+    const thumbInput = document.getElementById("thumbnailName");
+
+    if (thumbInput && thumbInput.value) {
+      formData.append("thumbnailName", thumbInput.value);
+    }
+
     const imageInput = document.getElementById("courseImage");
 
     if (imageInput && imageInput.files.length > 0) {
@@ -371,7 +377,7 @@ if (backBtn) {
 
 // Saving and going next to Step-3
 
-const nextDetails = document.getElementById("nextDetails");
+const nextDetails = document.getElementById("nextStep");
 
 if (nextDetails) {
   nextDetails.addEventListener("click", async () => {

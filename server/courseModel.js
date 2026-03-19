@@ -51,7 +51,18 @@ const courseSchema = new mongoose.Schema({
   mobileAccess: Boolean,
   certificate: Boolean,
 
-  modules: Array,
+  modules: [
+    {
+      title: String,
+      lessons: [
+        {
+          title: String,
+          videoUrl: String,
+          downloadFile: String,
+        },
+      ],
+    },
+  ],
 
   status: {
     type: String,
