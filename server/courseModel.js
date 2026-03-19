@@ -57,8 +57,8 @@ const courseSchema = new mongoose.Schema({
       lessons: [
         {
           title: String,
-          videoUrl: String,
-          downloadFile: String,
+          video: String,
+          file: String,
         },
       ],
     },
