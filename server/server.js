@@ -11,7 +11,7 @@ app.use("/uploads", express.static("uploads"));
 
 mongoose
   .connect(
-    "mongodb+srv://yehezekieldaniel_db_user:HV6H27zoOhBvCAIw@cluster0.wni3hr0.mongodb.net/jireh?retryWrites=true&w=majority&appName=Cluster0",
+    "mongodb://jireh_admin:JirehMelodies@ac-lw6clf7-shard-00-00.wni3hr0.mongodb.net:27017,ac-lw6clf7-shard-00-01.wni3hr0.mongodb.net:27017,ac-lw6clf7-shard-00-02.wni3hr0.mongodb.net:27017/jireh?ssl=true&replicaSet=atlas-12kqdc-shard-0&authSource=admin&appName=Cluster0",
   )
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
