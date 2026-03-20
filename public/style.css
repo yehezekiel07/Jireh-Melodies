@@ -98,6 +98,15 @@ body {
   display: block;
 }
 
+.heading-small {
+  font-family: "Manrope", sans-serif;
+  font-size: 2.4rem;
+  font-weight: 500;
+  line-height: 120%;
+  color: #1a3c34;
+  display: block;
+}
+
 .caption-heading {
   font-family: "Playfair Display", serif;
   font-size: 2rem;
@@ -1899,4 +1908,130 @@ input:checked + .slider:before {
 
 .hidden {
   display: none;
+}
+
+/* Preview Course */
+
+.course-preview {
+  display: flex;
+  gap: 4.8rem;
+}
+
+.preview-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+
+  text-align: left;
+}
+
+.course-info {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.course-info .title-description {
+  margin-bottom: 0;
+}
+
+.course-meta {
+  font-size: 1.6rem;
+  display: flex;
+  gap: 1.2rem;
+}
+
+.instuctorCourse {
+  text-decoration: underline;
+  color: #de7c62;
+}
+
+.vertical-divider {
+  border-left: solid 1px #c6cccb;
+}
+
+.pointsLearn {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.preview-title {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 150%;
+  color: #1a3c34;
+}
+
+.pointsLearn ul li,
+.pointsInclude ul li {
+  list-style: none;
+  font-size: 1.6rem;
+  line-height: 150%;
+  color: #1a3c34;
+}
+
+.pointIconBox {
+  display: flex;
+  gap: 1rem;
+}
+
+.learnBox-grid {
+  padding: 2.4rem 2rem;
+  background-color: #fff;
+  border: solid 1px #c6cccb;
+  border-radius: 1.2rem;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.pointsInclude {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.includeBox-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.6rem;
+}
+
+.includesBox {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.pointsRequire {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.course-curriculum {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.module-info {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 150%;
+  color: #1a3c34;
+}
+
+.pointer-ball {
+  background-color: #6d7070;
+  width: 6px;
+  height: 6px;
+  border-radius: 6px;
 }

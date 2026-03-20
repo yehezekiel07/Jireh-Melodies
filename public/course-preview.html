@@ -58,60 +58,76 @@
       <section class="section-all-courses">
         <div class="container">
           <div class="heading-cta">
-            <h2 class="heading-secondary">Add Modules</h2>
+            <h2 class="heading-secondary">Course Preview</h2>
           </div>
-          <section class="course-preview">
-            <div class="course-header">
-              <img id="courseThumbnail" />
+          <div class="course-preview">
+            <div class="course-form details">
+              <div class="preview-left">
+                <div class="course-info">
+                  <h1 id="courseTitle" class="heading-small"></h1>
 
-              <div class="course-info">
-                <h1 id="courseTitle"></h1>
+                  <p id="courseDescription" class="title-description"></p>
 
-                <p id="courseDescription"></p>
-
-                <div class="course-meta">
-                  <span id="courseInstructor"></span>
-                  <span id="courseLanguage"></span>
+                  <div class="course-meta">
+                    <p>
+                      Course by
+                      <span
+                        id="courseInstructor"
+                        class="instuctorCourse"
+                      ></span>
+                    </p>
+                    <div class="vertical-divider"></div>
+                    <span id="courseLanguage"></span>
+                  </div>
+                </div>
+                <div class="pointsLearn">
+                  <h2 class="preview-title">What you'll learn</h2>
+                  <ul id="learnPoints" class="learnBox-grid"></ul>
+                </div>
+                <div class="pointsInclude">
+                  <h2 class="preview-title">This course includes</h2>
+                  <ul id="courseIncludes" class="includeBox-grid"></ul>
+                </div>
+                <div class="course-curriculum">
+                  <h2 class="preview-title">Course Content</h2>
+                  <div class="module-info">
+                    <span id="totalModules"></span>
+                    <div class="pointer-ball"></div>
+                    <span id="totalLessons"></span>
+                    <div class="pointer-ball"></div>
+                    <span id="courseDuration"></span>
+                  </div>
+                  <div id="modulesContainer"></div>
+                  <div class="pointsRequire">
+                    <h2 class="preview-title">Requirements</h2>
+                    <ul id="requirements"></ul>
+                  </div>
                 </div>
 
-                <div class="course-price">
-                  <span id="coursePrice"></span>
-                  <span id="courseOriginalPrice"></span>
-                </div>
+                <div class="course-content-preview"></div>
               </div>
             </div>
-
-            <div class="course-content">
-              <h2>What you'll learn</h2>
-              <ul id="learnPoints"></ul>
-
-              <h2>Requirements</h2>
-              <ul id="requirements"></ul>
-
-              <h2>This course includes</h2>
-              <ul id="courseIncludes"></ul>
+            <div class="preview-card">
+              <img id="courseThumbnail" />
+              <div class="course-price">
+                <span id="coursePrice"></span>
+                <span id="courseOriginalPrice"></span>
+              </div>
+              <span class="courseDuration"></span>
+              <span class="totalLessons"></span>
+              <h2>What is in the course</h2>
+              <ul id="previewPoints"></ul>
             </div>
+          </div>
+          <div class="preview-buttons">
+            <button id="backToModules" type="button" class="btn btn--secondary">
+              Back
+            </button>
 
-            <div class="course-curriculum">
-              <h2>Course Content</h2>
-
-              <div id="modulesContainer"></div>
-            </div>
-
-            <div class="preview-buttons">
-              <button
-                id="backToModules"
-                type="button"
-                class="btn btn--secondary"
-              >
-                Back
-              </button>
-
-              <button id="publishCourse" type="button" class="btn btn--primary">
-                Save & Publish
-              </button>
-            </div>
-          </section>
+            <button id="publishCourse" type="button" class="btn btn--primary">
+              Save & Publish
+            </button>
+          </div>
         </div>
       </section>
     </main>

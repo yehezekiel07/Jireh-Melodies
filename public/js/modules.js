@@ -288,6 +288,42 @@ if (previewBtn) {
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get("id");
 
+    if (!courseId) {
+      alert("Course ID missing");
+      return;
+    }
+
+    const modules = [];
+
+    document.querySelectorAll(".module").forEach((module) => {
+      const moduleTitle = module.querySelector(".module-input input").value;
+
+      const lessons = [];
+
+      module.querySelectorAll(".lesson-field").forEach((lesson) => {
+        lessons.push({
+          title: lesson.querySelector(".lesson-title").value,
+          video: lesson.dataset.video || "",
+          file: lesson.dataset.file || "",
+        });
+      });
+
+      modules.push({
+        title: moduleTitle,
+        lessons: lessons,
+      });
+    });
+
+    // 🔥 SAVE BEFORE NAVIGATION
+    await fetch(`/save-modules/${courseId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ modules }),
+    });
+
+    // ✅ THEN NAVIGATE
     window.location.href = `course-preview.html?id=${courseId}`;
   });
 }

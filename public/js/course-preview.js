@@ -9,8 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("courseTitle").textContent = course.title;
   document.getElementById("courseDescription").textContent = course.description;
 
-  document.getElementById("courseInstructor").textContent =
-    "Instructor: " + course.instructor;
+  document.getElementById("courseInstructor").textContent = course.instructor;
 
   document.getElementById("courseLanguage").textContent =
     "Language: " + course.language;
@@ -26,9 +25,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   // STEP 2 DATA
   const learnContainer = document.getElementById("learnPoints");
 
-  course.whatYouLearn.forEach((point) => {
+  (course.learnPoints || []).forEach((point) => {
     const li = document.createElement("li");
-    li.textContent = point;
+    li.innerHTML = `
+    <div class="pointIconBox">
+     <i class="ph ph-check link-icon"></i>
+     <span>${point}</span>
+    </div>
+  `;
 
     learnContainer.appendChild(li);
   });
@@ -42,23 +46,128 @@ document.addEventListener("DOMContentLoaded", async () => {
     requirementContainer.appendChild(li);
   });
 
+  // ✅ COURSE INCLUDES WITH ICONS
+
   const includesContainer = document.getElementById("courseIncludes");
 
-  course.courseIncludes.forEach((item) => {
-    const li = document.createElement("li");
-    li.textContent = item;
+  // clear first (important if reloading)
+  includesContainer.innerHTML = "";
 
+  // Duration
+  if (course.duration) {
+    const li = document.createElement("li");
+    li.innerHTML = `
+    <div class="includesBox">
+     <i class="ph ph-video link-icon"></i>
+     <span>${course.duration} on - demand Videos</span>
+    </div> 
+     `;
     includesContainer.appendChild(li);
+  }
+
+  // Downloadables
+  if (course.downloadItems) {
+    const li = document.createElement("li");
+    li.innerHTML = `
+    <div class="includesBox">
+     <i class="ph ph-file-arrow-down link-icon"></i>
+     <span>${course.downloadItems} downloadable resources</span>
+    </div>
+  `;
+    includesContainer.appendChild(li);
+  }
+
+  // Mobile & Laptop Access
+  if (course.mobileAccess) {
+    const li = document.createElement("li");
+    li.innerHTML = `
+    <div class="includesBox">
+     <i class="ph ph-device-mobile link-icon"></i>
+     <span>Access on mobile & laptop</span>
+    </div>
+  `;
+    includesContainer.appendChild(li);
+  }
+
+  // Certificate
+  if (course.certificate) {
+    const li = document.createElement("li");
+    li.innerHTML = `
+    <div class="includesBox">
+     <i class="ph ph-certificate link-icon"></i>
+     <span>Certificate of completion</span>
+    </div>
+  `;
+    includesContainer.appendChild(li);
+  }
+
+  // Course Duration Seperately
+
+  document.getElementById("courseDuration").textContent =
+    course.duration || "N/A";
+
+  document.querySelectorAll(".courseDuration").forEach((el) => {
+    el.textContent = course.duration || "N/A";
+  });
+
+  // ✅ CARD PREVIEW POINTS
+
+  const previewPointsContainer = document.getElementById("previewPoints");
+
+  (course.previewPoints || []).forEach((point) => {
+    const li = document.createElement("li");
+    li.textContent = point;
+
+    previewPointsContainer.appendChild(li);
   });
 
   // STEP 3 DATA
+
+  // ✅ TOTAL LESSON COUNT
+
+  let totalLessons = 0;
+
+  (course.modules || []).forEach((module) => {
+    totalLessons += (module.lessons || []).length;
+  });
+
+  document.querySelectorAll(".totalLessons").forEach((el) => {
+    el.textContent = totalLessons + " lessons";
+  });
+
+  document.getElementById("totalLessons").textContent =
+    totalLessons + " lessons";
+
+  // // show in UI
+  // const lessonCountEl = document.createElement("p");
+  // lessonCountEl.textContent = totalLessons + " lessons";
+  // lessonCountEl.style.fontWeight = "600";
+
+  // document.querySelector(".course-curriculum").prepend(lessonCountEl);
+
+  // ✅ TOTAL MODULES COUNT
+
+  const totalModules = (course.modules || []).length;
+
+  document.querySelectorAll(".totalModules").forEach((el) => {
+    el.textContent = totalModules + " modules";
+  });
+
+  document.getElementById("totalModules").textContent =
+    totalModules + " modules";
+
   const modulesContainer = document.getElementById("modulesContainer");
 
   course.modules.forEach((module) => {
     const moduleDiv = document.createElement("div");
     moduleDiv.className = "preview-module";
 
-    moduleDiv.innerHTML = `<h3>${module.title}</h3>`;
+    moduleDiv.innerHTML = `
+  <h3>
+    <i class="ph ph-book-open"></i>
+    <span>${module.title}</span>
+  </h3>
+`;
 
     module.lessons.forEach((lesson) => {
       const lessonDiv = document.createElement("div");
@@ -66,8 +175,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       lessonDiv.className = "preview-lesson";
 
       lessonDiv.innerHTML = `
-        <p>${lesson.title}</p>
-      `;
+  <div class="lesson-row">
+    <i class="ph ph-play-circle"></i>
+    <span>${lesson.title}</span>
+  </div>
+
+  ${lesson.video ? `<a href="${lesson.video}" target="_blank">Watch Video</a>` : ""}
+  ${lesson.file ? `<a href="/uploads/${lesson.file}" target="_blank">Download File</a>` : ""}
+`;
 
       moduleDiv.appendChild(lessonDiv);
     });
