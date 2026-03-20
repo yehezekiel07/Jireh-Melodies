@@ -1418,6 +1418,11 @@ body main .section-login {
   margin-bottom: 3.2rem;
 }
 
+.user-action-btns {
+  display: flex;
+  gap: 1.6rem;
+}
+
 .user-list {
   width: 100%;
 }
@@ -1469,6 +1474,15 @@ td {
   font-size: 2rem;
   text-align: center;
   vertical-align: middle;
+}
+
+/************************************************/
+
+/**************************************/
+/* Assign Course Page */
+/**************************************/
+.assign.form-container {
+  width: 60%;
 }
 
 /************************************************/
@@ -1912,7 +1926,7 @@ input:checked + .slider:before {
 
 /* Preview Course */
 
-.course-preview {
+.add-course-preview {
   display: flex;
   gap: 4.8rem;
 }
@@ -2034,4 +2048,190 @@ input:checked + .slider:before {
   width: 6px;
   height: 6px;
   border-radius: 6px;
+}
+
+/* MODULE HEADER */
+.module-header {
+  cursor: pointer;
+  padding: 2rem;
+  background-color: #fff;
+  border: solid 1px #c6cccb;
+  border-radius: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.module-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* LESSON CONTAINER */
+.module-lessons {
+  margin-top: 1.6rem;
+  padding-top: 1.6rem;
+  border-top: solid 1px #ebefee;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* HIDDEN STATE */
+.hidden {
+  display: none;
+}
+
+/* ARROW ROTATION */
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.arrow.rotate {
+  transform: rotate(180deg);
+}
+
+/* LESSON ROW */
+.lesson-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.module-title-preview {
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 150%;
+  color: #1a3c34;
+}
+
+.module-icon-box {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* .lesson-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+} */
+
+.preview-lesson {
+  display: flex;
+  justify-content: space-between;
+}
+
+.lesson-title-preview {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 150%;
+  color: #1a3c34;
+}
+
+.lesson-links {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.lesson-links a {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 150%;
+  color: #de7c62;
+}
+
+.pointsRequire ul li {
+  list-style-type: disc;
+  font-size: 1.6rem;
+  line-height: 150%;
+  color: #1a3c34;
+}
+
+.pointsRequire ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding-left: 2rem;
+}
+
+/* Preview Card */
+.course-image {
+  width: 100%;
+}
+
+.course-card-bottom {
+  padding: 2rem 2.4rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.course-bottom-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.course-price-preview {
+  display: flex;
+  align-items: end;
+  gap: 1.2rem;
+}
+
+.courseNormalPrice {
+  font-size: 2.4rem;
+  font-weight: 600;
+  line-height: 120%;
+  color: #1a3c34;
+}
+
+.courseOrgPrice {
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 150%;
+  color: #6d7070;
+  text-decoration: line-through;
+}
+
+.duration-info {
+  display: flex;
+  gap: 1rem;
+}
+
+.duration-info span {
+  font-size: 1.4rem;
+  line-height: 150%;
+}
+
+.card-points {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.card-points .preview-title {
+  font-size: 1.8rem;
+}
+
+.card-points ul {
+  padding-left: 1.6rem;
+}
+
+.card-points ul li {
+  font-size: 1.4rem;
+  line-height: 150%;
+}
+
+/* All Courses Preview */
+
+.grid.courses-container .preview-cards {
+  width: 100%;
+  position: block;
+}
+
+.preview-cards .course-footer .buttons {
+  margin: 0;
 }

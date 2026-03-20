@@ -60,7 +60,7 @@
           <div class="heading-cta">
             <h2 class="heading-secondary">Course Preview</h2>
           </div>
-          <div class="course-preview">
+          <div class="add-course-preview">
             <div class="course-form details">
               <div class="preview-left">
                 <div class="course-info">
@@ -108,18 +108,32 @@
               </div>
             </div>
             <div class="preview-card">
-              <img id="courseThumbnail" />
-              <div class="course-price">
-                <span id="coursePrice"></span>
-                <span id="courseOriginalPrice"></span>
+              <div class="course course-preview">
+                <img id="courseThumbnail" class="course-image" />
+                <div class="course-card-bottom">
+                  <div class="course-bottom-info">
+                    <div class="course-price-preview">
+                      <span id="coursePrice" class="courseNormalPrice"></span>
+                      <span
+                        id="courseOriginalPrice"
+                        class="courseOrgPrice"
+                      ></span>
+                    </div>
+                    <div class="duration-info">
+                      <span class="courseDuration"></span>
+                      <div class="vertical-divider"></div>
+                      <span class="totalLessons"></span>
+                    </div>
+                  </div>
+                  <div class="card-points">
+                    <h2 class="preview-title">What is in the course</h2>
+                    <ul id="previewPoints"></ul>
+                  </div>
+                </div>
               </div>
-              <span class="courseDuration"></span>
-              <span class="totalLessons"></span>
-              <h2>What is in the course</h2>
-              <ul id="previewPoints"></ul>
             </div>
           </div>
-          <div class="preview-buttons">
+          <div class="buttons">
             <button id="backToModules" type="button" class="btn btn--secondary">
               Back
             </button>

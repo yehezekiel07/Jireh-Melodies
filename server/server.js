@@ -51,6 +51,7 @@ app.post("/login", async (req, res) => {
     res.json({
       success: true,
       role: user.role,
+      userId: user._id,
     });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
@@ -402,12 +403,101 @@ app.put("/save-modules/:id", async (req, res) => {
   }
 });
 
-// Publish Course
+// ===========================
+// PUBLISH COURSE
+// ===========================
 
 app.put("/publish-course/:id", async (req, res) => {
-  await Course.findByIdAndUpdate(req.params.id, { status: "published" });
+  try {
+    const course = await Course.findById(req.params.id);
 
-  res.json({ success: true });
+    console.log("Before:", course.status); // 👈 ADD
+
+    course.status = "published";
+
+    await course.save();
+
+    console.log("After:", course.status); // 👈 ADD
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Publish error:", err);
+    res.json({ success: false });
+  }
+});
+
+// ===========================
+// GET ALL COURSES
+// ===========================
+
+app.get("/get-courses", async (req, res) => {
+  try {
+    const courses = await Course.find({ status: "published" });
+
+    res.json({ success: true, courses });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false });
+  }
+});
+
+// ===========================
+// DELETE COURSE
+// ===========================
+
+app.delete("/delete-course/:id", async (req, res) => {
+  try {
+    await Course.findByIdAndDelete(req.params.id);
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Delete error:", err);
+    res.json({ success: false });
+  }
+});
+
+// ===========================
+// ASSIGN COURSE TO USER
+// ===========================
+
+app.put("/assign-course", async (req, res) => {
+  try {
+    const { userId, courseId } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.json({ success: false });
+    }
+
+    // prevent duplicate assignment
+    if (!user.courses.map((id) => id.toString()).includes(courseId)) {
+      user.courses.push(courseId);
+    }
+
+    await user.save();
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false });
+  }
+
+  console.log("Assigning:", req.body);
+});
+
+// ===========================
+// GET USER COURSES
+// ===========================
+
+app.get("/user-courses/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).populate("courses");
+
+    res.json({ success: true, courses: user.courses });
+  } catch (err) {
+    res.json({ success: false });
+  }
 });
 
 // This should always stay at the end

@@ -26,6 +26,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "user",
   },
+  courses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+    },
+  ],
 });
 
 module.exports = mongoose.model("User", userSchema);

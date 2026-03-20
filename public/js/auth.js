@@ -22,6 +22,9 @@ if (loginBtn) {
     const data = await response.json();
 
     if (data.success) {
+      // ✅ ADD THIS LINE HERE
+      localStorage.setItem("userId", data.userId);
+
       if (data.role === "admin") {
         window.location.href = "/admin-dashboard.html";
       } else {

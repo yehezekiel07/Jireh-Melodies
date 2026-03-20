@@ -163,28 +163,45 @@ document.addEventListener("DOMContentLoaded", async () => {
     moduleDiv.className = "preview-module";
 
     moduleDiv.innerHTML = `
-  <h3>
-    <i class="ph ph-book-open"></i>
-    <span>${module.title}</span>
-  </h3>
+  <div class="module-header">
+   <div class="module-box">
+    <div class="module-icon-box">
+     <i class="ph ph-book-open link-icon"></i>
+     <span class="module-title-preview">${module.title}</span>
+    </div>
+     <i class="ph ph-caret-down arrow link-icon"></i>
+   </div>
+   <div class="module-lessons hidden"></div>
+  </div>
 `;
+
+    const header = moduleDiv.querySelector(".module-header");
+    const lessons = moduleDiv.querySelector(".module-lessons");
+    const arrow = moduleDiv.querySelector(".arrow");
+
+    header.addEventListener("click", () => {
+      lessons.classList.toggle("hidden");
+      arrow.classList.toggle("rotate");
+    });
+
+    const lessonsContainer = moduleDiv.querySelector(".module-lessons");
 
     module.lessons.forEach((lesson) => {
       const lessonDiv = document.createElement("div");
-
       lessonDiv.className = "preview-lesson";
 
       lessonDiv.innerHTML = `
-  <div class="lesson-row">
-    <i class="ph ph-play-circle"></i>
-    <span>${lesson.title}</span>
-  </div>
+    <div class="lesson-row">
+      <i class="ph ph-play-circle link-icon"></i>
+      <span class="lesson-title-preview">${lesson.title}</span>
+    </div>
+    <div class="lesson-links">
+     ${lesson.video ? `<a href="${lesson.video}" target="_blank">Watch</a>` : ""}
+     ${lesson.file ? `<a href="/uploads/${lesson.file}" target="_blank">Download</a>` : ""}
+    </div>
+  `;
 
-  ${lesson.video ? `<a href="${lesson.video}" target="_blank">Watch Video</a>` : ""}
-  ${lesson.file ? `<a href="/uploads/${lesson.file}" target="_blank">Download File</a>` : ""}
-`;
-
-      moduleDiv.appendChild(lessonDiv);
+      lessonsContainer.appendChild(lessonDiv);
     });
 
     modulesContainer.appendChild(moduleDiv);
@@ -193,18 +210,38 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // Publish Course
 
-document.getElementById("publishCourse").addEventListener("click", async () => {
-  const params = new URLSearchParams(window.location.search);
-  const courseId = params.get("id");
+// ===========================
+// PUBLISH COURSE
+// ===========================
 
-  await fetch(`/publish-course/${courseId}`, {
-    method: "PUT",
+const publishBtn = document.getElementById("publishCourse");
+
+if (publishBtn) {
+  publishBtn.addEventListener("click", async () => {
+    const params = new URLSearchParams(window.location.search);
+    const courseId = params.get("id");
+
+    if (!courseId) {
+      alert("Course ID missing");
+      return;
+    }
+
+    const res = await fetch(`/publish-course/${courseId}`, {
+      method: "PUT",
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Course Published Successfully!");
+
+      // redirect to all courses page
+      window.location.href = "all-courses.html";
+    } else {
+      alert("Error publishing course");
+    }
   });
-
-  alert("Course published");
-
-  window.location.href = "/admin-dashboard.html";
-});
+}
 
 // ===========================
 // BACK BUTTON
