@@ -32,8 +32,8 @@
     />
   </head>
   <body>
-    <header class="header admin">
-      <a href="admin-dashboard.html">
+    <header class="header">
+      <a href="user-dashboard.html">
         <img
           class="logo"
           src="img/jireh-melodies-logo.png"
@@ -43,33 +43,36 @@
       <nav class="main-nav">
         <ul class="main-nav-list">
           <li class="main-nav-list-item">
-            <a class="main-nav-link" href="admin-dashboard.html">All Users</a>
+            <a class="main-nav-link" href="#">My Learning</a>
           </li>
-          <li class="main-nav-list-item active">
+          <li class="main-nav-list-item">
             <a class="main-nav-link" href="#">All Courses</a>
           </li>
           <li class="main-nav-list-item">
-            <a class="main-nav-link" href="#">Account</a>
+            <a class="main-nav-link" href="#">My Account</a>
           </li>
         </ul>
       </nav>
     </header>
     <main>
-      <section class="section-all-courses">
+      <section class="section-contact-us">
         <div class="container">
-          <div class="heading-cta">
-            <h2 class="heading-secondary">All Courses</h2>
-            <a class="btn btn--primary" href="add-course.html"
-              ><i class="ph ph-plus btn-icon"></i><span>Add Course</span></a
-            >
+          <div class="course-player">
+            <!-- LEFT: Modules -->
+            <div class="sidebar" id="moduleList"></div>
+
+            <!-- RIGHT: Player -->
+            <div class="player">
+              <iframe id="videoPlayer" width="100%" height="400"></iframe>
+
+              <h2 id="lessonTitle"></h2>
+
+              <a id="downloadLink" target="_blank"></a>
+            </div>
           </div>
-          <div
-            id="coursesContainer"
-            class="grid grid--3-cols courses-container"
-          ></div>
         </div>
       </section>
     </main>
-    <script src="js/all-courses.js"></script>
+    <script src="js/course-player.js"></script>
   </body>
 </html>

@@ -27,10 +27,8 @@ async function loadData() {
 
 function populateDropdowns() {
   const userDropdown = document.getElementById("userDropdown");
-  const courseDropdown = document.getElementById("courseDropdown");
 
   userDropdown.innerHTML = "";
-  courseDropdown.innerHTML = "";
 
   users.forEach((user) => {
     const option = document.createElement("option");
@@ -40,12 +38,21 @@ function populateDropdowns() {
     userDropdown.appendChild(option);
   });
 
-  courses.forEach((course) => {
-    const option = document.createElement("option");
-    option.value = course._id;
-    option.textContent = course.title;
+  const courseList = document.getElementById("courseList");
 
-    courseDropdown.appendChild(option);
+  courseList.innerHTML = "";
+
+  courses.forEach((course) => {
+    const div = document.createElement("div");
+
+    div.innerHTML = `
+    <label>
+      <input type="checkbox" value="${course._id}" class="courseCheckbox"/>
+      ${course.title}
+    </label>
+  `;
+
+    courseList.appendChild(div);
   });
 }
 
@@ -55,17 +62,19 @@ function populateDropdowns() {
 
 document.getElementById("assignBtn").addEventListener("click", async () => {
   const userId = document.getElementById("userDropdown").value;
-  const courseId = document.getElementById("courseDropdown").value;
+  const checkboxes = document.querySelectorAll(".courseCheckbox:checked");
+
+  const courseIds = Array.from(checkboxes).map((cb) => cb.value);
 
   console.log("USER ID:", userId);
-  console.log("COURSE ID:", courseId);
+  console.log("COURSE ID:", courseIds);
 
   const res = await fetch("/assign-course", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ userId, courseId }),
+    body: JSON.stringify({ userId, courseIds }),
   });
 
   const data = await res.json();
@@ -83,7 +92,4 @@ document.getElementById("assignBtn").addEventListener("click", async () => {
 // INIT
 // ===========================
 
-loadData();
-
-console.log(users);
-console.log(courses);
+document.addEventListener("DOMContentLoaded", loadData);

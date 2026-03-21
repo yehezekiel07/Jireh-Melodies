@@ -111,23 +111,6 @@ if (usersTable) {
     .catch((error) => console.log(error));
 }
 
-// Load user Data
-
-if (window.location.pathname.includes("view-user.html")) {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-
-  fetch(`/user/${id}`)
-    .then((res) => res.json())
-    .then((user) => {
-      document.getElementById("fullname").value = user.fullname;
-      document.getElementById("phone").value = user.phone;
-      document.getElementById("email").value = user.email;
-      document.getElementById("username").value = user.username;
-      document.getElementById("password").value = user.password;
-    });
-}
-
 // User Details (Pre-filled) for Updating User
 
 if (window.location.pathname.includes("edit-user.html")) {
@@ -205,28 +188,5 @@ if (generateBtn && window.location.pathname.includes("edit-user.html")) {
         alert("Error updating user");
       }
     }
-  });
-}
-
-// Delete User Functionality
-
-const deleteBtn = document.getElementById("deleteUser");
-
-if (deleteBtn) {
-  deleteBtn.addEventListener("click", async () => {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-
-    const confirmDelete = confirm("Are you sure you want to delete this user?");
-
-    if (!confirmDelete) return;
-
-    await fetch(`/delete-user/${id}`, {
-      method: "DELETE",
-    });
-
-    alert("User deleted successfully");
-
-    window.location.href = "/admin-dashboard.html";
   });
 }

@@ -127,9 +127,17 @@ app.get("/users", async (req, res) => {
 // Get a User Data
 
 app.get("/user/:id", async (req, res) => {
-  const user = await User.findById(req.params.id);
+  try {
+    if (!req.params.id || req.params.id === "null") {
+      return res.json(null);
+    }
 
-  res.json(user);
+    const user = await User.findById(req.params.id);
+
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 // Delete User
@@ -462,7 +470,7 @@ app.delete("/delete-course/:id", async (req, res) => {
 
 app.put("/assign-course", async (req, res) => {
   try {
-    const { userId, courseId } = req.body;
+    const { userId, courseIds } = req.body;
 
     const user = await User.findById(userId);
 
@@ -470,10 +478,11 @@ app.put("/assign-course", async (req, res) => {
       return res.json({ success: false });
     }
 
-    // prevent duplicate assignment
-    if (!user.courses.map((id) => id.toString()).includes(courseId)) {
-      user.courses.push(courseId);
-    }
+    courseIds.forEach((courseId) => {
+      if (!user.courses.map((id) => id.toString()).includes(courseId)) {
+        user.courses.push(courseId);
+      }
+    });
 
     await user.save();
 
@@ -482,8 +491,26 @@ app.put("/assign-course", async (req, res) => {
     console.error(err);
     res.json({ success: false });
   }
+});
 
-  console.log("Assigning:", req.body);
+// ===========================
+// REMOVE COURSE TO USER
+// ===========================
+
+app.put("/remove-course", async (req, res) => {
+  try {
+    const { userId, courseId } = req.body;
+
+    const user = await User.findById(userId);
+
+    user.courses = user.courses.filter((id) => id.toString() !== courseId);
+
+    await user.save();
+
+    res.json({ success: true });
+  } catch (err) {
+    res.json({ success: false });
+  }
 });
 
 // ===========================
@@ -493,6 +520,8 @@ app.put("/assign-course", async (req, res) => {
 app.get("/user-courses/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id).populate("courses");
+
+    console.log("User courses:", user.courses);
 
     res.json({ success: true, courses: user.courses });
   } catch (err) {
