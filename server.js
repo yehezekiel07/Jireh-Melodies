@@ -1,7 +1,10 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 const cors = require("cors");
-const User = require("./userModel");
+const User = require("./models/userModel");
 const app = express();
 
 app.use(express.json());
@@ -10,21 +13,28 @@ app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
 
 mongoose
-  .connect(
-    "mongodb://jireh_admin:JirehMelodies@ac-lw6clf7-shard-00-00.wni3hr0.mongodb.net:27017,ac-lw6clf7-shard-00-01.wni3hr0.mongodb.net:27017,ac-lw6clf7-shard-00-02.wni3hr0.mongodb.net:27017/jireh?ssl=true&replicaSet=atlas-12kqdc-shard-0&authSource=admin&appName=Cluster0",
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
 // Admin Login
 
 app.get("/create-admin", async (req, res) => {
+  const existing = await User.findOne({ username: "admin" });
+
+  // 🔥 ADD THIS CHECK
+  if (existing) {
+    return res.send("Admin already exists");
+  }
+
+  const hashedPassword = await bcrypt.hash("admin123", 10);
+
   const admin = new User({
     fullname: "Admin",
     phone: "0000000000",
     email: "admin@jireh.com",
     username: "admin",
-    password: "admin123",
+    password: hashedPassword,
     role: "admin",
   });
 
@@ -39,9 +49,18 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const user = await User.findOne({ username, password });
+    const user = await User.findOne({ username });
 
     if (!user) {
+      return res.json({
+        success: false,
+        message: "Invalid username or password",
+      });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
       return res.json({
         success: false,
         message: "Invalid username or password",
@@ -54,7 +73,10 @@ app.post("/login", async (req, res) => {
       userId: user._id,
     });
   } catch (error) {
-    res.status(500).json({ error: "Server error" });
+    res.json({
+      success: false,
+      message: "Server error",
+    });
   }
 });
 
@@ -89,12 +111,15 @@ app.post("/add-user", async (req, res) => {
   const { fullname, phone, email, username, password } = req.body;
 
   try {
+    // 🔥 HASH PASSWORD
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const user = new User({
       fullname,
       phone,
       email,
       username,
-      password,
+      password: hashedPassword,
       role: "user",
     });
 
@@ -116,8 +141,7 @@ app.post("/add-user", async (req, res) => {
 
 app.get("/users", async (req, res) => {
   try {
-    const users = await User.find({ role: "user" });
-
+    const users = await User.find({ role: "user" }).select("-password");
     res.json(users);
   } catch (error) {
     res.status(500).json({ error: "Error fetching users" });
@@ -134,7 +158,12 @@ app.get("/user/:id", async (req, res) => {
 
     const user = await User.findById(req.params.id);
 
-    res.json(user);
+    if (!user) {
+      return res.json(null);
+    }
+
+    const { password, ...safeUser } = user._doc;
+    res.json(safeUser);
   } catch (err) {
     res.status(500).json({ error: "Server error" });
   }
@@ -162,20 +191,64 @@ app.delete("/delete-user/:id", async (req, res) => {
 app.put("/update-user/:id", async (req, res) => {
   const { fullname, phone, email, username, password } = req.body;
 
-  await User.findByIdAndUpdate(req.params.id, {
+  let updateData = {
     fullname,
     phone,
     email,
     username,
-    password,
-  });
+  };
+
+  if (password && password.trim() !== "") {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    updateData.password = hashedPassword;
+  }
+
+  await User.findByIdAndUpdate(req.params.id, updateData);
 
   res.json({ success: true });
 });
 
+// Change Password //
+
+app.put("/change-password", async (req, res) => {
+  const { userId, currentPassword, newPassword } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.json({ success: false, message: "User not found" });
+    }
+
+    // 🔐 check current password
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+
+    if (!isMatch) {
+      return res.json({
+        success: false,
+        message: "Current password is incorrect",
+      });
+    }
+
+    // 🔥 hash new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({
+      success: true,
+      message: "Password updated successfully",
+    });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, message: "Server error" });
+  }
+});
+
 // Course Related Code //
 
-const Course = require("./courseModel");
+const Course = require("./models/courseModel");
 
 // Creating a Course
 
@@ -208,8 +281,6 @@ app.get("/course/:id", async (req, res) => {
 const multer = require("multer");
 const sharp = require("sharp");
 const path = require("path");
-
-app.use(express.static("public"));
 
 /* Multer setup (store file in memory) */
 const storage = multer.memoryStorage();
@@ -570,12 +641,14 @@ app.get("/create-superadmin", async (req, res) => {
     return res.send("Superadmin already exists");
   }
 
+  const hashedPassword = await bcrypt.hash("super123", 10);
+
   const superUser = new User({
     fullname: "Super Admin",
     phone: "9999999999",
     email: "super@jireh.com",
     username: "superadmin",
-    password: "super123",
+    password: hashedPassword,
     role: "superadmin",
   });
 
@@ -586,6 +659,8 @@ app.get("/create-superadmin", async (req, res) => {
 
 // This should always stay at the end
 
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on ${PORT}`);
 });
