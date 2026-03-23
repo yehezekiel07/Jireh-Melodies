@@ -244,10 +244,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       <i class="ph ph-play-circle link-icon"></i>
       <span class="lesson-title-preview">${lesson.title}</span>
     </div>
-    <div class="lesson-links">
-     ${lesson.video ? `<a href="${lesson.video}" target="_blank">Watch Video</a>` : ""}
-     ${lesson.file ? `<a href="/uploads/${lesson.file}" target="_blank">Download</a>` : ""}
-    </div>
 `;
 
       lessonsContainer.appendChild(lessonDiv);
@@ -256,33 +252,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     modulesContainer.appendChild(moduleDiv);
   });
 });
-
-// Publish Course
-
-document.getElementById("publishCourse").addEventListener("click", async () => {
-  const params = new URLSearchParams(window.location.search);
-  const courseId = params.get("id");
-
-  await fetch(`/publish-course/${courseId}`, {
-    method: "PUT",
-  });
-
-  alert("Course published");
-
-  window.location.href = "/admin-dashboard.html";
-});
-
-// ===========================
-// BACK BUTTON
-// ===========================
-
-const backBtn = document.getElementById("backToModules");
-
-if (backBtn) {
-  backBtn.addEventListener("click", function () {
-    const params = new URLSearchParams(window.location.search);
-    const courseId = params.get("id");
-
-    window.location.href = `course-modules.html?id=${courseId}`;
-  });
-}

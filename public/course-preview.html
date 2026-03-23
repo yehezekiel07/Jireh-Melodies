@@ -57,12 +57,12 @@
     <main>
       <section class="section-all-courses">
         <div class="container">
-          <div class="heading-cta">
-            <h2 class="heading-secondary">Course Preview</h2>
-          </div>
           <div class="add-course-preview">
             <div class="course-form details">
               <div class="preview-left">
+                <div class="heading-cta">
+                  <h2 class="heading-secondary">Course Preview</h2>
+                </div>
                 <div class="course-info">
                   <h1 id="courseTitle" class="heading-small"></h1>
 
@@ -80,6 +80,7 @@
                     <span id="courseLanguage"></span>
                   </div>
                 </div>
+
                 <div class="pointsLearn">
                   <h2 class="preview-title">What you'll learn</h2>
                   <ul id="learnPoints" class="learnBox-grid"></ul>
@@ -107,27 +108,33 @@
                 <div class="course-content-preview"></div>
               </div>
             </div>
-            <div class="preview-card">
-              <div class="course course-preview">
-                <img id="courseThumbnail" class="course-image" />
-                <div class="course-card-bottom">
-                  <div class="course-bottom-info">
-                    <div class="course-price-preview">
-                      <span id="coursePrice" class="courseNormalPrice"></span>
-                      <span
-                        id="courseOriginalPrice"
-                        class="courseOrgPrice"
-                      ></span>
+            <div class="preview-card-right">
+              <div class="demo-video-box">
+                <h2 class="preview-title">Demo Video</h2>
+                <div id="demoVideoContainer" class="demo-video"></div>
+              </div>
+              <div class="sticky-card">
+                <div class="course course-preview right">
+                  <img id="courseThumbnail" class="course-image" />
+                  <div class="course-card-bottom">
+                    <div class="course-bottom-info">
+                      <div class="course-price-preview">
+                        <span id="coursePrice" class="courseNormalPrice"></span>
+                        <span
+                          id="courseOriginalPrice"
+                          class="courseOrgPrice"
+                        ></span>
+                      </div>
+                      <div class="duration-info">
+                        <span class="courseDuration"></span>
+                        <div class="vertical-divider"></div>
+                        <span class="totalLessons"></span>
+                      </div>
                     </div>
-                    <div class="duration-info">
-                      <span class="courseDuration"></span>
-                      <div class="vertical-divider"></div>
-                      <span class="totalLessons"></span>
+                    <div class="card-points">
+                      <h2 class="preview-title">What is in the course</h2>
+                      <ul id="previewPoints"></ul>
                     </div>
-                  </div>
-                  <div class="card-points">
-                    <h2 class="preview-title">What is in the course</h2>
-                    <ul id="previewPoints"></ul>
                   </div>
                 </div>
               </div>

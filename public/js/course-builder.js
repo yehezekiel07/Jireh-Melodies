@@ -173,6 +173,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     /* ---------- STEP 2 RESTORE ---------- */
 
+    // Restore demo video
+    if (course.demoVideo) {
+      const demoInput = document.getElementById("demoVideo");
+      if (demoInput) demoInput.value = course.demoVideo;
+    }
+
     // Restore learn points
 
     const learnContainer = document.getElementById("learnContainer");
@@ -368,6 +374,7 @@ if (backBtn) {
         downloadItems: document.getElementById("downloadItems")?.value,
         mobileAccess: document.getElementById("mobileAccess")?.checked,
         certificate: document.getElementById("certificate")?.checked,
+        demoVideo: document.getElementById("demoVideo")?.value,
       }),
     });
 
@@ -413,6 +420,7 @@ if (nextDetails) {
         downloadItems: document.getElementById("downloadItems").value,
         mobileAccess: document.getElementById("mobileAccess").checked,
         certificate: document.getElementById("certificate").checked,
+        demoVideo: document.getElementById("demoVideo")?.value,
       }),
     });
 

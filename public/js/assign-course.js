@@ -83,6 +83,7 @@ document.getElementById("assignBtn").addEventListener("click", async () => {
 
   if (data.success) {
     alert("Course assigned successfully!");
+    window.location.href = "admin-dashboard.html";
   } else {
     alert("Error assigning course");
   }

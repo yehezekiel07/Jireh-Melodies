@@ -143,6 +143,15 @@ app.get("/user/:id", async (req, res) => {
 // Delete User
 
 app.delete("/delete-user/:id", async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user.role === "superadmin") {
+    return res.json({
+      success: false,
+      message: "Cannot delete superadmin",
+    });
+  }
+
   await User.findByIdAndDelete(req.params.id);
 
   res.json({ success: true });
@@ -323,6 +332,7 @@ app.put(
 app.put("/update-course-details/:id", async (req, res) => {
   try {
     await Course.findByIdAndUpdate(req.params.id, {
+      demoVideo: req.body.demoVideo,
       learnPoints: req.body.learnPoints,
       requirements: req.body.requirements,
       previewPoints: req.body.previewPoints,
@@ -503,6 +513,14 @@ app.put("/remove-course", async (req, res) => {
 
     const user = await User.findById(userId);
 
+    // 🔥 ADD THIS BLOCK
+    if (user.role === "superadmin") {
+      return res.json({
+        success: false,
+        message: "Cannot modify superadmin courses",
+      });
+    }
+
     user.courses = user.courses.filter((id) => id.toString() !== courseId);
 
     await user.save();
@@ -519,14 +537,51 @@ app.put("/remove-course", async (req, res) => {
 
 app.get("/user-courses/:id", async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).populate("courses");
+    const user = await User.findById(req.params.id);
 
-    console.log("User courses:", user.courses);
+    // 🔥 SUPERADMIN LOGIC
+    if (user.role === "superadmin") {
+      const allCourses = await Course.find({ status: "published" });
 
-    res.json({ success: true, courses: user.courses });
+      return res.json({
+        success: true,
+        courses: allCourses,
+      });
+    }
+
+    // normal users
+    const populatedUser = await User.findById(req.params.id).populate(
+      "courses",
+    );
+
+    res.json({
+      success: true,
+      courses: populatedUser.courses,
+    });
   } catch (err) {
     res.json({ success: false });
   }
+});
+
+app.get("/create-superadmin", async (req, res) => {
+  const existing = await User.findOne({ role: "superadmin" });
+
+  if (existing) {
+    return res.send("Superadmin already exists");
+  }
+
+  const superUser = new User({
+    fullname: "Super Admin",
+    phone: "9999999999",
+    email: "super@jireh.com",
+    username: "superadmin",
+    password: "super123",
+    role: "superadmin",
+  });
+
+  await superUser.save();
+
+  res.send("Superadmin created");
 });
 
 // This should always stay at the end

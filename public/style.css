@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 html {
   font-size: 62.5%;
   overflow-x: hidden;
@@ -14,6 +19,9 @@ body {
   line-height: 150%;
   font-weight: 400;
   color: #6d7070;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
@@ -48,7 +56,7 @@ body {
 .header {
   background-color: #f8f3ee;
   height: 8.4rem;
-  padding: 0 9.6rem;
+  padding: 3.2rem 9.6rem;
 
   display: flex;
   justify-content: space-between;
@@ -856,7 +864,7 @@ nav .main-nav-list .active .main-nav-link {
 /**************************************/
 /* Courses Page */
 /**************************************/
-.section-all-courses {
+.section-main-courses {
   padding: 2.4rem 0 9.6rem 0;
   background-color: #f8f3ee;
 }
@@ -1405,7 +1413,6 @@ body main .section-login {
 .section-all-users {
   background-color: #fdfcf8;
   padding: 2.4rem 0 9.6rem 0;
-  height: 89vh;
 }
 
 .header.admin {
@@ -1507,9 +1514,9 @@ td {
 /**************************************/
 
 .section-add-user {
-  background-color: #f8f3ee;
+  background-color: #fdfcf8;
   padding: 2.4rem 0 9.6rem 0;
-  height: max-content;
+  height: 89vh;
 }
 
 .heading-cta.add-users {
@@ -1613,6 +1620,25 @@ label {
 .section-all-courses {
   padding: 2.8rem 0 9.6rem 0;
   background-color: #fdfcf8;
+}
+
+.nav-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  color: #6d7070;
+  text-decoration: none;
+  border: none;
+  background: none;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 150%;
+  transition: all 0.3s;
+}
+
+.nav-back-btn:hover {
+  color: #de7c62;
 }
 
 /************************************************/
@@ -1775,7 +1801,28 @@ input:checked + .slider:before {
 
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.6rem;
+}
+
+.preview-card-right {
+  width: 30%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.preview-left .heading-cta {
+  margin-bottom: 0;
+}
+
+.sticky-card {
+  top: 20px;
+  position: sticky;
+}
+
+.course-preview.right {
+  background-color: #fff;
 }
 
 .preview-card label {
@@ -2014,6 +2061,18 @@ input:checked + .slider:before {
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
+}
+
+.demo-video-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  position: relative;
+}
+
+.demo-video {
+  border-radius: 1.6rem;
+  overflow: hidden;
 }
 
 .preview-title {
@@ -2335,5 +2394,73 @@ input:checked + .slider:before {
 /* Optional hover improvement */
 .preview-lesson:hover,
 .preview-lesson span:hover {
+  color: #de7c62;
+}
+
+/* Payment Modal */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-info {
+  background: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  width: 400px;
+  border-radius: 12px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.qr-image {
+  width: 200px;
+  margin: 15px 0;
+  justify-self: center;
+}
+
+.close-btn {
+  font-size: 3.2rem;
+  cursor: pointer;
+}
+
+.purchase-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.purchase-title {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 120%;
+  color: #1a3c34;
+}
+
+.purchase-description {
+  font-size: 1.6rem;
+  line-height: 150%;
+  text-align: left;
+}
+
+.note {
+  font-size: 1.4rem;
+  line-height: 150%;
+}
+
+.contact-no {
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 150%;
   color: #de7c62;
 }

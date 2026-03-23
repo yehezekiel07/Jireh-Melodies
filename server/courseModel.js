@@ -42,6 +42,7 @@ const courseSchema = new mongoose.Schema({
 
   thumbnail: String,
 
+  demoVideo: String,
   learnPoints: { type: [String], default: [] },
   requirements: { type: [String], default: [] },
   previewPoints: { type: [String], default: [] },
