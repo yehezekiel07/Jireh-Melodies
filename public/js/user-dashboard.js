@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
               <div class="course course-preview">
                 <img
-                  src="/uploads/${course.thumbnail}"
+                  src="${course.thumbnail}"
                   class="course-img"
                   alt="Course Image"
                 />

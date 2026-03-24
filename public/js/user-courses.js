@@ -1,22 +1,26 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const container = document.getElementById("coursesContainer");
+  try {
+    const res = await fetch(`/get-courses`);
 
-  const res = await fetch("/get-courses");
-  const data = await res.json();
+    if (!res.ok) throw new Error("Failed");
 
-  if (!data.success) return;
+    const data = await res.json();
 
-  container.innerHTML = "";
+    const container = document.getElementById("coursesContainer");
 
-  data.courses.forEach((course) => {
-    const div = document.createElement("div");
-    div.className = "preview-cards";
+    if (!container) return;
 
-    div.innerHTML = `
+    container.innerHTML = "";
+
+    data.courses.forEach((course) => {
+      const div = document.createElement("div");
+      div.className = "preview-cards";
+
+      div.innerHTML = `
 
               <div class="course course-preview">
                 <img
-                  src="/uploads/${course.thumbnail}"
+                  src="${course.thumbnail}"
                   class="course-img"
                   alt="Course Image"
                 />
@@ -51,28 +55,32 @@ document.addEventListener("DOMContentLoaded", async () => {
               
     `;
 
-    div.addEventListener("click", () => {
-      const currentPage = window.location.pathname;
+      div.addEventListener("click", () => {
+        const currentPage = window.location.pathname;
 
-      if (currentPage.includes("user-all-courses.html")) {
-        window.location.href = `course-overview.html?id=${course._id}`;
-      } else {
-        window.location.href = `course-full-preview.html?id=${course._id}`;
-      }
-    });
-
-    const btn = div.querySelector(".addToCart");
-
-    if (btn) {
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation(); // 🔥 stops card click
-        e.preventDefault();
-
-        const modal = document.getElementById("paymentModal");
-        modal.style.display = "block";
+        if (currentPage.includes("user-all-courses.html")) {
+          window.location.href = `course-overview.html?id=${course._id}`;
+        } else {
+          window.location.href = `course-full-preview.html?id=${course._id}`;
+        }
       });
-    }
 
-    container.appendChild(div);
-  });
+      const btn = div.querySelector(".addToCart");
+
+      if (btn) {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation(); // 🔥 stops card click
+          e.preventDefault();
+
+          const modal = document.getElementById("paymentModal");
+          modal.style.display = "block";
+        });
+      }
+
+      container.appendChild(div);
+    });
+  } catch (err) {
+    console.error(err);
+    alert("Failed to load your courses");
+  }
 });

@@ -5,22 +5,26 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("coursesContainer");
 
-  const res = await fetch("/get-courses");
-  const data = await res.json();
+  try {
+    const res = await fetch("/get-courses");
 
-  if (!data.success) return;
+    if (!res.ok) throw new Error("Failed to fetch courses");
 
-  container.innerHTML = "";
+    const data = await res.json();
 
-  data.courses.forEach((course) => {
-    const div = document.createElement("div");
-    div.className = "preview-cards";
+    if (!data.success) return;
 
-    div.innerHTML = `
+    container.innerHTML = "";
+
+    data.courses.forEach((course) => {
+      const div = document.createElement("div");
+      div.className = "preview-cards";
+
+      div.innerHTML = `
 
               <div class="course course-preview">
                 <img
-                  src="/uploads/${course.thumbnail}"
+                  src="${course.thumbnail}"
                   class="course-img"
                   alt="Course Image"
                 />
@@ -59,8 +63,12 @@ document.addEventListener("DOMContentLoaded", async () => {
               
     `;
 
-    container.appendChild(div);
-  });
+      container.appendChild(div);
+    });
+  } catch (err) {
+    console.error(err);
+    alert("Failed to load courses");
+  }
 });
 
 // ===========================
@@ -78,19 +86,24 @@ document.addEventListener("click", async (e) => {
 
   if (!confirmDelete) return;
 
-  const res = await fetch(`/delete-course/${courseId}`, {
-    method: "DELETE",
-  });
+  try {
+    const res = await fetch(`/delete-course/${courseId}`, {
+      method: "DELETE",
+    });
 
-  const data = await res.json();
+    if (!res.ok) throw new Error("Delete failed");
 
-  if (data.success) {
-    alert("Course deleted successfully");
+    const data = await res.json();
 
-    // reload page
-    window.location.reload();
-  } else {
-    alert("Error deleting course");
+    if (data.success) {
+      alert("Course deleted successfully");
+      window.location.reload();
+    } else {
+      alert("Error deleting course");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong while deleting");
   }
 });
 

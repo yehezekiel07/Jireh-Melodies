@@ -2,54 +2,60 @@ document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const courseId = params.get("id");
 
-  const res = await fetch(`/get-course/${courseId}`);
-  const course = await res.json();
+  try {
+    const res = await fetch(`/get-course/${courseId}`);
 
-  console.log("Demo Video:", course.demoVideo);
+    if (!res.ok) throw new Error("Failed");
 
-  // STEP 1 DATA
-  document.getElementById("courseTitle").textContent = course.title;
-  document.getElementById("courseDescription").textContent = course.description;
+    const course = await res.json();
 
-  document.getElementById("courseInstructor").textContent = course.instructor;
+    // your existing code
 
-  document.getElementById("courseLanguage").textContent =
-    "Language: " + course.language;
+    // STEP 1 DATA
+    document.getElementById("courseTitle").textContent = course.title;
+    document.getElementById("courseDescription").textContent =
+      course.description;
 
-  document.getElementById("coursePrice").textContent = "₹" + course.price;
+    document.getElementById("courseInstructor").textContent = course.instructor;
 
-  document.getElementById("courseOriginalPrice").textContent =
-    "₹" + course.originalPrice;
+    document.getElementById("courseLanguage").textContent =
+      "Language: " + course.language;
 
-  document.getElementById("courseThumbnail").src =
-    "/uploads/" + course.thumbnail;
+    document.getElementById("coursePrice").textContent = "₹" + course.price;
 
-  // STEP 2 DATA
-  function getEmbedUrl(url) {
-    if (!url) return "";
+    document.getElementById("courseOriginalPrice").textContent =
+      "₹" + course.originalPrice;
 
-    // watch?v=
-    if (url.includes("watch?v=")) {
-      const id = url.split("v=")[1].split("&")[0];
-      return `https://www.youtube.com/embed/${id}`;
+    document.getElementById("courseThumbnail").src = course.thumbnail;
+
+    console.log("Thumbnail:", course.thumbnail);
+
+    // STEP 2 DATA
+    function getEmbedUrl(url) {
+      if (!url) return "";
+
+      // watch?v=
+      if (url.includes("watch?v=")) {
+        const id = url.split("v=")[1].split("&")[0];
+        return `https://www.youtube.com/embed/${id}`;
+      }
+
+      // youtu.be
+      if (url.includes("youtu.be/")) {
+        const id = url.split("youtu.be/")[1].split("?")[0];
+        return `https://www.youtube.com/embed/${id}`;
+      }
+
+      return "";
     }
 
-    // youtu.be
-    if (url.includes("youtu.be/")) {
-      const id = url.split("youtu.be/")[1].split("?")[0];
-      return `https://www.youtube.com/embed/${id}`;
-    }
+    const demoContainer = document.getElementById("demoVideoContainer");
 
-    return "";
-  }
+    if (course.demoVideo) {
+      const embedUrl = getEmbedUrl(course.demoVideo);
+      console.log("Embed URL:", embedUrl);
 
-  const demoContainer = document.getElementById("demoVideoContainer");
-
-  if (course.demoVideo) {
-    const embedUrl = getEmbedUrl(course.demoVideo);
-    console.log("Embed URL:", embedUrl);
-
-    demoContainer.innerHTML = `
+      demoContainer.innerHTML = `
     <iframe 
       width="100%" 
       height="300"
@@ -59,148 +65,148 @@ document.addEventListener("DOMContentLoaded", async () => {
       allowfullscreen>
     </iframe>
   `;
-  }
+    }
 
-  const learnContainer = document.getElementById("learnPoints");
+    const learnContainer = document.getElementById("learnPoints");
 
-  (course.learnPoints || []).forEach((point) => {
-    const li = document.createElement("li");
-    li.innerHTML = `
+    (course.learnPoints || []).forEach((point) => {
+      const li = document.createElement("li");
+      li.innerHTML = `
     <div class="pointIconBox">
      <i class="ph ph-check link-icon"></i>
      <span>${point}</span>
     </div>
   `;
 
-    learnContainer.appendChild(li);
-  });
+      learnContainer.appendChild(li);
+    });
 
-  const requirementContainer = document.getElementById("requirements");
+    const requirementContainer = document.getElementById("requirements");
 
-  course.requirements.forEach((point) => {
-    const li = document.createElement("li");
-    li.textContent = point;
+    course.requirements.forEach((point) => {
+      const li = document.createElement("li");
+      li.textContent = point;
 
-    requirementContainer.appendChild(li);
-  });
+      requirementContainer.appendChild(li);
+    });
 
-  // ✅ COURSE INCLUDES WITH ICONS
+    // ✅ COURSE INCLUDES WITH ICONS
 
-  const includesContainer = document.getElementById("courseIncludes");
+    const includesContainer = document.getElementById("courseIncludes");
 
-  // clear first (important if reloading)
-  includesContainer.innerHTML = "";
+    // clear first (important if reloading)
+    includesContainer.innerHTML = "";
 
-  // Duration
-  if (course.duration) {
-    const li = document.createElement("li");
-    li.innerHTML = `
+    // Duration
+    if (course.duration) {
+      const li = document.createElement("li");
+      li.innerHTML = `
     <div class="includesBox">
      <i class="ph ph-video link-icon"></i>
      <span>${course.duration} on - demand Videos</span>
     </div> 
      `;
-    includesContainer.appendChild(li);
-  }
+      includesContainer.appendChild(li);
+    }
 
-  // Downloadables
-  if (course.downloadItems) {
-    const li = document.createElement("li");
-    li.innerHTML = `
+    // Downloadables
+    if (course.downloadItems) {
+      const li = document.createElement("li");
+      li.innerHTML = `
     <div class="includesBox">
      <i class="ph ph-file-arrow-down link-icon"></i>
      <span>${course.downloadItems} downloadable resources</span>
     </div>
   `;
-    includesContainer.appendChild(li);
-  }
+      includesContainer.appendChild(li);
+    }
 
-  // Mobile & Laptop Access
-  if (course.mobileAccess) {
-    const li = document.createElement("li");
-    li.innerHTML = `
+    // Mobile & Laptop Access
+    if (course.mobileAccess) {
+      const li = document.createElement("li");
+      li.innerHTML = `
     <div class="includesBox">
      <i class="ph ph-device-mobile link-icon"></i>
      <span>Access on mobile & laptop</span>
     </div>
   `;
-    includesContainer.appendChild(li);
-  }
+      includesContainer.appendChild(li);
+    }
 
-  // Certificate
-  if (course.certificate) {
-    const li = document.createElement("li");
-    li.innerHTML = `
+    // Certificate
+    if (course.certificate) {
+      const li = document.createElement("li");
+      li.innerHTML = `
     <div class="includesBox">
      <i class="ph ph-certificate link-icon"></i>
      <span>Certificate of completion</span>
     </div>
   `;
-    includesContainer.appendChild(li);
-  }
+      includesContainer.appendChild(li);
+    }
 
-  // Course Duration Seperately
+    // Course Duration Seperately
 
-  document.getElementById("courseDuration").textContent =
-    course.duration || "N/A";
+    document.getElementById("courseDuration").textContent =
+      course.duration || "N/A";
 
-  document.querySelectorAll(".courseDuration").forEach((el) => {
-    el.textContent = course.duration || "N/A";
-  });
+    document.querySelectorAll(".courseDuration").forEach((el) => {
+      el.textContent = course.duration || "N/A";
+    });
 
-  // ✅ CARD PREVIEW POINTS
+    // ✅ CARD PREVIEW POINTS
 
-  const previewPointsContainer = document.getElementById("previewPoints");
+    const previewPointsContainer = document.getElementById("previewPoints");
 
-  (course.previewPoints || []).forEach((point) => {
-    const li = document.createElement("li");
-    li.textContent = point;
+    (course.previewPoints || []).forEach((point) => {
+      const li = document.createElement("li");
+      li.textContent = point;
 
-    previewPointsContainer.appendChild(li);
-  });
+      previewPointsContainer.appendChild(li);
+    });
 
-  // STEP 3 DATA
+    // STEP 3 DATA
 
-  // ✅ TOTAL LESSON COUNT
+    // ✅ TOTAL LESSON COUNT
 
-  let totalLessons = 0;
+    let totalLessons = 0;
 
-  (course.modules || []).forEach((module) => {
-    totalLessons += (module.lessons || []).length;
-  });
+    (course.modules || []).forEach((module) => {
+      totalLessons += (module.lessons || []).length;
+    });
 
-  document.querySelectorAll(".totalLessons").forEach((el) => {
-    el.textContent = totalLessons + " lessons";
-  });
+    document.querySelectorAll(".totalLessons").forEach((el) => {
+      el.textContent = totalLessons + " lessons";
+    });
 
-  document.getElementById("totalLessons").textContent =
-    totalLessons + " lessons";
+    document.getElementById("totalLessons").textContent =
+      totalLessons + " lessons";
 
-  // // show in UI
-  // const lessonCountEl = document.createElement("p");
-  // lessonCountEl.textContent = totalLessons + " lessons";
-  // lessonCountEl.style.fontWeight = "600";
+    // // show in UI
+    // const lessonCountEl = document.createElement("p");
+    // lessonCountEl.textContent = totalLessons + " lessons";
+    // lessonCountEl.style.fontWeight = "600";
 
-  // document.querySelector(".course-curriculum").prepend(lessonCountEl);
+    // document.querySelector(".course-curriculum").prepend(lessonCountEl);
 
-  // ✅ TOTAL MODULES COUNT
+    // ✅ TOTAL MODULES COUNT
 
-  const totalModules = (course.modules || []).length;
+    const totalModules = (course.modules || []).length;
 
-  document.querySelectorAll(".totalModules").forEach((el) => {
-    el.textContent = totalModules + " modules";
-  });
+    document.querySelectorAll(".totalModules").forEach((el) => {
+      el.textContent = totalModules + " modules";
+    });
 
-  document.getElementById("totalModules").textContent =
-    totalModules + " modules";
+    document.getElementById("totalModules").textContent =
+      totalModules + " modules";
 
-  const modulesContainer = document.getElementById("modulesContainer");
+    const modulesContainer = document.getElementById("modulesContainer");
 
-  course.modules.forEach((module) => {
-    const moduleDiv = document.createElement("div");
-    moduleDiv.className = "preview-module";
+    course.modules.forEach((module) => {
+      const moduleDiv = document.createElement("div");
+      moduleDiv.className = "preview-module";
 
-    moduleDiv.innerHTML = `
+      moduleDiv.innerHTML = `
 <div class="module-header">
    <div class="module-box">
     <div class="module-icon-box">
@@ -213,33 +219,33 @@ document.addEventListener("DOMContentLoaded", async () => {
   </div>
 `;
 
-    const header = moduleDiv.querySelector(".module-header");
-    const lessons = moduleDiv.querySelector(".module-lessons");
-    const arrow = moduleDiv.querySelector(".arrow");
+      const header = moduleDiv.querySelector(".module-header");
+      const lessons = moduleDiv.querySelector(".module-lessons");
+      const arrow = moduleDiv.querySelector(".arrow");
 
-    header.addEventListener("click", () => {
-      // 🔴 Close all modules first
-      document.querySelectorAll(".module-lessons").forEach((el) => {
-        el.classList.add("hidden");
+      header.addEventListener("click", () => {
+        // 🔴 Close all modules first
+        document.querySelectorAll(".module-lessons").forEach((el) => {
+          el.classList.add("hidden");
+        });
+
+        document.querySelectorAll(".arrow").forEach((el) => {
+          el.classList.remove("rotate");
+        });
+
+        // 🟢 Open current module
+        lessons.classList.remove("hidden");
+        arrow.classList.add("rotate");
       });
 
-      document.querySelectorAll(".arrow").forEach((el) => {
-        el.classList.remove("rotate");
-      });
+      const lessonsContainer = moduleDiv.querySelector(".module-lessons");
 
-      // 🟢 Open current module
-      lessons.classList.remove("hidden");
-      arrow.classList.add("rotate");
-    });
+      module.lessons.forEach((lesson) => {
+        const lessonDiv = document.createElement("div");
 
-    const lessonsContainer = moduleDiv.querySelector(".module-lessons");
+        lessonDiv.className = "preview-lesson";
 
-    module.lessons.forEach((lesson) => {
-      const lessonDiv = document.createElement("div");
-
-      lessonDiv.className = "preview-lesson";
-
-      lessonDiv.innerHTML = `
+        lessonDiv.innerHTML = `
     <div class="lesson-row">
       <i class="ph ph-play-circle link-icon"></i>
       <span class="lesson-title-preview">${lesson.title}</span>
@@ -250,11 +256,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     </div>
 `;
 
-      lessonsContainer.appendChild(lessonDiv);
-    });
+        lessonsContainer.appendChild(lessonDiv);
+      });
 
-    modulesContainer.appendChild(moduleDiv);
-  });
+      modulesContainer.appendChild(moduleDiv);
+    });
+  } catch (err) {
+    console.error(err);
+    alert("Failed to load course");
+  }
 });
 
 // Publish Course

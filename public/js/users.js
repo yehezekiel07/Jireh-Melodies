@@ -51,7 +51,11 @@ if (generateBtn && window.location.pathname.includes("add-user.html")) {
       const phone = document.getElementById("phone").value;
       const email = document.getElementById("email").value;
       const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
+      let password = document.getElementById("password").value;
+
+      if (password === "********") {
+        password = "";
+      }
 
       const response = await fetch("/add-user", {
         method: "POST",
@@ -124,7 +128,7 @@ if (window.location.pathname.includes("edit-user.html")) {
       document.getElementById("phone").value = user.phone;
       document.getElementById("email").value = user.email;
       document.getElementById("username").value = user.username;
-      document.getElementById("password").value = user.password;
+      document.getElementById("password").value = "********";
     });
 }
 
@@ -155,14 +159,18 @@ if (generateBtn && window.location.pathname.includes("edit-user.html")) {
       const data = await response.json();
 
       document.getElementById("username").value = data.username;
-      document.getElementById("password").value = data.password;
+      document.getElementById("password").value = "********";
 
       generateBtn.textContent = "Update";
 
       generated = true;
     } else {
       const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
+      let password = document.getElementById("password").value;
+
+      if (password === "********") {
+        password = "";
+      }
 
       const response = await fetch(`/update-user/${id}`, {
         method: "PUT",

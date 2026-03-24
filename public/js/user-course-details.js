@@ -21,8 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("courseOriginalPrice").textContent =
     "₹" + course.originalPrice;
 
-  document.getElementById("courseThumbnail").src =
-    "/uploads/" + course.thumbnail;
+  document.getElementById("courseThumbnail").src = course.thumbnail;
 
   // STEP 2 DATA
   function getEmbedUrl(url) {

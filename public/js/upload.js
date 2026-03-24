@@ -3,74 +3,76 @@ let uploadedThumbnail = null;
 const fileInput = document.getElementById("courseImage");
 const fileName = document.getElementById("file-name");
 
-fileInput.addEventListener("change", async function () {
-  const file = this.files[0];
+if (fileInput) {
+  fileInput.addEventListener("change", async function () {
+    const file = this.files[0];
 
-  if (!file) return;
+    if (!file) return;
 
-  fileName.textContent = file.name;
+    fileName.textContent = file.name;
 
-  const reader = new FileReader();
+    const reader = new FileReader();
 
-  reader.onload = function (event) {
-    const img = new Image();
+    reader.onload = function (event) {
+      const img = new Image();
 
-    img.src = event.target.result;
+      img.src = event.target.result;
 
-    img.onload = async function () {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
+      img.onload = async function () {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
 
-      const maxWidth = 800;
+        const maxWidth = 800;
 
-      let width = img.width;
-      let height = img.height;
+        let width = img.width;
+        let height = img.height;
 
-      if (width > maxWidth) {
-        height = height * (maxWidth / width);
-        width = maxWidth;
-      }
+        if (width > maxWidth) {
+          height = height * (maxWidth / width);
+          width = maxWidth;
+        }
 
-      canvas.width = width;
-      canvas.height = height;
+        canvas.width = width;
+        canvas.height = height;
 
-      ctx.drawImage(img, 0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
 
-      canvas.toBlob(
-        async function (blob) {
-          const formData = new FormData();
-          formData.append("image", blob, file.name);
+        canvas.toBlob(
+          async function (blob) {
+            const formData = new FormData();
+            formData.append("image", blob, file.name);
 
-          const res = await fetch("/upload-image", {
-            method: "POST",
-            body: formData,
-          });
+            const res = await fetch("/upload-image", {
+              method: "POST",
+              body: formData,
+            });
 
-          const data = await res.json();
+            const data = await res.json();
 
-          window.uploadedThumbnail = data.file;
+            window.uploadedThumbnail = data.file;
 
-          // store thumbnail name in hidden input
-          const thumbInput = document.getElementById("thumbnailName");
-          if (thumbInput) {
-            thumbInput.value = data.file;
-          }
+            // store thumbnail name in hidden input
+            const thumbInput = document.getElementById("thumbnailName");
+            if (thumbInput) {
+              thumbInput.value = data.file;
+            }
 
-          const preview = document.getElementById("previewImage");
+            const preview = document.getElementById("previewImage");
 
-          if (preview) {
-            preview.src = `/uploads/${data.file}`;
-          }
+            if (preview) {
+              preview.src = data.file;
+            }
 
-          console.log("Uploaded file:", window.uploadedThumbnail);
+            console.log("Uploaded file:", window.uploadedThumbnail);
 
-          console.log("Image uploaded");
-        },
-        "image/jpeg",
-        0.7,
-      );
+            console.log("Image uploaded");
+          },
+          "image/jpeg",
+          0.7,
+        );
+      };
     };
-  };
 
-  reader.readAsDataURL(file);
-});
+    reader.readAsDataURL(file);
+  });
+}

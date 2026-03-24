@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("phone").value = user.phone || "";
   document.getElementById("email").value = user.email || "";
   document.getElementById("username").value = user.username || "";
-  document.getElementById("password").value = user.password || "";
+  document.getElementById("password").value = "********";
 
   // 🔥 ROLE BASED UI (optional future use)
   if (user.role === "admin") {

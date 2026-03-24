@@ -6,19 +6,28 @@ let users = [];
 let courses = [];
 
 async function loadData() {
-  // load users
-  const userRes = await fetch("/users");
-  users = await userRes.json();
+  try {
+    const userRes = await fetch("/users");
 
-  // load courses
-  const courseRes = await fetch("/get-courses");
-  const courseData = await courseRes.json();
+    if (!userRes.ok) throw new Error("Users fetch failed");
 
-  if (courseData.success) {
-    courses = courseData.courses;
+    users = await userRes.json();
+
+    const courseRes = await fetch("/get-courses");
+
+    if (!courseRes.ok) throw new Error("Courses fetch failed");
+
+    const courseData = await courseRes.json();
+
+    if (courseData.success) {
+      courses = courseData.courses;
+    }
+
+    populateDropdowns();
+  } catch (err) {
+    console.error(err);
+    alert("Failed to load users or courses");
   }
-
-  populateDropdowns();
 }
 
 // ===========================
@@ -61,31 +70,33 @@ function populateDropdowns() {
 // ===========================
 
 document.getElementById("assignBtn").addEventListener("click", async () => {
-  const userId = document.getElementById("userDropdown").value;
-  const checkboxes = document.querySelectorAll(".courseCheckbox:checked");
+  try {
+    const userId = document.getElementById("userDropdown").value;
+    const checkboxes = document.querySelectorAll(".courseCheckbox:checked");
 
-  const courseIds = Array.from(checkboxes).map((cb) => cb.value);
+    const courseIds = Array.from(checkboxes).map((cb) => cb.value);
 
-  console.log("USER ID:", userId);
-  console.log("COURSE ID:", courseIds);
+    const res = await fetch("/assign-course", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId, courseIds }),
+    });
 
-  const res = await fetch("/assign-course", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ userId, courseIds }),
-  });
+    if (!res.ok) throw new Error("Assign failed");
 
-  const data = await res.json();
+    const data = await res.json();
 
-  console.log("RESPONSE:", data);
-
-  if (data.success) {
-    alert("Course assigned successfully!");
-    window.location.href = "admin-dashboard.html";
-  } else {
-    alert("Error assigning course");
+    if (data.success) {
+      alert("Course assigned successfully!");
+      window.location.href = "admin-dashboard.html";
+    } else {
+      alert("Error assigning course");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong");
   }
 });
 

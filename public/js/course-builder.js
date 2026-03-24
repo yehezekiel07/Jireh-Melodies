@@ -127,12 +127,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     /* ---------- STEP 1 RESTORE ---------- */
 
-    console.log("Course loaded:", course);
-
     updatePreview(course);
 
-    console.log("Course Data:", course);
-    console.log("Thumbnail:", course.thumbnail);
+    fetch(`/get-course/${new URLSearchParams(location.search).get("id")}`)
+      .then((res) => res.json())
+      .then((course) => console.log(course.thumbnail));
+
+    // console.log("Thumbnail:", course.thumbnail);
 
     // restore thumbnail name when coming back
     const thumbInput = document.getElementById("thumbnailName");
@@ -160,8 +161,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (preview) {
       if (course.thumbnail) {
-        preview.src = `/uploads/${course.thumbnail}`;
-        console.log("Setting preview image:", `/uploads/${course.thumbnail}`);
+        preview.src = course.thumbnail;
+        console.log("Setting preview image:", course.thumbnail);
       } else {
         preview.src = "img/course-placeholder.png";
       }

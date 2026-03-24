@@ -64,7 +64,7 @@ if (window.location.pathname.includes("view-user.html")) {
     if (phone) phone.value = user.phone || "";
     if (email) email.value = user.email || "";
     if (username) username.value = user.username || "";
-    if (password) password.value = user.password || "";
+    if (password) password.value = "********";
   }
   loadAssignedCourses();
   loadUserDetails();

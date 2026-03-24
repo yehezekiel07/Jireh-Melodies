@@ -5,7 +5,7 @@
 const coursesContainer = document.getElementById("coursesContainer");
 
 if (coursesContainer) {
-  fetch("/courses")
+  fetch("/get-courses")
     .then((res) => res.json())
     .then((data) => {
       coursesContainer.innerHTML = "";

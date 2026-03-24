@@ -6,6 +6,11 @@ function getEmbedUrl(url) {
     return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
   }
 
+  if (url.includes("youtu.be/")) {
+    const id = url.split("youtu.be/")[1].split("?")[0];
+    return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+  }
+
   return "";
 }
 
@@ -93,7 +98,7 @@ function renderModules(modules) {
       <span class="lesson-title-preview">${lesson.title}</span>
     </div>
     <div class="lesson-links">
-     ${lesson.file ? `<a href="/uploads/${lesson.file}" target="_blank">Download</a>` : ""}
+     ${lesson.file ? `<a href="${lesson.file}" target="_blank">Download</a>` : ""}
     </div>
       `;
 
@@ -131,7 +136,7 @@ function loadLesson(lesson) {
   }
 
   if (lesson.file) {
-    downloadLink.href = `/uploads/${lesson.file}`;
+    downloadLink.href = lesson.file;
     downloadLink.textContent = "Download Resource";
   } else {
     downloadLink.textContent = "";

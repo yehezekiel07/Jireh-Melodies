@@ -81,9 +81,11 @@ document.addEventListener("click", function (e) {
 
   if (uploadedDoc) {
     if (activeLesson.dataset.file) {
-      uploadedDoc.innerHTML = `<a href="/uploads/${activeLesson.dataset.file}" target="_blank">
-        ${activeLesson.dataset.file}
-      </a>`;
+      const fileName = activeLesson.dataset.file.split("/").pop();
+
+      uploadedDoc.innerHTML = `<a href="${activeLesson.dataset.file}" target="_blank">
+  ${fileName}
+</a>`;
     } else {
       uploadedDoc.innerHTML = "";
     }
@@ -144,8 +146,10 @@ if (saveLessonResources) {
 
         activeLesson.dataset.file = data.file;
 
+        const fileName = data.file.split("/").pop();
+
         document.getElementById("uploadedDocumentName").textContent =
-          "Uploaded file: " + data.file;
+          "Uploaded file: " + fileName;
       } catch (err) {
         console.error("Upload failed:", err);
       }

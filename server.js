@@ -1,4 +1,14 @@
 require("dotenv").config();
+const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -10,7 +20,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.static("public"));
-app.use("/uploads", express.static("uploads"));
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -262,11 +271,11 @@ app.post("/create-course", async (req, res) => {
 
 // Get All Courses
 
-app.get("/courses", async (req, res) => {
-  const courses = await Course.find();
+// app.get("/courses", async (req, res) => {
+//   const courses = await Course.find();
 
-  res.json(courses);
-});
+//   res.json(courses);
+// });
 
 // Get Single Course
 
@@ -278,30 +287,34 @@ app.get("/course/:id", async (req, res) => {
 
 // Image Compression in Backend
 
-const multer = require("multer");
-const sharp = require("sharp");
-const path = require("path");
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "jireh-melodies/images",
+    resource_type: "image",
+  },
+});
 
-/* Multer setup (store file in memory) */
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const docStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "jireh-melodies/docs",
+    resource_type: "raw",
+  },
+});
+
+const upload = multer({ storage });
+const uploadDoc = multer({ storage: docStorage });
 
 /* Image Upload API */
 app.post("/upload-image", upload.single("image"), async (req, res) => {
   try {
-    const filename = Date.now() + ".webp";
-
-    await sharp(req.file.buffer)
-      .resize(800) // resize width
-      .webp({ quality: 80 }) // compress
-      .toFile("uploads/" + filename);
-
     res.json({
       message: "Image uploaded successfully",
-      file: filename,
+      file: req.file.path, // 🔥 Cloudinary URL
     });
   } catch (error) {
-    res.status(500).json({
+    res.json({
       message: "Upload failed",
     });
   }
@@ -426,20 +439,14 @@ app.put("/update-course-details/:id", async (req, res) => {
 
 // Upload Document Route
 
-const fs = require("fs");
-
-app.post("/upload-document", upload.single("document"), async (req, res) => {
+app.post("/upload-document", uploadDoc.single("document"), async (req, res) => {
   try {
-    const filename = Date.now() + path.extname(req.file.originalname);
-
-    await fs.promises.writeFile("uploads/" + filename, req.file.buffer);
-
     res.json({
       success: true,
-      file: filename,
+      file: req.file.path, // 🔥 Cloudinary URL
     });
   } catch (err) {
-    res.status(500).json({
+    res.json({
       success: false,
       message: "Upload failed",
     });
