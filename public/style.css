@@ -1379,6 +1379,17 @@ body main .section-login {
   color: #353737;
 }
 
+.input-icon-box {
+  width: 100%;
+  position: relative;
+}
+
+.input-icon-box .input-icon {
+  position: absolute;
+  top: 50%;
+  left: 1.6rem;
+}
+
 .username-input,
 .password-input {
   font-family: "Manrope", sans-serif;
@@ -1390,11 +1401,6 @@ body main .section-login {
   padding: 1.6rem 1.6rem 1.6rem 5rem;
   border: solid 0.5px #c6cccb;
   border-radius: 1.6rem;
-}
-
-.login-input-box .form-container .input-box .input-icon {
-  position: absolute;
-  top: 68%;
 }
 
 .btn.btn--full.login-btn {
