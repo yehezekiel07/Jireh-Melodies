@@ -1274,6 +1274,7 @@ nav .main-nav-list .active .main-nav-link {
 body main .section-login {
   padding: 7.2rem 18rem;
   background-color: #fdfcf8;
+  flex: 1;
 }
 
 .section-login .grid {
