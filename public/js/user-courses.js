@@ -58,10 +58,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       div.addEventListener("click", () => {
         const currentPage = window.location.pathname;
 
-        if (currentPage.includes("user-all-courses.html")) {
-          window.location.href = `course-overview.html?id=${course._id}`;
+        if (currentPage.includes("/user-all-courses")) {
+          window.location.href = `/course-overview?id=${course._id}`;
         } else {
-          window.location.href = `course-full-preview.html?id=${course._id}`;
+          window.location.href = `/course-full-preview?id=${course._id}`;
         }
       });
 

@@ -47,7 +47,6 @@ const courseSchema = new mongoose.Schema({
   requirements: { type: [String], default: [] },
   previewPoints: { type: [String], default: [] },
 
-  duration: String,
   downloadItems: String,
   mobileAccess: Boolean,
   certificate: Boolean,
@@ -60,6 +59,8 @@ const courseSchema = new mongoose.Schema({
           title: String,
           video: String,
           file: String,
+          description: String,
+          duration: String,
         },
       ],
     },

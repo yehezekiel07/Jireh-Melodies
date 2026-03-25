@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const userId = localStorage.getItem("userId");
 
   if (!userId) {
-    window.location.href = "login.html";
+    window.location.href = "/login";
     return;
   }
 
@@ -30,6 +30,6 @@ const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("userId");
-    window.location.href = "login.html";
+    window.location.href = "/login";
   });
 }

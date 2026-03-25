@@ -1,6 +1,6 @@
 // Load user Data
 
-if (window.location.pathname.includes("view-user.html")) {
+if (window.location.pathname.includes("/view-user")) {
   const params = new URLSearchParams(window.location.search);
   let id = params.get("id");
 
@@ -125,6 +125,6 @@ if (deleteBtn) {
 
     alert("User deleted successfully");
 
-    window.location.href = "/admin-dashboard.html";
+    window.location.href = "/admin-dashboard";
   });
 }

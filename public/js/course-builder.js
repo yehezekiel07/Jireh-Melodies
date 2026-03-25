@@ -72,7 +72,7 @@ if (nextBasic) {
       }
 
       // redirect only after success
-      window.location.href = `add-course-details.html?id=${nextId}`;
+      window.location.href = `/add-course-details?id=${nextId}`;
     } catch (err) {
       console.error("Error saving course:", err);
       alert("Server error");
@@ -261,9 +261,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
 
-    if (course.duration)
-      document.getElementById("courseDuration").value = course.duration;
-
     if (course.downloadItems)
       document.getElementById("downloadItems").value = course.downloadItems;
 
@@ -371,7 +368,6 @@ if (backBtn) {
         learnPoints,
         requirements,
         previewPoints,
-        duration: document.getElementById("courseDuration")?.value,
         downloadItems: document.getElementById("downloadItems")?.value,
         mobileAccess: document.getElementById("mobileAccess")?.checked,
         certificate: document.getElementById("certificate")?.checked,
@@ -379,7 +375,7 @@ if (backBtn) {
       }),
     });
 
-    window.location.href = `add-course.html?id=${courseId}`;
+    window.location.href = `/add-course?id=${courseId}`;
   });
 }
 
@@ -417,7 +413,6 @@ if (nextDetails) {
         learnPoints,
         requirements,
         previewPoints,
-        duration: document.getElementById("courseDuration").value,
         downloadItems: document.getElementById("downloadItems").value,
         mobileAccess: document.getElementById("mobileAccess").checked,
         certificate: document.getElementById("certificate").checked,
@@ -428,7 +423,7 @@ if (nextDetails) {
     const data = await response.json();
 
     if (data.success) {
-      window.location.href = `course-modules.html?id=${courseId}`;
+      window.location.href = `/course-modules?id=${courseId}`;
     }
   });
 }

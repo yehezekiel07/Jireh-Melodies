@@ -1,3 +1,87 @@
+let playerReady = false;
+let dataReady = false;
+let firstLesson = null;
+
+let player;
+let currentLessonId = null;
+
+window.onYouTubeIframeAPIReady = function () {
+  player = new YT.Player("videoPlayer", {
+    height: "500",
+    width: "100%",
+    videoId: "",
+    events: {
+      onReady: onPlayerReady,
+      onStateChange: onPlayerStateChange,
+    },
+  });
+};
+
+function onPlayerReady() {
+  playerReady = true;
+  tryLoadFirstLesson();
+}
+
+function playNextLesson() {
+  const allLessons = document.querySelectorAll(".preview-lesson");
+
+  let nextFound = false;
+
+  allLessons.forEach((lessonEl, index) => {
+    if (lessonEl.classList.contains("active")) {
+      const nextLesson = allLessons[index + 1];
+
+      if (nextLesson) {
+        nextLesson.click(); // 🔥 triggers loadLesson
+        nextFound = true;
+      }
+    }
+  });
+
+  if (!nextFound) {
+    console.log("No next lesson");
+  }
+}
+
+function showNextLessonButton() {
+  const btn = document.createElement("button");
+  btn.textContent = "Play Next Lesson ▶";
+
+  btn.style.position = "absolute";
+  btn.style.top = "50%";
+  btn.style.left = "50%";
+  btn.style.transform = "translate(-50%, -50%)";
+  btn.style.zIndex = "999";
+
+  btn.onclick = () => {
+    playNextLesson();
+    btn.remove();
+  };
+
+  document.getElementById("videoPlayer").appendChild(btn);
+}
+
+function onPlayerStateChange(event) {
+  if (event.data === YT.PlayerState.ENDED) {
+    markLessonComplete(); // ✅ REAL completion
+    showNextLessonButton(); // 👈 add this
+  }
+}
+
+function extractYouTubeId(url) {
+  if (!url) return "";
+
+  if (url.includes("watch?v=")) {
+    return url.split("v=")[1].split("&")[0];
+  }
+
+  if (url.includes("youtu.be/")) {
+    return url.split("youtu.be/")[1].split("?")[0];
+  }
+
+  return "";
+}
+
 function getEmbedUrl(url) {
   if (!url) return "";
 
@@ -14,6 +98,12 @@ function getEmbedUrl(url) {
   return "";
 }
 
+function tryLoadFirstLesson() {
+  if (playerReady && dataReady && firstLesson) {
+    loadLesson(firstLesson);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
   const courseId = params.get("id");
@@ -25,11 +115,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!course.modules) return;
 
-  renderModules(course.modules);
+  const courseTitleEl = document.getElementById("courseTitle");
 
-  if (course.modules.length > 0 && course.modules[0].lessons.length > 0) {
-    loadLesson(course.modules[0].lessons[0]);
+  if (courseTitleEl) {
+    courseTitleEl.textContent = course.title || "";
   }
+
+  renderModules(course.modules);
+  setTimeout(loadProgress, 300);
+
+  // ✅ store lesson
+  firstLesson = course.modules[0]?.lessons[0];
+  dataReady = true;
+
+  tryLoadFirstLesson();
 });
 
 function renderModules(modules) {
@@ -92,15 +191,28 @@ function renderModules(modules) {
         lessonDiv.classList.add("active");
       }
 
+      lessonDiv.setAttribute("data-lesson-id", lesson._id || lesson.title);
+
       lessonDiv.innerHTML = `
-    <div class="lesson-row">
-      <i class="ph ph-play-circle link-icon"></i>
-      <span class="lesson-title-preview">${lesson.title}</span>
+  <div class="lesson-row">
+    <input type="checkbox" class="lesson-checkbox" />
+    <i class="ph ph-play-circle link-icon"></i>
+    <span class="lesson-title-preview">${lesson.title}</span>
+  </div>
+  <div class="lesson-links">
+    ${lesson.file ? `<a href="${lesson.file}" target="_blank">Download</a>` : ""}
+    <div class="duration-box">
+      <i class="ph ph-clock link-icon"></i>
+      <span class="lessonDurationDisplay"></span>
     </div>
-    <div class="lesson-links">
-     ${lesson.file ? `<a href="${lesson.file}" target="_blank">Download</a>` : ""}
-    </div>
-      `;
+  </div>
+`;
+
+      const durationEl = lessonDiv.querySelector(".lessonDurationDisplay");
+
+      if (durationEl) {
+        durationEl.textContent = lesson.duration || "";
+      }
 
       lessonDiv.addEventListener("click", (e) => {
         e.stopPropagation(); // 🔥 prevents accordion closing
@@ -121,27 +233,93 @@ function renderModules(modules) {
 }
 
 function loadLesson(lesson) {
-  const videoPlayer = document.getElementById("videoPlayer");
+  currentLessonId = lesson._id || lesson.title;
+
   const lessonTitle = document.getElementById("lessonTitle");
   const downloadLink = document.getElementById("downloadLink");
+  const lessonDescription = document.getElementById("lessonDescription");
+  const lessonDuration = document.querySelector(".lessonDurationDisplay");
 
-  const embedUrl = getEmbedUrl(lesson.video);
+  const videoId = extractYouTubeId(lesson.video);
 
-  videoPlayer.src = embedUrl;
+  console.log("VIDEO URL:", lesson.video);
+  console.log("VIDEO ID:", videoId);
 
-  if (!embedUrl) {
-    lessonTitle.textContent = "Video not supported";
-  } else {
-    lessonTitle.textContent = lesson.title || "";
+  if (!lesson) return;
+
+  if (!videoId) {
+    console.warn("Invalid video URL");
+    return; // ⛔ STOP execution
   }
 
-  if (lesson.file) {
-    downloadLink.href = lesson.file;
-    downloadLink.textContent = "Download Resource";
-  } else {
-    downloadLink.textContent = "";
-    downloadLink.removeAttribute("href");
+  if (!playerReady || !player) {
+    console.warn("Player not ready yet");
+    return; // ⛔ STOP execution
   }
+
+  player.loadVideoById(videoId);
+
+  if (lessonDuration) {
+    lessonDuration.textContent = lesson.duration || "";
+  }
+
+  if (lessonTitle) {
+    lessonTitle.textContent = videoId
+      ? lesson.title + " Key Takeaway"
+      : "Video not supported";
+  }
+
+  if (lessonDescription) {
+    lessonDescription.textContent = lesson.description || "";
+  }
+
+  if (downloadLink) {
+    if (lesson.file) {
+      downloadLink.href = lesson.file;
+      downloadLink.textContent = "Download Resource";
+    } else {
+      downloadLink.textContent = "";
+      downloadLink.removeAttribute("href");
+    }
+  }
+}
+function markLessonComplete() {
+  if (!currentLessonId) return;
+
+  // Check checkbox
+  const lessonEl = document.querySelector(
+    `[data-lesson-id="${currentLessonId}"]`,
+  );
+
+  if (lessonEl) {
+    const checkbox = lessonEl.querySelector(".lesson-checkbox");
+    if (checkbox) checkbox.checked = true;
+  }
+
+  saveProgress(currentLessonId);
+}
+
+function saveProgress(lessonId) {
+  let progress = JSON.parse(localStorage.getItem("courseProgress")) || [];
+
+  if (!progress.includes(lessonId)) {
+    progress.push(lessonId);
+  }
+
+  localStorage.setItem("courseProgress", JSON.stringify(progress));
+}
+
+function loadProgress() {
+  const progress = JSON.parse(localStorage.getItem("courseProgress")) || [];
+
+  progress.forEach((lessonId) => {
+    const lessonEl = document.querySelector(`[data-lesson-id="${lessonId}"]`);
+
+    if (lessonEl) {
+      const checkbox = lessonEl.querySelector(".lesson-checkbox");
+      if (checkbox) checkbox.checked = true;
+    }
+  });
 }
 
 document.addEventListener("contextmenu", (e) => e.preventDefault());

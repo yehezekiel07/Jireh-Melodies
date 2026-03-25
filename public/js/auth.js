@@ -28,11 +28,11 @@ if (loginBtn) {
       localStorage.setItem("userRole", data.role);
 
       if (data.role === "admin") {
-        window.location.href = "/admin-dashboard.html";
+        window.location.href = "/admin-dashboard";
       } else if (data.role === "superadmin") {
-        window.location.href = "/user-dashboard.html"; // or special dashboard
+        window.location.href = "/user-dashboard"; // or special dashboard
       } else {
-        window.location.href = "/user-dashboard.html";
+        window.location.href = "/user-dashboard";
       }
     } else {
       alert("Invalid login credentials");

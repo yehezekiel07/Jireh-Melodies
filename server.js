@@ -420,7 +420,6 @@ app.put("/update-course-details/:id", async (req, res) => {
       learnPoints: req.body.learnPoints,
       requirements: req.body.requirements,
       previewPoints: req.body.previewPoints,
-      duration: req.body.duration,
       downloadItems: req.body.downloadItems,
       mobileAccess: req.body.mobileAccess,
       certificate: req.body.certificate,
@@ -662,6 +661,22 @@ app.get("/create-superadmin", async (req, res) => {
   await superUser.save();
 
   res.send("Superadmin created");
+});
+
+const path = require("path");
+
+app.get("/:page", (req, res) => {
+  const filePath = path.join(__dirname, "public", `${req.params.page}.html`);
+
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      res.status(404).send("Page not found");
+    }
+  });
+});
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // This should always stay at the end

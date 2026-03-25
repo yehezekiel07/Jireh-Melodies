@@ -2,7 +2,7 @@
 
 const generateBtn = document.getElementById("generateBtn");
 
-if (generateBtn && window.location.pathname.includes("add-user.html")) {
+if (generateBtn && window.location.pathname.includes("/add-user")) {
   let generated = false;
 
   generateBtn.addEventListener("click", async function (e) {
@@ -72,7 +72,7 @@ if (generateBtn && window.location.pathname.includes("add-user.html")) {
       if (data.success) {
         alert("User created successfully");
 
-        window.location.href = "/admin-dashboard.html";
+        window.location.href = "/admin-dashboard";
       } else {
         alert("Error saving user");
       }
@@ -98,11 +98,11 @@ if (usersTable) {
            <td>${user.email}</td>
            <td>${user.username}</td>
            <td class="action-links">
-            <a class="action-link" href="/view-user.html?id=${user._id}">
+            <a class="action-link" href="/view-user?id=${user._id}">
               <i class="ph ph-eye link-icon"></i>
             </a>
 
-            <a class="action-link" href="/edit-user.html?id=${user._id}">
+            <a class="action-link" href="/edit-user?id=${user._id}">
              <i class="ph ph-pencil-simple link-icon"></i>
             </a>
            </td>
@@ -117,7 +117,7 @@ if (usersTable) {
 
 // User Details (Pre-filled) for Updating User
 
-if (window.location.pathname.includes("edit-user.html")) {
+if (window.location.pathname.includes("/edit-user")) {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
 
@@ -134,7 +134,7 @@ if (window.location.pathname.includes("edit-user.html")) {
 
 // Generate Cred For Updating User
 
-if (generateBtn && window.location.pathname.includes("edit-user.html")) {
+if (generateBtn && window.location.pathname.includes("/edit-user")) {
   let generated = false;
 
   generateBtn.addEventListener("click", async function (e) {
@@ -191,7 +191,7 @@ if (generateBtn && window.location.pathname.includes("edit-user.html")) {
       if (data.success) {
         alert("User updated successfully");
 
-        window.location.href = "/admin-dashboard.html";
+        window.location.href = "/admin-dashboard";
       } else {
         alert("Error updating user");
       }

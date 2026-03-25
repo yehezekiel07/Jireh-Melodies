@@ -18,6 +18,8 @@ document.addEventListener("click", function (e) {
 
   lessonDiv.dataset.video = "";
   lessonDiv.dataset.file = "";
+  lessonDiv.dataset.description = "";
+  lessonDiv.dataset.duration = "";
 
   lessonDiv.innerHTML = `
     
@@ -71,6 +73,18 @@ document.addEventListener("click", function (e) {
   const modal = document.getElementById("lessonModal");
   const videoInput = document.getElementById("lessonVideoLink");
   const documentInput = document.getElementById("lessonDocument");
+
+  const descriptionInput = document.getElementById("lessonDescription");
+
+  const durationInput = document.getElementById("lessonDuration");
+
+  if (durationInput) {
+    durationInput.value = activeLesson.dataset.duration || "";
+  }
+
+  if (descriptionInput) {
+    descriptionInput.value = activeLesson.dataset.description || "";
+  }
 
   // Load previously saved video link
   if (videoInput) {
@@ -127,10 +141,14 @@ if (saveLessonResources) {
   saveLessonResources.addEventListener("click", async function () {
     const videoLink = document.getElementById("lessonVideoLink").value;
     const documentFile = document.getElementById("lessonDocument").files[0];
+    const description = document.getElementById("lessonDescription").value;
+    const duration = document.getElementById("lessonDuration").value;
 
     if (!activeLesson) return;
 
     activeLesson.dataset.video = videoLink;
+    activeLesson.dataset.description = description;
+    activeLesson.dataset.duration = duration;
 
     if (documentFile) {
       try {
@@ -195,6 +213,8 @@ if (saveLessonResources) {
           title: lesson.querySelector(".lesson-title").value,
           video: lesson.dataset.video || "",
           file: lesson.dataset.file || "",
+          description: lesson.dataset.description || "",
+          duration: lesson.dataset.duration || "",
         });
       });
 
@@ -271,6 +291,8 @@ document.getElementById("addModule").addEventListener("click", function () {
   const lesson = moduleDiv.querySelector(".lesson-field");
   lesson.dataset.video = "";
   lesson.dataset.file = "";
+  lesson.dataset.description = "";
+  lesson.dataset.duration = "";
 });
 
 // DELETE MODULE
@@ -292,6 +314,25 @@ if (previewBtn) {
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get("id");
 
+    // 🔥 AUTO SAVE CURRENT MODAL DATA BEFORE PREVIEW
+    if (activeLesson) {
+      const durationInput = document.getElementById("lessonDuration");
+      const descriptionInput = document.getElementById("lessonDescription");
+      const videoInput = document.getElementById("lessonVideoLink");
+
+      if (durationInput) {
+        activeLesson.dataset.duration = durationInput.value;
+      }
+
+      if (descriptionInput) {
+        activeLesson.dataset.description = descriptionInput.value;
+      }
+
+      if (videoInput) {
+        activeLesson.dataset.video = videoInput.value;
+      }
+    }
+
     if (!courseId) {
       alert("Course ID missing");
       return;
@@ -309,6 +350,8 @@ if (previewBtn) {
           title: lesson.querySelector(".lesson-title").value,
           video: lesson.dataset.video || "",
           file: lesson.dataset.file || "",
+          description: lesson.dataset.description || "",
+          duration: lesson.dataset.duration || "",
         });
       });
 
@@ -328,7 +371,7 @@ if (previewBtn) {
     });
 
     // ✅ THEN NAVIGATE
-    window.location.href = `course-preview.html?id=${courseId}`;
+    window.location.href = `/course-preview?id=${courseId}`;
   });
 }
 
@@ -386,6 +429,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         lessonDiv.dataset.video = lesson.video ? lesson.video : "";
         lessonDiv.dataset.file = lesson.file ? lesson.file : "";
+        lessonDiv.dataset.description = lesson.description || "";
+        lessonDiv.dataset.duration = lesson.duration || "";
+
+        console.log("Loaded modules:", data.modules);
 
         lessonDiv.innerHTML = `
   <div class="icon-input-field lesson-input">
@@ -411,6 +458,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         lessonDiv.dataset.video = lesson.video || "";
         lessonDiv.dataset.file = lesson.file || "";
+        lessonDiv.dataset.description = lesson.description || "";
+        lessonDiv.dataset.duration = lesson.duration || "";
 
         const btn = lessonDiv.querySelector(".lessonLinkBtn");
         const videoIcon = lessonDiv.querySelector(".video-indicator");
@@ -464,7 +513,7 @@ if (backBtn) {
 
     const courseId = params.get("id");
 
-    window.location.href = `add-course-details.html?id=${courseId}`;
+    window.location.href = `/add-course-details?id=${courseId}`;
   });
 }
 
@@ -500,6 +549,8 @@ async function autoSaveModules() {
         title: lesson.querySelector(".lesson-title").value,
         video: lesson.dataset.video || "",
         file: lesson.dataset.file || "",
+        description: lesson.dataset.description || "",
+        duration: lesson.dataset.duration || "",
       });
     });
 

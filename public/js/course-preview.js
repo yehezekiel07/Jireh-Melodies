@@ -9,6 +9,41 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const course = await res.json();
 
+    function calculateTotalDuration(modules) {
+      let totalSeconds = 0;
+
+      modules.forEach((module) => {
+        module.lessons.forEach((lesson) => {
+          if (!lesson.duration) return;
+
+          if (lesson.duration.includes(":")) {
+            const parts = lesson.duration.split(":").map(Number);
+
+            if (parts.length === 2) {
+              const [min, sec] = parts;
+              totalSeconds += min * 60 + sec;
+            } else if (parts.length === 3) {
+              const [hr, min, sec] = parts;
+              totalSeconds += hr * 3600 + min * 60 + sec;
+            }
+          } else {
+            totalSeconds += parseFloat(lesson.duration) * 60;
+          }
+        });
+      });
+
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      let result = "";
+      if (hours > 0) result += `${hours}h `;
+      if (minutes > 0) result += `${minutes}m `;
+      if (seconds > 0) result += `${seconds}s`;
+
+      return result.trim();
+    }
+
     // your existing code
 
     // STEP 1 DATA
@@ -98,14 +133,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     includesContainer.innerHTML = "";
 
     // Duration
-    if (course.duration) {
+    const totalDuration = calculateTotalDuration(course.modules || []);
+
+    console.log("Modules:", course.modules);
+
+    if (totalDuration) {
       const li = document.createElement("li");
       li.innerHTML = `
-    <div class="includesBox">
+      <div class="includesBox">
      <i class="ph ph-video link-icon"></i>
-     <span>${course.duration} on - demand Videos</span>
-    </div> 
-     `;
+    <span>${totalDuration} on-demand Videos</span>
+    </div>
+  `;
       includesContainer.appendChild(li);
     }
 
@@ -148,10 +187,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Course Duration Seperately
 
     document.getElementById("courseDuration").textContent =
-      course.duration || "N/A";
+      totalDuration || "N/A";
 
     document.querySelectorAll(".courseDuration").forEach((el) => {
-      el.textContent = course.duration || "N/A";
+      el.textContent = totalDuration || "N/A";
     });
 
     // ✅ CARD PREVIEW POINTS
@@ -253,8 +292,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     <div class="lesson-links">
      ${lesson.video ? `<a href="${lesson.video}" target="_blank">Watch Video</a>` : ""}
      ${lesson.file ? `<a href="/uploads/${lesson.file}" target="_blank">Download</a>` : ""}
+     <div class="duration-box">
+      <i class="ph ph-clock link-icon"></i>
+      <span class="lessonDurationDisplay"></span>
+     </div>
     </div>
 `;
+
+        const durationEl = lessonDiv.querySelector(".lessonDurationDisplay");
+
+        if (durationEl) {
+          durationEl.textContent = lesson.duration || "";
+        }
 
         lessonsContainer.appendChild(lessonDiv);
       });
@@ -279,7 +328,7 @@ document.getElementById("publishCourse").addEventListener("click", async () => {
 
   alert("Course published");
 
-  window.location.href = "/admin-dashboard.html";
+  window.location.href = "/admin-dashboard";
 });
 
 // ===========================
@@ -293,6 +342,6 @@ if (backBtn) {
     const params = new URLSearchParams(window.location.search);
     const courseId = params.get("id");
 
-    window.location.href = `course-modules.html?id=${courseId}`;
+    window.location.href = `/course-modules?id=${courseId}&t=${Date.now()}`;
   });
 }

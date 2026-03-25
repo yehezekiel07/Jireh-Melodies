@@ -33,7 +33,7 @@
   </head>
   <body>
     <header class="header admin">
-      <a href="admin-dashboard.html">
+      <a href="/admin-dashboard">
         <img
           class="logo"
           src="img/jireh-melodies-logo.png"
@@ -43,13 +43,13 @@
       <nav class="main-nav">
         <ul class="main-nav-list">
           <li class="main-nav-list-item">
-            <a class="main-nav-link" href="admin-dashboard.html">All Users</a>
+            <a class="main-nav-link" href="/admin-dashboard">All Users</a>
           </li>
           <li class="main-nav-list-item active">
             <a class="main-nav-link" href="#">All Courses</a>
           </li>
           <li class="main-nav-list-item">
-            <a class="main-nav-link" href="admin-account.html">Account</a>
+            <a class="main-nav-link" href="/admin-account">Account</a>
           </li>
         </ul>
       </nav>
@@ -59,7 +59,7 @@
         <div class="container">
           <div class="heading-cta">
             <h2 class="heading-secondary">All Courses</h2>
-            <a class="btn btn--primary" href="add-course.html"
+            <a class="btn btn--primary" href="/add-course"
               ><i class="ph ph-plus btn-icon"></i><span>Add Course</span></a
             >
           </div>
@@ -70,6 +70,21 @@
         </div>
       </section>
     </main>
+    <div id="deleteModal" class="delete-modal hidden">
+      <div class="delete-modal-content">
+        <h3 class="purchase-title">Delete Course</h3>
+        <p class="purchase-description">
+          Are you sure you want to delete this course?
+        </p>
+
+        <div class="modal-actions">
+          <button id="cancelDelete" class="btn btn--secondary">Cancel</button>
+          <button id="confirmDelete" class="danger btn btn--primary">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
     <script src="js/all-courses.js"></script>
   </body>
 </html>
