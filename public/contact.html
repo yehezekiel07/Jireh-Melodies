@@ -2,9 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Jireh Melodies, we believe music is for everyone. Our goal is to break geographical, financial, and time-related barriers by offering affordable, accessible, and professional music training online."
+    />
+
+    <!-- Always include this line of code -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.png" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <title>Jireh Melodies</title>
-    <link href="style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/queries.css" rel="stylesheet" />
+    <link href="css/animations.css" rel="stylesheet" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -59,18 +70,22 @@
           </li>
         </ul>
       </nav>
+      <button class="btn-mobile-nav">
+        <i class="ph ph-list link-icon icon-mobile-nav" name="menu-outline"></i>
+        <i class="ph ph-x link-icon icon-mobile-nav" name="close-outline"></i>
+      </button>
     </header>
     <main>
       <section class="section-contact-us">
         <div class="container">
-          <div class="container title-container">
+          <div class="container title-container reveal">
             <h2 class="heading-secondary">Get in Touch with Us</h2>
             <p class="title-description">
               Ready to start your musical journey? Get in touch!
             </p>
           </div>
           <div class="container grid grid--2-cols">
-            <div class="login-input-box">
+            <div class="login-input-box reveal">
               <form class="form-container" name="log-in">
                 <div class="input-box">
                   <label for="full-name">Full Name</label>
@@ -85,8 +100,8 @@
                   />
                 </div>
 
-                <div class="input-box">
-                  <label for="email">Email</label>
+                <div class="input-box observe-sticky">
+                  <label for="email ">Email</label>
                   <input
                     class="text-input"
                     id="email"
@@ -123,7 +138,7 @@
                 <a href="#" class="btn btn--full login-cta">Send Message</a>
               </form>
             </div>
-            <div class="contact-us">
+            <div class="contact-us reveal">
               <span class="contact-heading">Prefer a Direct Approach?</span>
               <ul class="list-contact-us">
                 <li class="contact-list-item">

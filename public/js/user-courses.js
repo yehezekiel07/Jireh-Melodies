@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     data.courses.forEach((course) => {
       const div = document.createElement("div");
-      div.className = "preview-cards";
+      div.className = "preview-cards reveal-right";
 
       div.innerHTML = `
 
@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   alt="Course Image"
                 />
                 <div class="course-content">
+                 <div class="course-header">
                   <p class="course-title">${course.title}</p>
                   <div class="course-tags">
                     <span class="tag tag--instructor"
@@ -34,9 +35,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                       >${course.language}</span
                     >
                   </div>
-                  <p class="course-description">
+                  <p class="course-description truncate-3">
                     ${course.description}
                   </p>
+                 </div>
                   <div class="course-footer">
                     <span class="course-price">
                       <strong class="discount-price"

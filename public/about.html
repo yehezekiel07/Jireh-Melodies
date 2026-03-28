@@ -2,9 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Jireh Melodies, we believe music is for everyone. Our goal is to break geographical, financial, and time-related barriers by offering affordable, accessible, and professional music training online."
+    />
+
+    <!-- Always include this line of code -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.png" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <title>Jireh Melodies</title>
-    <link href="style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/queries.css" rel="stylesheet" />
+    <link href="css/animations.css" rel="stylesheet" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -59,6 +70,10 @@
           </li>
         </ul>
       </nav>
+      <button class="btn-mobile-nav">
+        <i class="ph ph-list link-icon icon-mobile-nav" name="menu-outline"></i>
+        <i class="ph ph-x link-icon icon-mobile-nav" name="close-outline"></i>
+      </button>
     </header>
     <main>
       <section class="section-about">
@@ -70,36 +85,19 @@
               Built by a Musician.<br />
               Designed for Serious <br />Learners.
             </h1>
-            <p class="hero-description">
+            <p class="hero-description observe-sticky">
               A structured online music academy helping passionate learners
               master <br />
               instruments and music production with clarity and confidence.
             </p>
-            <a href="/courses" class="btn btn--full margin-right-sm"
-              >Explore Courses
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="icon-right-arrow"
+            <div class="buttons">
+              <a href="/courses" class="btn btn--full">Explore </a>
+              <a href="/user-dashboard" class="btn btn--outline"
+                >Watch Demo Video</a
               >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M5 12h.5m3 0h1.5m3 0h6" />
-                <path d="M15 16l4 -4" />
-                <path d="M15 8l4 4" />
-              </svg>
-            </a>
-            <a href="/user-dashboard" class="btn btn--outline"
-              >Watch Demo Class</a
-            >
+            </div>
           </div>
-          <div class="founder container grid grid--2-cols">
+          <div class="founder container grid grid--2-cols reveal">
             <img
               class="founder-img"
               src="img/founder-img.png"
@@ -129,14 +127,14 @@
           </div>
         </div>
       </section>
-      <section class="section-choose-us">
+      <section class="section-choose-us reveal">
         <div class="container">
           <h2 class="heading-secondary">Why We Are Different.</h2>
           <p class="section-description">
             Our pedagogical approach is engineered for long-term mastery.
           </p>
           <div class="container grid grid--3-cols">
-            <div class="card-info">
+            <div class="card-info reveal-card">
               <div class="icon-box icon-box--users">
                 <i class="ph ph-map-trifold card-icon"></i>
               </div>
@@ -146,7 +144,7 @@
                 ensuring you never feel lost.
               </p>
             </div>
-            <div class="card-info">
+            <div class="card-info reveal-card">
               <div class="icon-box icon-box--list-star">
                 <i class="ph ph-target card-icon"></i>
               </div>
@@ -156,7 +154,7 @@
                 you for the stage.
               </p>
             </div>
-            <div class="card-info">
+            <div class="card-info reveal-card">
               <div class="icon-box icon-box--play">
                 <i class="ph ph-notebook card-icon"></i>
               </div>
@@ -166,7 +164,7 @@
                 application.
               </p>
             </div>
-            <div class="card-info">
+            <div class="card-info reveal-card">
               <div class="icon-box icon-box--medal">
                 <i class="ph ph-medal card-icon"></i>
               </div>
@@ -176,7 +174,7 @@
                 skills and achievements.
               </p>
             </div>
-            <div class="card-info">
+            <div class="card-info reveal-card">
               <div class="icon-box icon-box--target">
                 <i class="ph ph-play card-icon"></i>
               </div>
@@ -186,7 +184,7 @@
                 recordings and materials.
               </p>
             </div>
-            <div class="card-info">
+            <div class="card-info reveal-card">
               <div class="icon-box icon-box--globe">
                 <i class="ph ph-chart-line-up card-icon"></i>
               </div>
@@ -200,7 +198,7 @@
         </div>
       </section>
 
-      <section class="section-teach">
+      <section class="section-teach reveal">
         <div class="container">
           <h2 class="heading-secondary">How I Teach</h2>
           <p class="section-description">
@@ -210,7 +208,7 @@
           <div class="container teach-card-box">
             <img src="img/teach-bg-1.png" class="teach-el-1" />
             <img src="img/teach-bg-2.png" class="teach-el-2" />
-            <div class="teach-card">
+            <div class="teach-card reveal-card">
               <i class="ph-fill ph-lightning card-icon"></i>
               <div class="teach-card-text">
                 <span class="teach-card-title">Build Confidence</span>
@@ -220,7 +218,7 @@
                 </p>
               </div>
             </div>
-            <div class="teach-card">
+            <div class="teach-card reveal-card">
               <i class="ph-fill ph-eye-slash card-icon"></i>
               <div class="teach-card-text">
                 <span class="teach-card-title">Remove Confusion</span>
@@ -230,7 +228,7 @@
                 </p>
               </div>
             </div>
-            <div class="teach-card">
+            <div class="teach-card reveal-card">
               <i class="ph-fill ph-sparkle card-icon"></i>
               <div class="teach-card-text">
                 <span class="teach-card-title">Encourage Creativity</span>
@@ -240,7 +238,7 @@
                 </p>
               </div>
             </div>
-            <div class="teach-card">
+            <div class="teach-card reveal-card">
               <i class="ph-fill ph-barbell card-icon"></i>
               <div class="teach-card-text">
                 <span class="teach-card-title">Develop Discipline</span>
@@ -250,7 +248,7 @@
                 </p>
               </div>
             </div>
-            <div class="teach-card">
+            <div class="teach-card reveal-card">
               <i class="ph-fill ph-flag-banner card-icon"></i>
               <div class="teach-card-text">
                 <span class="teach-card-title"
@@ -266,7 +264,7 @@
         </div>
       </section>
 
-      <section class="section-vision">
+      <section class="section-vision reveal">
         <div class="container">
           <h2 class="heading-secondary">The Mission & The Vision</h2>
           <p class="section-description">
@@ -274,15 +272,15 @@
             anyone can learn, perform, and create.
           </p>
         </div>
-        <div class="container grid grid--2-cols">
-          <div class="vision-box">
+        <div class="container grid grid--2-cols vision-mission">
+          <div class="vision-box reveal-right">
             <span class="vision-title">Our Mission</span>
             <p class="vision-desc">
               To make structured, high-quality music education accessible to
               passionate learners everywhere.
             </p>
           </div>
-          <div class="vision-box">
+          <div class="vision-box reveal-right">
             <span class="vision-title">Our Vision</span>
             <p class="vision-desc">
               To build a global community of confident musicians and world-class
@@ -434,5 +432,6 @@
       </div>
     </footer>
     <script src="js/script.js"></script>
+    <script src="js/animation.js"></script>
   </body>
 </html>

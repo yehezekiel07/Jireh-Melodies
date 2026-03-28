@@ -2,9 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Jireh Melodies, we believe music is for everyone. Our goal is to break geographical, financial, and time-related barriers by offering affordable, accessible, and professional music training online."
+    />
+
+    <!-- Always include this line of code -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.png" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <title>Jireh Melodies</title>
-    <link href="style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/queries.css" rel="stylesheet" />
+    <link href="css/animations.css" rel="stylesheet" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,6 +34,12 @@
       rel="stylesheet"
       type="text/css"
       href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"
     />
   </head>
   <body>
@@ -53,17 +70,22 @@
           </li>
         </ul>
       </nav>
+
+      <button class="btn-mobile-nav">
+        <i class="ph ph-list link-icon icon-mobile-nav" name="menu-outline"></i>
+        <i class="ph ph-x link-icon icon-mobile-nav" name="close-outline"></i>
+      </button>
     </header>
 
     <main>
       <section class="section-hero">
         <div class="hero">
-          <div class="hero-text-box">
+          <div class="hero-text-box reveal">
             <span class="sub-heading">Learn from the Best</span>
             <h1 class="heading-primary">
               Master Musical Instruments & Music Production
             </h1>
-            <p class="hero-description">
+            <p class="hero-description observe-sticky">
               Professional courses in Keyboard, Pads, Tabla, Flute, MainStage,
               and Logic Pro X. Learn from industry experts, anywhere in the
               world.
@@ -104,24 +126,28 @@
               </ul>
             </div>
           </div>
-          <div class="hero-img-box">
+          <div class="hero-img-box hero-main">
             <img
-              src="img/satish-jireh-hero-img.png"
-              class="hero-img"
+              src="img/hero-img.png"
+              class="hero-img reveal-right"
               alt="Satish Standing With Keyboard and Enjoying Music"
             />
           </div>
         </div>
       </section>
 
-      <section class="section-instruments">
+      <section class="section-instruments reveal">
         <div class="container">
-          <span class="sub-heading">Explore Instruments</span>
-          <h2 class="heading-secondary">Learn Your Favorite Instrument</h2>
-          <p class="section-description">
-            From traditional to modern, we cover it all
-          </p>
-          <div class="carousel">
+          <div class="container">
+            <span class="sub-heading reveal-child">Explore Instruments</span>
+            <h2 class="heading-secondary reveal-child">
+              Learn Your Favorite Instrument
+            </h2>
+            <p class="section-description reveal-child">
+              From traditional to modern, we cover it all
+            </p>
+          </div>
+          <div class="carousel reveal-child">
             <div class="group">
               <img class="card" src="img/instrument-1.png" />
               <img class="card" src="img/instrument-2.png" />
@@ -149,7 +175,7 @@
         </div>
       </section>
 
-      <section class="section-popular-courses" id="populars">
+      <section class="section-popular-courses reveal" id="populars">
         <div class="container">
           <span class="sub-heading">Our Popular Courses</span>
           <h2 class="heading-secondary">Start With What Inspires You</h2>
@@ -157,33 +183,35 @@
             Structured music education designed for beginners and advanced
             musicians, guided by professionals, built for real growth.
           </p>
-          <div class="container grid grid--3-cols">
-            <div class="course">
+          <div class="container grid grid--3-cols popular-courses">
+            <div class="course reveal-right">
               <img
                 src="img/course-1.png"
                 class="course-img"
                 alt="Mainstage Course"
               />
               <div class="course-content">
-                <p class="course-title">Mainstage 3 Live Setup</p>
-                <div class="course-tags">
-                  <span class="tag tag--instructor">Satish Kumar</span>
-                  <span class="tag tag--lang">Telugu</span>
-                </div>
-                <p class="course-description">
-                  Learn how to build a complete, professional MainStage 3 live
-                  setup from zero and use it confidently.
-                </p>
-                <div class="course-rating">
-                  <span><strong class="rating">5.0</strong></span>
-                  <div class="rating-icon">
-                    <i class="ph-fill ph-star course-icon"></i>
-                    <i class="ph-fill ph-star course-icon"></i>
-                    <i class="ph-fill ph-star course-icon"></i>
-                    <i class="ph-fill ph-star course-icon"></i>
-                    <i class="ph-fill ph-star course-icon"></i>
+                <div class="course-header">
+                  <p class="course-title">Mainstage 3 Live Setup</p>
+                  <div class="course-tags">
+                    <span class="tag tag--instructor">Satish Kumar</span>
+                    <span class="tag tag--lang">Telugu</span>
                   </div>
-                  <p class="rating-total">(156)</p>
+                  <p class="course-description">
+                    Learn how to build a complete, professional MainStage 3 live
+                    setup from zero and use it confidently.
+                  </p>
+                  <div class="course-rating">
+                    <span><strong class="rating">5.0</strong></span>
+                    <div class="rating-icon">
+                      <i class="ph-fill ph-star course-icon"></i>
+                      <i class="ph-fill ph-star course-icon"></i>
+                      <i class="ph-fill ph-star course-icon"></i>
+                      <i class="ph-fill ph-star course-icon"></i>
+                      <i class="ph-fill ph-star course-icon"></i>
+                    </div>
+                    <p class="rating-total">(156)</p>
+                  </div>
                 </div>
                 <div class="course-footer">
                   <span class="course-price">
@@ -195,7 +223,7 @@
                 </div>
               </div>
             </div>
-            <div class="course">
+            <div class="course reveal-right">
               <img
                 src="img/course-2.png"
                 class="course-img"
@@ -232,7 +260,7 @@
                 </div>
               </div>
             </div>
-            <div class="course">
+            <div class="course reveal-right">
               <img
                 src="img/course-3.png"
                 class="course-img"
@@ -293,7 +321,7 @@
         </div>
       </section>
 
-      <section class="section-choose-us">
+      <section class="section-choose-us reveal">
         <div class="container">
           <span class="sub-heading">Why Choose Us</span>
           <h2 class="heading-secondary">Learn Smarter. Perform Better.</h2>
@@ -302,7 +330,7 @@
             musicians, guided by professionals, built for real growth.
           </p>
           <div class="container grid grid--3-cols">
-            <div class="card-info">
+            <div class="card-info reveal-card">
               <div class="icon-box icon-box--users">
                 <i class="ph ph-users card-icon"></i>
               </div>
@@ -312,7 +340,7 @@
                 performance and teaching experience.
               </p>
             </div>
-            <div class="card-info">
+            <div class="card-info reveal-card">
               <div class="icon-box icon-box--list-star">
                 <i class="ph ph-list-star card-icon"></i>
               </div>
@@ -322,7 +350,7 @@
                 musicians, no confusion, just progress.
               </p>
             </div>
-            <div class="card-info">
+            <div class="card-info reveal-card">
               <div class="icon-box icon-box--play">
                 <i class="ph ph-play card-icon"></i>
               </div>
@@ -332,7 +360,7 @@
                 recordings and materials.
               </p>
             </div>
-            <div class="card-info">
+            <div class="card-info reveal-card">
               <div class="icon-box icon-box--medal">
                 <i class="ph ph-medal card-icon"></i>
               </div>
@@ -342,7 +370,7 @@
                 skills and achievements.
               </p>
             </div>
-            <div class="card-info">
+            <div class="card-info reveal-card">
               <div class="icon-box icon-box--target">
                 <i class="ph ph-target card-icon"></i>
               </div>
@@ -352,7 +380,7 @@
                 and regular instructor feedback.
               </p>
             </div>
-            <div class="card-info">
+            <div class="card-info reveal-card">
               <div class="icon-box icon-box--globe">
                 <i class="ph ph-globe card-icon"></i>
               </div>
@@ -366,7 +394,7 @@
         </div>
       </section>
 
-      <section class="section-testimonials">
+      <section class="section-testimonials reveal">
         <div class="container">
           <span class="sub-heading">Student Success Stories</span>
           <h2 class="heading-secondary">Real Students. Real Growth.</h2>
@@ -375,7 +403,7 @@
             performance journey with structured guidance.
           </p>
           <div class="container grid grid--4-cols">
-            <div class="testimonial-profile">
+            <div class="testimonial-profile reveal-card">
               <img
                 class="testimonial-img"
                 src="img/student-1.png"
@@ -395,7 +423,7 @@
                 <i class="ph-fill ph-star course-icon"></i>
               </div>
             </div>
-            <div class="testimonial-profile">
+            <div class="testimonial-profile reveal-card">
               <img
                 class="testimonial-img"
                 src="img/student-2.png"
@@ -415,7 +443,7 @@
                 <i class="ph-fill ph-star course-icon"></i>
               </div>
             </div>
-            <div class="testimonial-profile">
+            <div class="testimonial-profile reveal-card">
               <img
                 class="testimonial-img"
                 src="img/student-3.png"
@@ -434,7 +462,7 @@
                 <i class="ph-fill ph-star course-icon"></i>
               </div>
             </div>
-            <div class="testimonial-profile">
+            <div class="testimonial-profile reveal-card">
               <img
                 class="testimonial-img"
                 src="img/student-4.png"
@@ -458,7 +486,7 @@
         </div>
       </section>
 
-      <section class="section-faq">
+      <section class="section-faq reveal">
         <div class="container">
           <span class="sub-heading">Have Questions?</span>
           <h2 class="heading-secondary">Everything You Need to Know</h2>

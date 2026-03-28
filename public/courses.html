@@ -2,9 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Jireh Melodies, we believe music is for everyone. Our goal is to break geographical, financial, and time-related barriers by offering affordable, accessible, and professional music training online."
+    />
+
+    <!-- Always include this line of code -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.png" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <title>Jireh Melodies</title>
-    <link href="style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/queries.css" rel="stylesheet" />
+    <link href="css/animations.css" rel="stylesheet" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -59,18 +70,23 @@
           </li>
         </ul>
       </nav>
+      <button class="btn-mobile-nav">
+        <i class="ph ph-list link-icon icon-mobile-nav" name="menu-outline"></i>
+        <i class="ph ph-x link-icon icon-mobile-nav" name="close-outline"></i>
+      </button>
     </header>
     <main>
       <section class="section-contact-us">
         <div class="container">
-          <div class="title-container">
+          <div class="title-container reveal">
             <h2 class="heading-secondary">All Courses</h2>
             <p class="title-description">
               Structured music education designed for beginners and advanced
               musicians, guided by professionals, built for real growth.
             </p>
           </div>
-          <div class="search-grid">
+
+          <div class="search-grid reveal">
             <div class="search-container">
               <i class="ph ph-magnifying-glass input-icon"></i>
               <input
@@ -82,17 +98,21 @@
                 required
               />
             </div>
-            <div class="dropdown">
-              <label class="drop-label">All Categories</label>
-              <i class="ph-bold ph-caret-down drop-icon"></i>
-            </div>
-            <div class="dropdown">
-              <label class="drop-label">All Levels</label>
-              <i class="ph-bold ph-caret-down drop-icon"></i>
+            <div class="dropdown-box reveal">
+              <div class="dropdown">
+                <label class="drop-label">All Categories</label>
+                <i class="ph-bold ph-caret-down drop-icon"></i>
+              </div>
+              <div class="dropdown observe-sticky">
+                <label class="drop-label">All Levels</label>
+                <i class="ph-bold ph-caret-down drop-icon"></i>
+              </div>
             </div>
           </div>
-          <div class="container divider"><!-- Divider Line--></div>
-          <div id="coursesContainer" class="grid grid--3-cols"></div>
+          <div
+            id="coursesContainer"
+            class="grid grid--3-cols all-courses"
+          ></div>
         </div>
       </section>
     </main>
@@ -214,6 +234,7 @@
       </div>
     </div>
     <script src="js/user-courses.js"></script>
+    <script src="js/script.js"></script>
     <script src="js/payment-modal.js"></script>
   </body>
 </html>

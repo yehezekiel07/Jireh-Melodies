@@ -2,9 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Jireh Melodies, we believe music is for everyone. Our goal is to break geographical, financial, and time-related barriers by offering affordable, accessible, and professional music training online."
+    />
+
+    <!-- Always include this line of code -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.png" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <title>Jireh Melodies</title>
-    <link href="style.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/queries.css" rel="stylesheet" />
+    <link href="css/animations.css" rel="stylesheet" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -57,12 +68,16 @@
     <main>
       <section class="section-add-user">
         <div class="container">
-          <div class="heading-cta add-users">
+          <div class="heading-cta add-users reveal">
             <h2 class="heading-secondary">User Details</h2>
           </div>
           <div class="add-user-form grid grid--2-cols">
-            <form class="form-container" name="log-in" id="loginForm">
-              <div class="input-box">
+            <form
+              class="form-container form-account"
+              name="log-in"
+              id="loginForm"
+            >
+              <div class="input-box reveal-right">
                 <label for="full-name">Full Name</label>
                 <input
                   class="user-input-field"
@@ -72,7 +87,7 @@
                 />
               </div>
 
-              <div class="input-box">
+              <div class="input-box reveal-right">
                 <label for="phone-number">Phone Number</label>
                 <input
                   class="user-input-field"
@@ -82,7 +97,7 @@
                 />
               </div>
 
-              <div class="input-box">
+              <div class="input-box reveal-right">
                 <label for="email">Email Address</label>
                 <input
                   class="user-input-field"
@@ -92,7 +107,7 @@
                 />
               </div>
 
-              <div class="input-box">
+              <div class="input-box reveal-right">
                 <label for="assignedCourses">Assigned Courses</label>
                 <div
                   id="assignedCourses"
@@ -100,7 +115,7 @@
                 ></div>
               </div>
 
-              <div class="buttons">
+              <div class="buttons reveal">
                 <a
                   href="/admin-dashboard"
                   class="btn btn--outline cancelBtn"
@@ -119,7 +134,7 @@
             >
               <h3 class="cred-heading">Login Credentials</h3>
               <div class="cred-content">
-                <div class="input-box">
+                <div class="input-box reveal-right">
                   <label for="username">Username</label>
                   <input
                     type="text"
@@ -128,7 +143,7 @@
                     readonly
                   />
                 </div>
-                <div class="input-box">
+                <div class="input-box reveal-right">
                   <label for="password">Password</label>
                   <input
                     type="text"
@@ -144,5 +159,6 @@
       </section>
     </main>
     <script src="js/view-user.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>
