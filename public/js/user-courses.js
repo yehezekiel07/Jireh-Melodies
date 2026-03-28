@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     data.courses.forEach((course) => {
       const div = document.createElement("div");
-      div.className = "preview-cards reveal";
+      div.className = "preview-cards";
 
       div.innerHTML = `
 
