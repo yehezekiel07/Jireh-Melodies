@@ -39,3 +39,44 @@ if (loginBtn) {
     }
   });
 }
+
+function openForgotModal() {
+  document.getElementById("forgotModal").style.display = "flex";
+}
+
+function closeForgotModal() {
+  document.getElementById("forgotModal").style.display = "none";
+}
+
+async function sendResetLink() {
+  const email = document.getElementById("forgotEmail").value;
+  const msg = document.getElementById("forgotMessage");
+
+  if (!email) {
+    msg.innerText = "Please enter email";
+    return;
+  }
+
+  try {
+    const res = await fetch("/forgot-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await res.json();
+
+    msg.innerText = data.message;
+
+    if (data.success) {
+      msg.style.color = "lightgreen";
+    } else {
+      msg.style.color = "red";
+    }
+  } catch (err) {
+    console.error(err);
+    msg.innerText = "Something went wrong";
+  }
+}

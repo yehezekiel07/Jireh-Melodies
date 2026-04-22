@@ -143,3 +143,73 @@ faqQuestionBox.forEach((item) => {
     item.classList.add("active");
   });
 });
+
+// Popular Courses
+
+async function loadPopular() {
+  const res = await fetch("/popular-courses-data");
+  const courses = await res.json();
+
+  const container = document.getElementById("popularCourses");
+
+  container.innerHTML = "";
+
+  courses.forEach((course) => {
+    const div = document.createElement("div");
+    div.className = "preview-cards";
+
+    div.innerHTML = `
+
+              <div class="course course-preview">
+                <img
+                  src="${course.thumbnail}"
+                  class="course-img"
+                  alt="Course Image"
+                />
+                <div class="course-content">
+                 <div class="course-header">
+                  <p class="course-title">${course.title}</p>
+                  <div class="course-tags">
+                    <span class="tag tag--instructor"
+                      >${course.instructor}</span
+                    >
+                    <span class="tag tag--lang"
+                      >${course.language}</span
+                    >
+                  </div>
+                  <p class="course-description truncate-3">
+                    ${course.description}
+                  </p>
+                 </div>
+                  <div class="course-footer">
+                    <span class="course-price">
+                      <strong class="discount-price"
+                        >${course.price}</strong
+                      >
+                      <p class="price-dashed">${course.originalPrice}</p>
+                    </span>
+                   <div class="buttons">
+                    <button class="addToCart btn btn--primary" data-id="${course._id}">
+                     <span>View Course</span>
+                    </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+    `;
+    div.addEventListener("click", () => {
+      const currentPage = window.location.pathname;
+
+      if (currentPage.includes("/")) {
+        window.location.href = `/course-full-preview?id=${course._id}`;
+      } else {
+        window.location.href = `/course-overview?id=${course._id}`;
+      }
+    });
+
+    container.appendChild(div);
+  });
+}
+
+loadPopular();

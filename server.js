@@ -26,6 +26,25 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
+const nodemailer = require("nodemailer");
+
+const sendEmail = async (to, subject, html) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  await transporter.sendMail({
+    from: `"Jireh Melodies" <${process.env.EMAIL_USER}>`,
+    to,
+    subject,
+    html,
+  });
+};
+
 // Admin Login
 
 app.get("/create-admin", async (req, res) => {
@@ -217,32 +236,82 @@ app.put("/update-user/:id", async (req, res) => {
   res.json({ success: true });
 });
 
-// Change Password //
+const crypto = require("crypto");
 
-app.put("/change-password", async (req, res) => {
-  const { userId, currentPassword, newPassword } = req.body;
-
+// ================= FORGOT PASSWORD =================
+app.post("/forgot-password", async (req, res) => {
   try {
-    const user = await User.findById(userId);
+    const { email } = req.body;
 
+    const user = await User.findOne({ email });
     if (!user) {
-      return res.json({ success: false, message: "User not found" });
-    }
-
-    // 🔐 check current password
-    const isMatch = await bcrypt.compare(currentPassword, user.password);
-
-    if (!isMatch) {
       return res.json({
         success: false,
-        message: "Current password is incorrect",
+        message: "Email not found",
       });
     }
 
-    // 🔥 hash new password
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const resetToken = crypto.randomBytes(32).toString("hex");
+
+    user.resetPasswordToken = crypto
+      .createHash("sha256")
+      .update(resetToken)
+      .digest("hex");
+
+    user.resetPasswordExpire = Date.now() + 10 * 60 * 1000; // 10 mins
+
+    await user.save();
+
+    const resetURL = `http://localhost:3000/reset-password/${resetToken}`;
+
+    await sendEmail(
+      email,
+      "Reset Your Password",
+      `
+    <h3>Password Reset Request</h3>
+    <p>Click the link below to reset your password:</p>
+    <a href="${resetURL}">${resetURL}</a>
+    <p>This link expires in 10 minutes.</p>
+  `,
+    );
+
+    res.json({
+      success: true,
+      message: "Reset link sent to your email",
+    });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false, message: "Server error" });
+  }
+});
+
+// ================= RESET PASSWORD =================
+app.post("/reset-password/:token", async (req, res) => {
+  try {
+    const hashedToken = crypto
+      .createHash("sha256")
+      .update(req.params.token)
+      .digest("hex");
+
+    const user = await User.findOne({
+      resetPasswordToken: hashedToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.json({
+        success: false,
+        message: "Invalid or expired token",
+      });
+    }
+
+    // 🔥 IMPORTANT: hash new password
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     user.password = hashedPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
     await user.save();
 
     res.json({
@@ -253,6 +322,10 @@ app.put("/change-password", async (req, res) => {
     console.error(err);
     res.json({ success: false, message: "Server error" });
   }
+});
+
+app.get("/reset-password/:token", (req, res) => {
+  res.sendFile(__dirname + "/public/reset-password.html");
 });
 
 // Course Related Code //
@@ -434,6 +507,28 @@ app.put("/update-course-details/:id", async (req, res) => {
       message: "Server error",
     });
   }
+});
+
+// SET POPULAR COURSES (max 3)
+app.put("/set-popular-courses", async (req, res) => {
+  const { courseIds } = req.body;
+
+  if (courseIds.length > 3) {
+    return res.json({ success: false });
+  }
+
+  // clear all
+  await Course.updateMany({}, { isPopular: false });
+
+  // set selected
+  await Course.updateMany({ _id: { $in: courseIds } }, { isPopular: true });
+
+  res.json({ success: true });
+});
+
+app.get("/popular-courses-data", async (req, res) => {
+  const courses = await Course.find({ isPopular: true });
+  res.json(courses);
 });
 
 // Upload Document Route

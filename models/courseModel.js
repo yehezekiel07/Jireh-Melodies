@@ -70,6 +70,11 @@ const courseSchema = new mongoose.Schema({
     type: String,
     default: "draft",
   },
+
+  isPopular: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("Course", courseSchema);

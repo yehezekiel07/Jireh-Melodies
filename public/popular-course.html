@@ -56,56 +56,49 @@
           <li class="main-nav-list-item">
             <a class="main-nav-link" href="/admin-dashboard">All Users</a>
           </li>
-          <li class="main-nav-list-item active">
-            <a class="main-nav-link" href="#">All Courses</a>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="/all-courses">All Courses</a>
           </li>
           <li class="main-nav-list-item">
             <a class="main-nav-link" href="/admin-account">Account</a>
           </li>
         </ul>
       </nav>
+
       <button class="btn-mobile-nav">
         <i class="ph ph-list link-icon icon-mobile-nav" name="menu-outline"></i>
         <i class="ph ph-x link-icon icon-mobile-nav" name="close-outline"></i>
       </button>
     </header>
     <main>
-      <section class="section-all-courses">
+      <section class="section-all-users">
         <div class="container">
           <div class="heading-cta reveal">
-            <h2 class="heading-secondary">All Courses</h2>
-            <div class="user-action-btns">
-              <a href="/popular-course" class="btn btn--outline asgn">
-                Popular Courses
-              </a>
-              <a class="btn btn--primary" href="/add-course"
-                ><i class="ph ph-plus btn-icon"></i><span>Add Course</span></a
+            <h2 class="heading-secondary">Popular Courses</h2>
+          </div>
+          <div class="form-container reveal">
+            <div class="input-box">
+              <label class="pop-heading">Select Course</label>
+              <div id="courseList" class="grid grid--3-cols pop-course"></div>
+            </div>
+
+            <div class="buttons reveal">
+              <a
+                href="/all-courses"
+                class="btn btn--outline cancelBtn"
+                id="cancelBtn"
+                >Cancel</a
               >
+
+              <button onclick="savePopular()" class="btn btn--primary">
+                Save
+              </button>
             </div>
           </div>
-          <div
-            id="coursesContainer"
-            class="grid grid--3-cols courses-container all-courses"
-          ></div>
         </div>
       </section>
     </main>
-    <div id="deleteModal" class="delete-modal hidden">
-      <div class="delete-modal-content">
-        <h3 class="purchase-title">Delete Course</h3>
-        <p class="purchase-description">
-          Are you sure you want to delete this course?
-        </p>
-
-        <div class="modal-actions">
-          <button id="cancelDelete" class="btn btn--secondary">Cancel</button>
-          <button id="confirmDelete" class="danger btn btn--primary">
-            Delete
-          </button>
-        </div>
-      </div>
-    </div>
-    <script src="js/all-courses.js"></script>
+    <script src="/js/popular-course.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>

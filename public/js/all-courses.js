@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                       >${course.language}</span
                     >
                   </div>
-                  <p class="course-description">
+                  <p class="course-description truncate-3">
                     ${course.description}
                   </p>
                   <div class="course-footer">
