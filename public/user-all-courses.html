@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Jireh Melodies, we believe music is for everyone. Our goal is to break geographical, financial, and time-related barriers by offering affordable, accessible, and professional music training online."
+    />
+
+    <!-- Always include this line of code -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.png" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <title>Jireh Melodies</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/queries.css" rel="stylesheet" />
+    <link href="css/animations.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Manrope:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <a href="/user-dashboard">
+        <img
+          class="logo"
+          src="img/jireh-melodies-logo.png"
+          alt="Jireh Melodies Logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="/user-dashboard">My Learning</a>
+          </li>
+          <li class="main-nav-list-item active">
+            <a class="main-nav-link" href="#">All Courses</a>
+          </li>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="/user-account">My Account</a>
+          </li>
+        </ul>
+      </nav>
+      <button class="btn-mobile-nav">
+        <i class="ph ph-list link-icon icon-mobile-nav" name="menu-outline"></i>
+        <i class="ph ph-x link-icon icon-mobile-nav" name="close-outline"></i>
+      </button>
+    </header>
+    <main>
+      <section class="section-main-courses">
+        <div class="container">
+          <div class="title-container reveal">
+            <h2 class="heading-secondary">All Courses</h2>
+            <p class="title-description">
+              Structured music education designed for beginners and advanced
+              musicians, guided by professionals, built for real growth.
+            </p>
+          </div>
+          <div class="search-grid reveal">
+            <div class="search-container">
+              <i class="ph ph-magnifying-glass input-icon"></i>
+              <input
+                class="search-input"
+                id="full-name"
+                type="text"
+                placeholder="Search courses..."
+                name="full-name"
+                required
+              />
+            </div>
+            <div class="dropdown-box reveal">
+              <div class="dropdown">
+                <label class="drop-label">All Categories</label>
+                <i class="ph-bold ph-caret-down drop-icon"></i>
+              </div>
+              <div class="dropdown observe-sticky">
+                <label class="drop-label">All Levels</label>
+                <i class="ph-bold ph-caret-down drop-icon"></i>
+              </div>
+            </div>
+          </div>
+          <div class="container divider"><!-- Divider Line--></div>
+          <div
+            id="coursesContainer"
+            class="grid grid--3-cols all-courses"
+          ></div>
+        </div>
+      </section>
+    </main>
+    <div id="paymentModal" class="modal">
+      <div class="modal-info">
+        <div class="purchase-header">
+          <h2 class="purchase-title">Complete Your Purchase</h2>
+          <span class="close-btn">&times;</span>
+        </div>
+
+        <p class="purchase-description">Scan the QR using PhonePe</p>
+        <div class="qr-image-box">
+          <img src="img/phonepe-qr.png" alt="PhonePe QR" class="qr-image" />
+        </div>
+
+        <p class="note">After payment, contact admin to get course access</p>
+        <span class="contact-no">Contact: +91 9014615476</span>
+      </div>
+    </div>
+    <script src="js/user-courses.js"></script>
+    <script src="js/payment-modal.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

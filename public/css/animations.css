@@ -1,0 +1,120 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  animation: fadeIn 0.6s ease;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.hero-img {
+  animation: fadeInRight 1s ease forwards;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.8s ease;
+  will-change: transform, opacity;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Slide from Right */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(100px) scale(0.95);
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.8s ease;
+  will-change: transform, opacity;
+}
+
+.reveal-right.active {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* Initial hidden state */
+.reveal-card {
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+  will-change: opacity, transform;
+}
+
+/* Active state */
+.reveal-card.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+}
+
+.course {
+  transition: all 1s ease;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.course:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.course-img {
+  transition: transform 0.4s ease;
+}
+
+.course:hover .course-img {
+  transform: scale(1.05);
+}

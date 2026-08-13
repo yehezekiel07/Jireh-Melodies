@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Jireh Melodies, we believe music is for everyone. Our goal is to break geographical, financial, and time-related barriers by offering affordable, accessible, and professional music training online."
+    />
+
+    <!-- Always include this line of code -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.png" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <title>Jireh Melodies</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/queries.css" rel="stylesheet" />
+    <link href="css/animations.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Manrope:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"
+    />
+  </head>
+  <body>
+    <header class="header admin">
+      <a href="/admin-dashboard">
+        <img
+          class="logo"
+          src="img/jireh-melodies-logo.png"
+          alt="Jireh Melodies Logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="/admin-dashboard">All Users</a>
+          </li>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="/all-courses">All Courses</a>
+          </li>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="/admin-account">Account</a>
+          </li>
+        </ul>
+      </nav>
+
+      <button class="btn-mobile-nav">
+        <i class="ph ph-list link-icon icon-mobile-nav" name="menu-outline"></i>
+        <i class="ph ph-x link-icon icon-mobile-nav" name="close-outline"></i>
+      </button>
+    </header>
+    <main>
+      <section class="section-all-users">
+        <div class="container">
+          <div class="heading-cta reveal">
+            <h2 class="heading-secondary">Popular Courses</h2>
+          </div>
+          <div class="form-container reveal">
+            <div class="input-box">
+              <label class="pop-heading">Select Course</label>
+              <div id="courseList" class="grid grid--3-cols pop-course"></div>
+            </div>
+
+            <div class="buttons reveal">
+              <a
+                href="/all-courses"
+                class="btn btn--outline cancelBtn"
+                id="cancelBtn"
+                >Cancel</a
+              >
+
+              <button onclick="savePopular()" class="btn btn--primary">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="/js/popular-course.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

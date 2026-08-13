@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Jireh Melodies, we believe music is for everyone. Our goal is to break geographical, financial, and time-related barriers by offering affordable, accessible, and professional music training online."
+    />
+
+    <!-- Always include this line of code -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.png" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <title>Jireh Melodies</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/queries.css" rel="stylesheet" />
+    <link href="css/animations.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Manrope:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"
+    />
+  </head>
+  <body>
+    <header class="header admin">
+      <a href="/admin-dashboard">
+        <img
+          class="logo"
+          src="img/jireh-melodies-logo.png"
+          alt="Jireh Melodies Logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="/admin-dashboard">All Users</a>
+          </li>
+          <li class="main-nav-list-item active">
+            <a class="main-nav-link" href="/all-courses">All Courses</a>
+          </li>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="/admin-account">Account</a>
+          </li>
+        </ul>
+      </nav>
+      <button class="btn-mobile-nav">
+        <i class="ph ph-list link-icon icon-mobile-nav" name="menu-outline"></i>
+        <i class="ph ph-x link-icon icon-mobile-nav" name="close-outline"></i>
+      </button>
+    </header>
+    <main>
+      <section class="section-add-course">
+        <div class="container">
+          <div class="heading-cta add-course">
+            <h2 class="heading-secondary">Add Card Details</h2>
+          </div>
+          <div class="course-builder">
+            <!-- LEFT SIDE (Form Fields) -->
+            <div class="preview-card">
+              <label for="courseImage">Card Preview</label>
+              <div class="course course-preview">
+                <img
+                  src="img/course-placeholder.png"
+                  class="course-img"
+                  id="previewImage"
+                  alt="Mainstage Course"
+                />
+                <div class="course-content">
+                  <p class="course-title" id="previewTitle">Course Title</p>
+                  <div class="course-tags">
+                    <span class="tag tag--instructor" id="previewInstructor"
+                      >Course Instructor</span
+                    >
+                    <span class="tag tag--lang" id="previewLanguage"
+                      >Course Language</span
+                    >
+                  </div>
+                  <p class="course-description" id="previewDescription">
+                    Learn how to build a complete, professional MainStage 3 live
+                    setup from zero and use it confidently.
+                  </p>
+                  <div class="course-footer">
+                    <span class="course-price">
+                      <strong class="discount-price" id="previewPrice"
+                        >0</strong
+                      >
+                      <p class="price-dashed" id="previewOldPrice">₹0</p>
+                    </span>
+
+                    <a class="add-to-cart" href="#">Add to cart</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT SIDE (Preview Card) -->
+            <div class="course-form">
+              <!-- All your inputs go here -->
+              <div class="input-box">
+                <label for="courseImage">Course Thumbnail</label>
+                <div class="file-upload">
+                  <span id="file-name">No file chosen</span>
+                  <label for="courseImage" class="btn btn--outline">
+                    Upload
+                  </label>
+                  <input type="hidden" id="thumbnailName" />
+                  <input
+                    class="user-input-field"
+                    id="courseImage"
+                    type="file"
+                    accept="image/*"
+                  />
+                </div>
+              </div>
+
+              <div class="input-box">
+                <label for="courseTitle">Title</label>
+                <input
+                  class="user-input-field"
+                  id="courseTitle"
+                  type="text"
+                  placeholder="Enter course title"
+                />
+              </div>
+
+              <div class="input-grid">
+                <div class="input-box">
+                  <label for="courseInstructor">Instructor</label>
+                  <input
+                    class="user-input-field"
+                    id="courseInstructor"
+                    type="text"
+                    placeholder="Enter the instructor name"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <label for="courseLanguage">Language</label>
+                  <input
+                    class="user-input-field"
+                    id="courseLanguage"
+                    type="text"
+                    placeholder="Enter the course language"
+                  />
+                </div>
+              </div>
+
+              <div class="input-box">
+                <label for="courseDescription">Description</label>
+                <textarea
+                  class="user-input-field"
+                  id="courseDescription"
+                  type="text"
+                  placeholder="Enter the description"
+                ></textarea>
+              </div>
+
+              <div class="input-box">
+                <label for="coursePrice">Price</label>
+                <input
+                  class="user-input-field"
+                  id="coursePrice"
+                  type="text"
+                  placeholder="Enter the course price"
+                />
+              </div>
+
+              <div class="input-box">
+                <label for="courseOriginalPrice">Original Price</label>
+                <input
+                  class="user-input-field"
+                  id="courseOriginalPrice"
+                  type="text"
+                  placeholder="Enter the course original price"
+                />
+              </div>
+
+              <div class="buttons">
+                <a
+                  href="/admin-dashboard"
+                  class="btn btn--outline cancelBtn"
+                  id="cancelBtn"
+                  >Cancel</a
+                >
+                <button class="btn btn--primary nextCourse" id="nextBasic">
+                  Next
+                </button>
+              </div>
+
+              <!-- modules, requirements etc -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="/js/course-live-preview.js"></script>
+    <script src="/js/upload.js"></script>
+    <script src="/js/course-builder.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

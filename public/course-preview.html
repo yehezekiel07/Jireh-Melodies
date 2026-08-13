@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Jireh Melodies, we believe music is for everyone. Our goal is to break geographical, financial, and time-related barriers by offering affordable, accessible, and professional music training online."
+    />
+
+    <!-- Always include this line of code -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/favicon.png" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <title>Jireh Melodies</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/queries.css" rel="stylesheet" />
+    <link href="css/animations.css" rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Manrope:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/fill/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/regular/style.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"
+    />
+  </head>
+  <body>
+    <header class="header admin">
+      <a href="/admin-dashboard">
+        <img
+          class="logo"
+          src="img/jireh-melodies-logo.png"
+          alt="Jireh Melodies Logo"
+        />
+      </a>
+      <nav class="main-nav">
+        <ul class="main-nav-list">
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="/admin-dashboard">All Users</a>
+          </li>
+          <li class="main-nav-list-item active">
+            <a class="main-nav-link" href="/all-courses">All Courses</a>
+          </li>
+          <li class="main-nav-list-item">
+            <a class="main-nav-link" href="/admin-account">Account</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="section-all-courses">
+        <div class="container">
+          <div class="add-course-preview">
+            <div class="course-form details">
+              <div class="preview-left">
+                <div class="heading-cta">
+                  <h2 class="heading-secondary">Course Preview</h2>
+                </div>
+                <div class="course-info">
+                  <h1 id="courseTitle" class="heading-small"></h1>
+
+                  <p id="courseDescription" class="title-description"></p>
+
+                  <div class="course-meta">
+                    <p>
+                      Course by
+                      <span
+                        id="courseInstructor"
+                        class="instuctorCourse"
+                      ></span>
+                    </p>
+                    <div class="vertical-divider"></div>
+                    <span id="courseLanguage"></span>
+                  </div>
+                </div>
+
+                <div class="pointsLearn">
+                  <h2 class="preview-title">What you'll learn</h2>
+                  <ul id="learnPoints" class="learnBox-grid"></ul>
+                </div>
+                <div class="pointsInclude">
+                  <h2 class="preview-title">This course includes</h2>
+                  <ul id="courseIncludes" class="includeBox-grid"></ul>
+                </div>
+                <div class="course-curriculum">
+                  <h2 class="preview-title">Course Content</h2>
+                  <div class="module-info">
+                    <span id="totalModules"></span>
+                    <div class="pointer-ball"></div>
+                    <span id="totalLessons"></span>
+                    <div class="pointer-ball"></div>
+                    <span id="courseDuration"></span>
+                  </div>
+                  <div id="modulesContainer"></div>
+                  <div class="pointsRequire">
+                    <h2 class="preview-title">Requirements</h2>
+                    <ul id="requirements"></ul>
+                  </div>
+                </div>
+
+                <div class="course-content-preview"></div>
+              </div>
+            </div>
+            <div class="preview-card-right">
+              <div class="demo-video-box">
+                <h2 class="preview-title">Demo Video</h2>
+                <div id="demoVideoContainer" class="demo-video"></div>
+              </div>
+              <div class="sticky-card">
+                <div class="course course-preview right">
+                  <img id="courseThumbnail" class="course-image" />
+                  <div class="course-card-bottom">
+                    <div class="course-bottom-info">
+                      <div class="course-price-preview">
+                        <span id="coursePrice" class="courseNormalPrice"></span>
+                        <span
+                          id="courseOriginalPrice"
+                          class="courseOrgPrice"
+                        ></span>
+                      </div>
+                      <div class="duration-info">
+                        <span class="courseDuration"></span>
+                        <div class="vertical-divider"></div>
+                        <span class="totalLessons"></span>
+                      </div>
+                    </div>
+                    <div class="card-points">
+                      <h2 class="preview-title">What is in the course</h2>
+                      <ul id="previewPoints"></ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="buttons">
+            <button id="backToModules" type="button" class="btn btn--secondary">
+              Back
+            </button>
+
+            <button id="publishCourse" type="button" class="btn btn--primary">
+              Save & Publish
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="js/course-preview.js"></script>
+  </body>
+</html>
