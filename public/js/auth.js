@@ -27,7 +27,7 @@ if (loginBtn) {
       // 🔥 ADD THIS
       localStorage.setItem("userRole", data.role);
 
-      if (data.role === "admin") {
+      if (data.role === "admin" || data.role === "subadmin") {
         window.location.href = "/admin-dashboard";
       } else if (data.role === "superadmin") {
         window.location.href = "/user-dashboard"; // or special dashboard

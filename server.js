@@ -45,32 +45,6 @@ const sendEmail = async (to, subject, html) => {
   });
 };
 
-// Admin Login
-
-app.get("/create-admin", async (req, res) => {
-  const existing = await User.findOne({ username: "admin" });
-
-  // 🔥 ADD THIS CHECK
-  if (existing) {
-    return res.send("Admin already exists");
-  }
-
-  const hashedPassword = await bcrypt.hash("admin123", 10);
-
-  const admin = new User({
-    fullname: "Admin",
-    phone: "0000000000",
-    email: "admin@jireh.com",
-    username: "admin",
-    password: hashedPassword,
-    role: "admin",
-  });
-
-  await admin.save();
-
-  res.send("Admin created successfully");
-});
-
 // Checking whether is user is ADMIN or USER
 
 app.post("/login", async (req, res) => {
@@ -262,7 +236,7 @@ app.post("/forgot-password", async (req, res) => {
 
     await user.save();
 
-    const resetURL = `http://localhost:3000/reset-password/${resetToken}`;
+    const resetURL = `https://jirehmelodies.com/reset-password/${resetToken}`;
 
     await sendEmail(
       email,
@@ -833,29 +807,6 @@ app.get("/user-courses/:id", async (req, res) => {
       message: "Failed to fetch user courses",
     });
   }
-});
-
-app.get("/create-superadmin", async (req, res) => {
-  const existing = await User.findOne({ role: "superadmin" });
-
-  if (existing) {
-    return res.send("Superadmin already exists");
-  }
-
-  const hashedPassword = await bcrypt.hash("super123", 10);
-
-  const superUser = new User({
-    fullname: "Super Admin",
-    phone: "9999999999",
-    email: "super@jireh.com",
-    username: "superadmin",
-    password: hashedPassword,
-    role: "superadmin",
-  });
-
-  await superUser.save();
-
-  res.send("Superadmin created");
 });
 
 const path = require("path");
