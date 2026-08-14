@@ -86,7 +86,7 @@
             </p>
           </div>
 
-          <div class="search-grid reveal">
+          <div class="search-grid">
             <div class="search-container">
               <i class="ph ph-magnifying-glass input-icon"></i>
               <input
@@ -98,14 +98,18 @@
                 required
               />
             </div>
-            <div class="dropdown-box reveal">
+            <div class="dropdown-box">
               <div class="dropdown">
                 <label class="drop-label">All Categories</label>
                 <i class="ph-bold ph-caret-down drop-icon"></i>
               </div>
-              <div class="dropdown observe-sticky">
-                <label class="drop-label">All Levels</label>
+              <div class="lang-dropdown observe-sticky">
+                <label class="drop-label" id="languageFilter">
+                  All Languages
+                </label>
                 <i class="ph-bold ph-caret-down drop-icon"></i>
+
+                <div class="language-options" id="languageOptions"></div>
               </div>
             </div>
           </div>
