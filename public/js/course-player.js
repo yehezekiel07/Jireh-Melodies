@@ -200,7 +200,11 @@ function renderModules(modules) {
     <span class="lesson-title-preview">${lesson.title}</span>
   </div>
   <div class="lesson-links">
-    ${lesson.file ? `<a href="${lesson.file}" target="_blank">Download</a>` : ""}
+    ${
+      lesson.file
+        ? `<a href="${lesson.file}" target="_blank" rel="noopener noreferrer">Download</a>`
+        : ""
+    }
     <div class="duration-box">
       <i class="ph ph-clock link-icon"></i>
       <span class="lessonDurationDisplay"></span>
@@ -233,6 +237,8 @@ function renderModules(modules) {
 }
 
 function loadLesson(lesson) {
+  if (!lesson) return;
+
   currentLessonId = lesson._id || lesson.title;
 
   const lessonTitle = document.getElementById("lessonTitle");
@@ -244,43 +250,73 @@ function loadLesson(lesson) {
 
   console.log("VIDEO URL:", lesson.video);
   console.log("VIDEO ID:", videoId);
+  console.log("PDF URL:", lesson.file);
 
-  if (!lesson) return;
-
-  if (!videoId) {
-    console.warn("Invalid video URL");
-    return; // ⛔ STOP execution
-  }
-
-  if (!playerReady || !player) {
-    console.warn("Player not ready yet");
-    return; // ⛔ STOP execution
-  }
-
-  player.loadVideoById(videoId);
+  // ===========================
+  // LESSON INFORMATION
+  // ===========================
 
   if (lessonDuration) {
     lessonDuration.textContent = lesson.duration || "";
   }
 
   if (lessonTitle) {
-    lessonTitle.textContent = videoId
-      ? lesson.title + " Key Takeaway"
-      : "Video not supported";
+    lessonTitle.textContent = lesson.title || "";
   }
 
   if (lessonDescription) {
     lessonDescription.textContent = lesson.description || "";
   }
 
+  // ===========================
+  // PDF / DOCUMENT
+  // ===========================
+
   if (downloadLink) {
     if (lesson.file) {
       downloadLink.href = lesson.file;
       downloadLink.textContent = "Download Resource";
+      downloadLink.target = "_blank";
+      downloadLink.rel = "noopener noreferrer";
+
+      if (lesson.fileName) {
+        downloadLink.setAttribute("download", lesson.fileName);
+      } else {
+        downloadLink.setAttribute("download", "document.pdf");
+      }
     } else {
       downloadLink.textContent = "";
       downloadLink.removeAttribute("href");
+      downloadLink.removeAttribute("target");
+      downloadLink.removeAttribute("download");
     }
+  }
+
+  // ===========================
+  // YOUTUBE VIDEO
+  // ===========================
+
+  if (!videoId) {
+    console.warn("No valid YouTube video for this lesson.");
+
+    if (lessonTitle && lesson.file) {
+      lessonTitle.textContent = lesson.title || "Lesson Resource";
+    }
+
+    return;
+  }
+
+  if (!playerReady || !player) {
+    console.warn("Player not ready yet");
+    return;
+  }
+
+  player.loadVideoById(videoId);
+
+  if (lessonTitle) {
+    lessonTitle.textContent = lesson.title
+      ? lesson.title + " Key Takeaway"
+      : "Lesson";
   }
 }
 function markLessonComplete() {

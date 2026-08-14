@@ -59,6 +59,7 @@ const courseSchema = new mongoose.Schema({
           title: String,
           video: String,
           file: String,
+          fileName: String,
           description: String,
           duration: String,
         },

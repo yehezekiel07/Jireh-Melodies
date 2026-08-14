@@ -373,6 +373,17 @@ const docStorage = new CloudinaryStorage({
   params: {
     folder: "jireh-melodies/docs",
     resource_type: "raw",
+    public_id: (req, file) => {
+      const path = require("path");
+
+      const name = path
+        .basename(file.originalname, path.extname(file.originalname))
+        .replace(/[^a-zA-Z0-9-_]/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+
+      return name;
+    },
   },
 });
 
@@ -564,12 +575,26 @@ app.get("/popular-courses-data", async (req, res) => {
 
 app.post("/upload-document", uploadDoc.single("document"), async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: "No document uploaded",
+      });
+    }
+
+    console.log("PDF uploaded to Cloudinary:");
+    console.log("Original filename:", req.file.originalname);
+    console.log("Cloudinary URL:", req.file.path);
+
     res.json({
       success: true,
-      file: req.file.path, // 🔥 Cloudinary URL
+      file: req.file.path,
+      fileName: req.file.originalname,
     });
   } catch (err) {
-    res.json({
+    console.error("Document upload error:", err);
+
+    res.status(500).json({
       success: false,
       message: "Upload failed",
     });

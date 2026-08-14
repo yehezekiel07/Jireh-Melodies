@@ -18,6 +18,7 @@ document.addEventListener("click", function (e) {
 
   lessonDiv.dataset.video = "";
   lessonDiv.dataset.file = "";
+  lessonDiv.dataset.fileName = "";
   lessonDiv.dataset.description = "";
   lessonDiv.dataset.duration = "";
 
@@ -95,11 +96,13 @@ document.addEventListener("click", function (e) {
 
   if (uploadedDoc) {
     if (activeLesson.dataset.file) {
-      const fileName = activeLesson.dataset.file.split("/").pop();
+      const fileName =
+        activeLesson.dataset.fileName ||
+        activeLesson.dataset.file.split("/").pop();
 
       uploadedDoc.innerHTML = `<a href="${activeLesson.dataset.file}" target="_blank">
-  ${fileName}
-</a>`;
+    ${fileName}
+  </a>`;
     } else {
       uploadedDoc.innerHTML = "";
     }
@@ -162,12 +165,15 @@ if (saveLessonResources) {
 
         const data = await res.json();
 
-        activeLesson.dataset.file = data.file;
+        if (!res.ok || !data.success || !data.file) {
+          throw new Error(data.message || "Document upload failed");
+        }
 
-        const fileName = data.file.split("/").pop();
+        activeLesson.dataset.file = data.file;
+        activeLesson.dataset.fileName = data.fileName || documentFile.name;
 
         document.getElementById("uploadedDocumentName").textContent =
-          "Uploaded file: " + fileName;
+          "Uploaded file: " + (data.fileName || documentFile.name);
       } catch (err) {
         console.error("Upload failed:", err);
       }
@@ -213,6 +219,7 @@ if (saveLessonResources) {
           title: lesson.querySelector(".lesson-title").value,
           video: lesson.dataset.video || "",
           file: lesson.dataset.file || "",
+          fileName: lesson.dataset.fileName || "",
           description: lesson.dataset.description || "",
           duration: lesson.dataset.duration || "",
         });
@@ -350,6 +357,7 @@ if (previewBtn) {
           title: lesson.querySelector(".lesson-title").value,
           video: lesson.dataset.video || "",
           file: lesson.dataset.file || "",
+          fileName: lesson.dataset.fileName || "",
           description: lesson.dataset.description || "",
           duration: lesson.dataset.duration || "",
         });
@@ -429,6 +437,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         lessonDiv.dataset.video = lesson.video ? lesson.video : "";
         lessonDiv.dataset.file = lesson.file ? lesson.file : "";
+        lessonDiv.dataset.fileName = lesson.fileName || "";
         lessonDiv.dataset.description = lesson.description || "";
         lessonDiv.dataset.duration = lesson.duration || "";
 
@@ -458,6 +467,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         lessonDiv.dataset.video = lesson.video || "";
         lessonDiv.dataset.file = lesson.file || "";
+        lessonDiv.dataset.fileName = lesson.fileName || "";
         lessonDiv.dataset.description = lesson.description || "";
         lessonDiv.dataset.duration = lesson.duration || "";
 
@@ -549,6 +559,7 @@ async function autoSaveModules() {
         title: lesson.querySelector(".lesson-title").value,
         video: lesson.dataset.video || "",
         file: lesson.dataset.file || "",
+        fileName: lesson.dataset.fileName || "",
         description: lesson.dataset.description || "",
         duration: lesson.dataset.duration || "",
       });

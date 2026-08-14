@@ -291,7 +291,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     </div>
     <div class="lesson-links">
      ${lesson.video ? `<a href="${lesson.video}" target="_blank">Watch Video</a>` : ""}
-     ${lesson.file ? `<a href="/uploads/${lesson.file}" target="_blank">Download</a>` : ""}
+     ${
+       lesson.file
+         ? `<a href="${lesson.file}" target="_blank" rel="noopener noreferrer">Download</a>`
+         : ""
+     }
      <div class="duration-box">
       <i class="ph ph-clock link-icon"></i>
       <span class="lessonDurationDisplay"></span>
